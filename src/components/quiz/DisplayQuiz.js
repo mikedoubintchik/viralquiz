@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import { Context } from "../../store";
 import { Container, Row, Col, Image } from "react-bootstrap";
 
-import quizData from "./quiz-data/how-well-you-know-me.json";
-
 export const DisplayQuiz = () => {
+  const { store } = useContext(Context);
+
   const generateAnswersHTML = answers => {
     return answers.map((answer, index) => {
       return (
@@ -30,8 +31,7 @@ export const DisplayQuiz = () => {
 
   return (
     <>
-      <h1>{quizData.name}</h1>
-      <div>{generateQuestionsHTML(quizData.questions)}</div>
+      <div>{generateQuestionsHTML(store.questions)}</div>
     </>
   );
 };

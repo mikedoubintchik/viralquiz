@@ -1,5 +1,5 @@
-import React, { useReducer } from "react";
-import { Context, initialState, reducer } from "./stores/counterStore";
+import React, { useReducer, useContext } from "react";
+import { Context, initialState, reducer } from "./store";
 import { Container, Row, Col, Navbar } from "react-bootstrap";
 import logo from "./logo.svg";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -22,7 +22,7 @@ function App() {
                 height="30"
                 className="d-inline-block align-top"
               />{" "}
-              Viral Quiz
+              {store.quizName}
             </Navbar.Brand>
           </Navbar>
           <Row>
