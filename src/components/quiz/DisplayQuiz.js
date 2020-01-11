@@ -12,10 +12,21 @@ import {
 export const DisplayQuiz = () => {
   const { store, dispatch } = useContext(Context);
 
-  const generateAnswersHTML = answers => {
+  const generateAnswersHTML = (answers, questionIndex) => {
     return answers.map((answer, index) => {
       return (
-        <Col key={index} xs={6} md={4}>
+        <Col
+          key={index}
+          xs={6}
+          md={4}
+          onClick={() =>
+            dispatch({
+              type: "recordAnswer",
+              questionIndex: questionIndex,
+              answer: index
+            })
+          }
+        >
           <Image src="http://placekitten.com/200/200" fluid />
           {answer}
         </Col>
@@ -29,7 +40,7 @@ export const DisplayQuiz = () => {
         <div key={index}>
           <h1>{question.question}</h1>
           <Container>
-            <Row>{generateAnswersHTML(question.answers)}</Row>
+            <Row>{generateAnswersHTML(question.answers, index)}</Row>
           </Container>
         </div>
       );

@@ -1,4 +1,4 @@
-import React, { useReducer, useContext } from "react";
+import React, { useReducer } from "react";
 import { Context, initialState, reducer } from "./store";
 import { Container, Row, Col, Navbar } from "react-bootstrap";
 import logo from "./logo.svg";
@@ -8,6 +8,8 @@ import { DisplayQuiz } from "./components/quiz/DisplayQuiz";
 
 function App() {
   const [store, dispatch] = useReducer(reducer, initialState);
+
+  console.log(store);
 
   return (
     <Context.Provider value={{ store, dispatch }}>
@@ -30,7 +32,6 @@ function App() {
               <DisplayQuiz></DisplayQuiz>
             </Col>
           </Row>
-          <Row></Row>
         </Container>
       </div>
     </Context.Provider>
