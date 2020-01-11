@@ -1,9 +1,16 @@
 import React, { useContext } from "react";
 import { Context } from "../../store";
-import { Container, Row, Col, Image } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Image,
+  ButtonToolbar,
+  Button
+} from "react-bootstrap";
 
 export const DisplayQuiz = () => {
-  const { store } = useContext(Context);
+  const { store, dispatch } = useContext(Context);
 
   const generateAnswersHTML = answers => {
     return answers.map((answer, index) => {
@@ -32,6 +39,17 @@ export const DisplayQuiz = () => {
   return (
     <>
       <div>{generateQuestionsHTML(store.questions)}</div>
+
+      <ButtonToolbar>
+        <Button
+          variant="outline-danger"
+          onClick={() => dispatch({ type: "reset" })}
+        >
+          Reset
+        </Button>
+        <Button variant="outline-primary">Previous</Button>
+        <Button variant="outline-success">Next</Button>
+      </ButtonToolbar>
     </>
   );
 };
