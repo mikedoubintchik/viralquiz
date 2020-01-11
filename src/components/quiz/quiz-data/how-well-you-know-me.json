@@ -1,0 +1,13 @@
+{
+  "name": "How Well Do You Know Me?",
+  "questions": [
+    {
+      "question": "How tall am I?",
+      "answers": ["180", "181", "182", "183"]
+    },
+    {
+      "question": "What type of phone do I have?",
+      "answers": ["Android", "iPhone"]
+    }
+  ]
+}
