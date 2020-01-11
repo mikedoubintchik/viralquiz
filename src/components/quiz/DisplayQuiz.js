@@ -49,7 +49,12 @@ export const DisplayQuiz = props => {
   const generateQuestionsHTML = questions => {
     return questions.map((question, index) => {
       return (
-        <div key={index}>
+        <div
+          key={index}
+          className={`question${
+            store.activeQuestionIndex === index ? " active" : ""
+          }`}
+        >
           <h1>{question.question}</h1>
           <Container>
             <Row>{generateAnswersHTML(question.answers, index)}</Row>

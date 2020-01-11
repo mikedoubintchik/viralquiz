@@ -1,2 +1,10 @@
 // Override default variables before the import
 $body-bg: #fff;
+
+.question {
+  display: none;
+
+  &.active {
+    display: block;
+  }
+}
