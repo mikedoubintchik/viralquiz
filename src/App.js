@@ -8,6 +8,8 @@ import { DisplayQuiz } from "./components/quiz/DisplayQuiz";
 
 function App() {
   const [store, dispatch] = useReducer(reducer, initialState);
+  // determine if user is creating or taking a test
+  const create = window.location.pathname === "/create" ? true : false;
 
   console.log(store);
 
@@ -29,7 +31,7 @@ function App() {
           </Navbar>
           <Row>
             <Col>
-              <DisplayQuiz></DisplayQuiz>
+              <DisplayQuiz create={create}></DisplayQuiz>
             </Col>
           </Row>
         </Container>

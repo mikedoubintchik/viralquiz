@@ -8,8 +8,9 @@ import {
   ButtonToolbar,
   Button
 } from "react-bootstrap";
+import { gradeQuiz } from "./quizHelpers";
 
-export const DisplayQuiz = () => {
+export const DisplayQuiz = props => {
   const { store, dispatch } = useContext(Context);
 
   const generateAnswersHTML = (answers, questionIndex) => {
@@ -19,13 +20,24 @@ export const DisplayQuiz = () => {
           key={index}
           xs={6}
           md={4}
-          onClick={() =>
-            dispatch({
-              type: "recordAnswer",
-              questionIndex: questionIndex,
-              answer: index
-            })
-          }
+          onClick={() => {
+            // if user is creating a quiz
+            if (props.create) {
+              dispatch({
+                type: "recordCreatorAnswer",
+                questionIndex: questionIndex,
+                answer: index
+              });
+            }
+            // if user is taking a quiz
+            else {
+              dispatch({
+                type: "recordAnswer",
+                questionIndex: questionIndex,
+                answer: index
+              });
+            }
+          }}
         >
           <Image src="http://placekitten.com/200/200" fluid />
           {answer}
@@ -58,8 +70,27 @@ export const DisplayQuiz = () => {
         >
           Reset
         </Button>
-        <Button variant="outline-primary">Previous</Button>
-        <Button variant="outline-success">Next</Button>
+        <Button
+          variant="outline-primary"
+          onClick={() => dispatch({ type: "decrementActiveQuestion" })}
+        >
+          Previous
+        </Button>
+        <Button
+          variant="outline-secondary"
+          onClick={() => dispatch({ type: "incrementActiveQuestion" })}
+        >
+          Next
+        </Button>
+        <Button
+          variant="outline-success"
+          onClick={() => {
+            if (!props.create)
+              gradeQuiz(store.creatorAnswers, store.takerAnswers);
+          }}
+        >
+          Submit
+        </Button>
       </ButtonToolbar>
     </>
   );
