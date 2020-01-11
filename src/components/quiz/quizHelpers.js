@@ -7,3 +7,7 @@ export const gradeQuiz = (creatorAnswers, takerAnswers) => {
     return "oops";
   }
 };
+
+export const submitQuiz = creatorAnswers => {
+  return "submitted";
+};

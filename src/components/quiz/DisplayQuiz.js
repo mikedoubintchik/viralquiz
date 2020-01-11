@@ -8,7 +8,7 @@ import {
   ButtonToolbar,
   Button
 } from "react-bootstrap";
-import { gradeQuiz } from "./quizHelpers";
+import { gradeQuiz, submitQuiz } from "./quizHelpers";
 
 export const DisplayQuiz = props => {
   const { store, dispatch } = useContext(Context);
@@ -92,6 +92,12 @@ export const DisplayQuiz = props => {
           onClick={() => {
             if (!props.create)
               gradeQuiz(store.creatorAnswers, store.takerAnswers);
+
+            if (
+              props.create &&
+              store.questions.length === store.creatorAnswers.length
+            )
+              submitQuiz(store.creatorAnswers);
           }}
         >
           Submit
