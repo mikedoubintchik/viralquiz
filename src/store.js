@@ -1,6 +1,8 @@
 import React from "react";
 import quizData from "./components/quiz/quiz-data/how-well-you-know-me.json";
-import quizAnswers from "./components/quiz/quiz-data/how-well-you-know-me-answers.json";
+let quizAnswers = require("./components/quiz/quiz-data/how-well-you-know-me-answers.json");
+
+quizAnswers = false;
 
 export const initialState = {
   quizName: quizData.name,
@@ -11,12 +13,13 @@ export const initialState = {
 };
 
 export const reducer = (state, action) => {
+  console.log(action);
   switch (action.type) {
     case "reset":
       return initialState;
     case "addQuestion":
       return { questions: state.questions };
-    case "addAnswer":
+    case "recordCreatorAnswer":
       return {
         ...state,
         creatorAnswers: [
@@ -24,7 +27,7 @@ export const reducer = (state, action) => {
           { question: action.questionIndex, answer: action.answer }
         ]
       };
-    case "recordAnswer":
+    case "recordTakerAnswer":
       return {
         ...state,
         takerAnswers: [
@@ -36,7 +39,7 @@ export const reducer = (state, action) => {
       return {
         ...state,
         activeQuestionIndex:
-          state.activeQuestionIndex < state.questions.length
+          state.activeQuestionIndex < state.questions.length - 1
             ? state.activeQuestionIndex + 1
             : state.activeQuestionIndex
       };

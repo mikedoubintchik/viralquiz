@@ -32,7 +32,7 @@ export const DisplayQuiz = props => {
             // if user is taking a quiz
             else {
               dispatch({
-                type: "recordAnswer",
+                type: "recordTakerAnswer",
                 questionIndex: questionIndex,
                 answer: index
               });
