@@ -5,15 +5,19 @@ let quizAnswers = require("./components/quiz/quiz-data/how-well-you-know-me-answ
 quizAnswers = false;
 
 export const initialState = {
+  quizID: null,
   quizName: quizData.name,
   questions: quizData.questions,
-  creatorAnswers: quizAnswers || [],
+  creatorAnswers:
+    quizAnswers ||
+    [...Object.keys(quizData.questions)].map((answer, index) => {
+      return { question: index, answer: null };
+    }),
   takerAnswers: [],
   activeQuestionIndex: 0
 };
 
 export const reducer = (state, action) => {
-  console.log(action);
   switch (action.type) {
     case "reset":
       return initialState;
