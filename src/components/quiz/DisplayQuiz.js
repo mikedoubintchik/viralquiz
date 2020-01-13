@@ -20,14 +20,14 @@ const DisplayQuiz = props => {
   const [loader, setLoader] = useState(false);
   let history = useHistory();
   const takingQuiz = useRouteMatch("/:quizID").isExact;
+  const creatingQuiz = useRouteMatch("/create/:quizID").isExact;
   const { quizID } = useParams();
 
   // set quiz ID, if taking a quiz
   if (takingQuiz) {
     dispatch({
       type: "setQuizID",
-      quizID,
-      creatorAnswers: db.collection("quizzes").doc(quizID)
+      quizID
     });
   }
 
@@ -40,7 +40,7 @@ const DisplayQuiz = props => {
           md={4}
           onClick={() => {
             // if user is creating a quiz
-            if (props.create) {
+            if (creatingQuiz) {
               dispatch({
                 type: "recordCreatorAnswer",
                 questionIndex: questionIndex,
@@ -83,9 +83,6 @@ const DisplayQuiz = props => {
   };
 
   const submitQuiz = async creatorAnswers => {
-    console.log("submitted");
-    console.log("store: \n", store);
-
     // build quiz data
     const quizData = {
       quizID: store.quizID,
@@ -94,16 +91,27 @@ const DisplayQuiz = props => {
       creatorAnswers: store.creatorAnswers
     };
 
-    // if creating a quiz
-    if (props.create) {
+    if (creatingQuiz) {
       setLoader(true);
 
       // save quiz to database
+      const user = await db
+        .collection("users")
+        .doc(store.userID)
+        .get();
+
+      // get quizzes for user
+      const quizzes = user.quizzes ? JSON.parse(user.quizzes) : [];
+
+      // add new quiz
+      quizzes.push(store.quizID);
+
+      // update database record for user with new quiz
       db.collection("users")
         .doc(store.userID)
-        .collection("quizzes")
-        .add({ id: store.quizID });
+        .update({ quizzes: JSON.stringify(quizzes) });
 
+      // add quiz to database
       db.collection("quizzes")
         .doc(store.quizID)
         .set(quizData);
@@ -111,8 +119,8 @@ const DisplayQuiz = props => {
       // redirect to created page
       history.push("/success");
     }
-    // if taking a quiz
-    else {
+
+    if (takingQuiz) {
       setLoader(true);
 
       // grade quiz

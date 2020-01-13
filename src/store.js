@@ -22,9 +22,15 @@ export const reducer = (state, action) => {
     case "saveUser":
       return {
         ...state,
+        quizID: action.quizID,
         userID: action.userID,
         userName: action.userName,
         userEmail: action.userEmail
+      };
+    case "setQuizID":
+      return {
+        ...state,
+        quizID: action.quizID
       };
     case "recordCreatorAnswer":
       return {
