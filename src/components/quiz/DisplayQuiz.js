@@ -24,8 +24,8 @@ const DisplayQuiz = props => {
   const creatingQuiz = props.create;
   const { quizID } = useParams();
 
-  // set quiz ID, if taking a quiz
-  if (takingQuiz) {
+  // set quiz ID, if taking a quiz, check that there are no questions in global store to prevent infinite dispatch loop
+  if (takingQuiz && store.questions.length === 0) {
     db.collection("quizzes")
       .doc(quizID)
       .get()
@@ -98,6 +98,7 @@ const DisplayQuiz = props => {
     const quizData = {
       quizID: store.quizID,
       userID: store.userID,
+      quizName: `How Well Do You Know ${store.userName}?`,
       questions: store.questions,
       creatorAnswers: store.creatorAnswers
     };
@@ -135,7 +136,12 @@ const DisplayQuiz = props => {
       setLoader(true);
 
       // grade quiz
-      gradeQuiz(store.creatorAnswers, store.takerAnswers);
+      const quizScore = gradeQuiz(store.creatorAnswers, store.takerAnswers);
+
+      dispatch({
+        type: "setQuizScore",
+        quizScore
+      });
 
       // redirect to results
       history.push(`/results/${store.quizID}`);

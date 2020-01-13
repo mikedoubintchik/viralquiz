@@ -1,9 +1,9 @@
 export const gradeQuiz = (creatorAnswers, takerAnswers) => {
-  console.log("graded");
+  let countCorrect = 0;
 
-  if (creatorAnswers === takerAnswers) {
-    return "100";
-  } else {
-    return "oops";
+  for (let i = 0; i < creatorAnswers.length; i++) {
+    if (creatorAnswers[i].answer === takerAnswers[i].answer) countCorrect++;
   }
+
+  return countCorrect;
 };

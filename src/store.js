@@ -9,6 +9,7 @@ export const initialState = {
   questions: [],
   creatorAnswers: [],
   takerAnswers: [],
+  quizScore: null,
   activeQuestionIndex: 0
 };
 
@@ -33,6 +34,11 @@ export const reducer = (state, action) => {
         quizName: action.quizName,
         questions: action.questions,
         creatorAnswers: action.creatorAnswers
+      };
+    case "setQuizScore":
+      return {
+        ...state,
+        quizScore: action.quizScore
       };
     case "recordCreatorAnswer":
       return {
