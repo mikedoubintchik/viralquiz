@@ -42,6 +42,20 @@ const DisplayQuiz = props => {
       });
   }
 
+  if (creatingQuiz && store.questions.length === 0) {
+    db.collection("quizOptions")
+      .doc("HowWellDoYouKnowMe?")
+      .get()
+      .then(quiz => {
+        const { data } = quiz.data();
+
+        dispatch({
+          type: "createDefaultQuizQuestions",
+          questions: data.questions
+        });
+      });
+  }
+
   const generateAnswersHTML = (answers, questionIndex) => {
     return answers.map((answer, index) => {
       return (
