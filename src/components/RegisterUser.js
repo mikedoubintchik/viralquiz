@@ -29,7 +29,9 @@ const RegisterUser = () => {
       const user = await db.collection("users").add({ userName, userEmail });
 
       // generate quiz ID
-      const quizID = Math.floor(Math.random() * Math.floor(1000000000));
+      const quizID = Math.floor(
+        Math.random() * Math.floor(1000000000)
+      ).toString();
 
       // save user data to global store
       dispatch({
