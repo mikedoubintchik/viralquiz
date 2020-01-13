@@ -1,7 +1,3 @@
-import firebase from "../../firestore";
-
-const db = firebase.firestore();
-
 export const gradeQuiz = (creatorAnswers, takerAnswers) => {
   console.log("graded");
 

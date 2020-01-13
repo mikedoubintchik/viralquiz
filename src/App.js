@@ -1,49 +1,17 @@
-import React, { useReducer, useState } from "react";
-import { useHistory, useRouteMatch } from "react-router-dom";
+import React, { useReducer } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Context, initialState, reducer } from "./store";
-import { Container, Row, Col, Navbar, Button, Form } from "react-bootstrap";
+import { Container, Row, Col, Navbar, Button } from "react-bootstrap";
 import logo from "./logo.svg";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./custom.scss";
-import { DisplayQuiz } from "./components/quiz/DisplayQuiz";
-import firebase from "./firestore";
-
-const db = firebase.firestore();
+import RegisterUser from "./components/RegisterUser";
+import DisplayQuiz from "./components/quiz/DisplayQuiz";
+import QuizCreated from "./components/QuizCreated";
+import DisplayQuizResults from "./components/DisplayQuizResults";
 
 function App() {
   const [store, dispatch] = useReducer(reducer, initialState);
-  const [userName, setUserName] = useState("");
-  const [userEmail, setUserEmail] = useState("");
-  const [validated, setValidated] = useState(false);
-  let history = useHistory();
-  // determine if user is creating or taking a test
-  const create = useRouteMatch("/create/:quizID");
-
-  // console.log("Store:\n", store);
-
-  const handleSubmit = async event => {
-    const form = event.currentTarget;
-    event.preventDefault();
-    event.stopPropagation();
-    setValidated(true);
-
-    // if all values in form are valid
-    if (form.checkValidity() === true) {
-      // save user to database
-      const user = await db.collection("users").add({ userName, userEmail });
-
-      // save user data to global store
-      dispatch({
-        type: "saveUser",
-        userID: user.id,
-        userName,
-        userEmail
-      });
-
-      // show create quiz
-      history.push(`/create/${store.quizID}`);
-    }
-  };
 
   return (
     <Context.Provider value={{ store, dispatch }}>
@@ -61,60 +29,35 @@ function App() {
               {store.quizName}
             </Navbar.Brand>
           </Navbar>
-          {!create && (
-            <Row>
-              <Col>
-                <Form noValidate validated={validated} onSubmit={handleSubmit}>
-                  <Row>
-                    <Col>
-                      <Form.Group controlId="formBasicName">
-                        <Form.Label>Name</Form.Label>
-                        <Form.Control
-                          required
-                          type="text"
-                          placeholder="Name"
-                          value={userName}
-                          onChange={e => setUserName(e.target.value)}
-                        />
-                        <Form.Control.Feedback type="invalid">
-                          Name is required
-                        </Form.Control.Feedback>
-                      </Form.Group>
-                    </Col>
-                    <Col>
-                      <Form.Group controlId="formBasicEmail">
-                        <Form.Label>Email address</Form.Label>
-                        <Form.Control
-                          required
-                          type="email"
-                          placeholder="Enter email"
-                          value={userEmail}
-                          onChange={e => setUserEmail(e.target.value)}
-                        />
-                        <Form.Control.Feedback type="invalid">
-                          Valid email is required
-                        </Form.Control.Feedback>
-                        <Form.Text className="text-muted">
-                          We'll never share your email with anyone else.
-                        </Form.Text>
-                      </Form.Group>
-                    </Col>
-                  </Row>
-
-                  <Button type="submit" variant="outline-success">
-                    Create Quiz
-                  </Button>
-                </Form>
-              </Col>
-            </Row>
-          )}
-          {create && (
-            <Row>
-              <Col>
-                <DisplayQuiz create={create}></DisplayQuiz>
-              </Col>
-            </Row>
-          )}
+          <Row>
+            <Col>
+              <Router>
+                <Switch>
+                  <Route exact path="/">
+                    <RegisterUser />
+                  </Route>
+                  <Route exact path="/results/:quizID">
+                    <DisplayQuizResults />
+                  </Route>
+                  <Route exact path="/success">
+                    <QuizCreated />
+                  </Route>
+                  <Route exact path="/create/:quizID">
+                    <DisplayQuiz create={true} />
+                  </Route>
+                  <Route exact path="/:quizID">
+                    <DisplayQuiz create={false} />
+                  </Route>
+                  <Route>
+                    <>
+                      <h1>You reached a non-existent page</h1>
+                      <Button>Return to Home</Button>
+                    </>
+                  </Route>
+                </Switch>
+              </Router>
+            </Col>
+          </Row>
         </Container>
       </div>
     </Context.Provider>

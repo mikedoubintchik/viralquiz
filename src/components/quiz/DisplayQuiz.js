@@ -14,7 +14,7 @@ import firebase from "../../firestore";
 
 const db = firebase.firestore();
 
-export const DisplayQuiz = props => {
+const DisplayQuiz = props => {
   const { store, dispatch } = useContext(Context);
   let history = useHistory();
 
@@ -71,22 +71,34 @@ export const DisplayQuiz = props => {
 
   const submitQuiz = async creatorAnswers => {
     console.log("submitted");
+    console.log("store: \n", store);
 
     // build quiz data
     const quizData = {
       quizID: store.quizID,
-      creatorAnswers: store.creatorAnswers,
-      takerAnswers: store.takerAnswers
+      questions: store.questions,
+      creatorAnswers: store.creatorAnswers
     };
 
-    // save quiz to database
-    db.collection("users")
-      .doc(store.userID)
-      .collection("quizzes")
-      .add(quizData);
+    // if creating a quiz
+    if (props.create) {
+      // save quiz to database
+      db.collection("users")
+        .doc(store.userID)
+        .collection("quizzes")
+        .add(quizData);
 
-    // show results page
-    history.push(`/create/${store.quizID}`);
+      // redirect to created page
+      history.push("/success");
+    }
+    // if taking a quiz
+    else {
+      // grade quiz
+      gradeQuiz(store.creatorAnswers, store.takerAnswers);
+
+      // redirect to results
+      history.push(`/results/${store.quizID}`);
+    }
   };
 
   return (
@@ -112,22 +124,12 @@ export const DisplayQuiz = props => {
         >
           Next
         </Button>
-        <Button
-          variant="outline-success"
-          onClick={() => {
-            if (!props.create)
-              gradeQuiz(store.creatorAnswers, store.takerAnswers);
-
-            if (
-              props.create &&
-              store.questions.length === store.creatorAnswers.length
-            )
-              submitQuiz(store.creatorAnswers);
-          }}
-        >
+        <Button variant="outline-success" onClick={() => submitQuiz()}>
           Submit
         </Button>
       </ButtonToolbar>
     </>
   );
 };
+
+export default DisplayQuiz;
