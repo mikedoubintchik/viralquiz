@@ -28,16 +28,20 @@ const RegisterUser = () => {
       // save user to database
       const user = await db.collection("users").add({ userName, userEmail });
 
+      // generate quiz ID
+      const quizID = Math.floor(Math.random() * Math.floor(1000000000));
+
       // save user data to global store
       dispatch({
         type: "saveUser",
         userID: user.id,
+        quizID,
         userName,
         userEmail
       });
 
       // show create quiz
-      history.push(`/create/${store.quizID}`);
+      history.push(`/create/${quizID}`);
     }
   };
 

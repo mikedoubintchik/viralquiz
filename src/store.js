@@ -1,21 +1,14 @@
 import React from "react";
 import quizData from "./components/quiz/quiz-data/how-well-you-know-me.json";
-let quizAnswers = require("./components/quiz/quiz-data/how-well-you-know-me-answers.json");
-
-quizAnswers = false;
 
 export const initialState = {
-  quizID: Math.floor(Math.random() * Math.floor(1000000000)),
+  quizID: "",
   userID: "",
   userName: "",
   userEmail: "",
   quizName: quizData.name,
   questions: quizData.questions,
-  creatorAnswers:
-    quizAnswers ||
-    [...Object.keys(quizData.questions)].map((answer, index) => {
-      return { question: index, answer: null };
-    }),
+  creatorAnswers: [],
   takerAnswers: [],
   activeQuestionIndex: 0
 };

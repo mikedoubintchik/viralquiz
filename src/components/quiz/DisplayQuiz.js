@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { useHistory, useRouteMatch, useParams } from "react-router-dom";
 import { Context } from "../../store";
 import {
   Container,
@@ -9,6 +9,7 @@ import {
   ButtonToolbar,
   Button
 } from "react-bootstrap";
+import Loader from "react-loader-spinner";
 import { gradeQuiz } from "./quizHelpers";
 import firebase from "../../firestore";
 
@@ -16,7 +17,19 @@ const db = firebase.firestore();
 
 const DisplayQuiz = props => {
   const { store, dispatch } = useContext(Context);
+  const [loader, setLoader] = useState(false);
   let history = useHistory();
+  const takingQuiz = useRouteMatch("/:quizID").isExact;
+  const { quizID } = useParams();
+
+  // set quiz ID, if taking a quiz
+  if (takingQuiz) {
+    dispatch({
+      type: "setQuizID",
+      quizID,
+      creatorAnswers: db.collection("quizzes").doc(quizID)
+    });
+  }
 
   const generateAnswersHTML = (answers, questionIndex) => {
     return answers.map((answer, index) => {
@@ -76,23 +89,32 @@ const DisplayQuiz = props => {
     // build quiz data
     const quizData = {
       quizID: store.quizID,
+      userID: store.userID,
       questions: store.questions,
       creatorAnswers: store.creatorAnswers
     };
 
     // if creating a quiz
     if (props.create) {
+      setLoader(true);
+
       // save quiz to database
       db.collection("users")
         .doc(store.userID)
         .collection("quizzes")
-        .add(quizData);
+        .add({ id: store.quizID });
+
+      db.collection("quizzes")
+        .doc(store.quizID)
+        .set(quizData);
 
       // redirect to created page
       history.push("/success");
     }
     // if taking a quiz
     else {
+      setLoader(true);
+
       // grade quiz
       gradeQuiz(store.creatorAnswers, store.takerAnswers);
 
@@ -103,31 +125,45 @@ const DisplayQuiz = props => {
 
   return (
     <>
-      <div>{generateQuestionsHTML(store.questions)}</div>
+      {!loader && (
+        <>
+          <div>{generateQuestionsHTML(store.questions)}</div>
 
-      <ButtonToolbar>
-        <Button
-          variant="outline-danger"
-          onClick={() => dispatch({ type: "reset" })}
-        >
-          Reset
-        </Button>
-        <Button
-          variant="outline-primary"
-          onClick={() => dispatch({ type: "decrementActiveQuestion" })}
-        >
-          Previous
-        </Button>
-        <Button
-          variant="outline-secondary"
-          onClick={() => dispatch({ type: "incrementActiveQuestion" })}
-        >
-          Next
-        </Button>
-        <Button variant="outline-success" onClick={() => submitQuiz()}>
-          Submit
-        </Button>
-      </ButtonToolbar>
+          <ButtonToolbar>
+            <Button
+              variant="outline-danger"
+              onClick={() => dispatch({ type: "reset" })}
+            >
+              Reset
+            </Button>
+            <Button
+              variant="outline-primary"
+              onClick={() => dispatch({ type: "decrementActiveQuestion" })}
+            >
+              Previous
+            </Button>
+            <Button
+              variant="outline-secondary"
+              onClick={() => dispatch({ type: "incrementActiveQuestion" })}
+            >
+              Next
+            </Button>
+            <Button variant="outline-success" onClick={() => submitQuiz()}>
+              Submit
+            </Button>
+          </ButtonToolbar>
+        </>
+      )}
+
+      {loader && (
+        <Loader
+          type="Puff"
+          color="#00BFFF"
+          height={100}
+          width={100}
+          timeout={3000} //3 secs
+        />
+      )}
     </>
   );
 };
