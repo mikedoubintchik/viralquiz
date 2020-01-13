@@ -5,7 +5,10 @@ let quizAnswers = require("./components/quiz/quiz-data/how-well-you-know-me-answ
 quizAnswers = false;
 
 export const initialState = {
-  quizID: null,
+  quizID: Math.floor(Math.random() * Math.floor(1000000000)),
+  userID: "",
+  userName: "",
+  userEmail: "",
   quizName: quizData.name,
   questions: quizData.questions,
   creatorAnswers:
@@ -23,6 +26,13 @@ export const reducer = (state, action) => {
       return initialState;
     case "addQuestion":
       return { questions: state.questions };
+    case "saveUser":
+      return {
+        ...state,
+        userID: action.userID,
+        userName: action.userName,
+        userEmail: action.userEmail
+      };
     case "recordCreatorAnswer":
       return {
         ...state,

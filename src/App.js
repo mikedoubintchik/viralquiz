@@ -6,7 +6,9 @@ import logo from "./logo.svg";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./custom.scss";
 import { DisplayQuiz } from "./components/quiz/DisplayQuiz";
-import { createQuiz } from "./components/quiz/quizHelpers";
+import firebase from "./firestore";
+
+const db = firebase.firestore();
 
 function App() {
   const [store, dispatch] = useReducer(reducer, initialState);
@@ -25,9 +27,21 @@ function App() {
     event.stopPropagation();
     setValidated(true);
 
+    // if all values in form are valid
     if (form.checkValidity() === true) {
-      const quizID = await createQuiz({ userName, userEmail });
-      history.push(`/create/${quizID}`);
+      // save user to database
+      const user = await db.collection("users").add({ userName, userEmail });
+
+      // save user data to global store
+      dispatch({
+        type: "saveUser",
+        userID: user.id,
+        userName,
+        userEmail
+      });
+
+      // show create quiz
+      history.push(`/create/${store.quizID}`);
     }
   };
 

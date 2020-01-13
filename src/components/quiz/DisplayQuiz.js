@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { useHistory } from "react-router-dom";
 import { Context } from "../../store";
 import {
   Container,
@@ -8,10 +9,14 @@ import {
   ButtonToolbar,
   Button
 } from "react-bootstrap";
-import { gradeQuiz, submitQuiz } from "./quizHelpers";
+import { gradeQuiz } from "./quizHelpers";
+import firebase from "../../firestore";
+
+const db = firebase.firestore();
 
 export const DisplayQuiz = props => {
   const { store, dispatch } = useContext(Context);
+  let history = useHistory();
 
   const generateAnswersHTML = (answers, questionIndex) => {
     return answers.map((answer, index) => {
@@ -62,6 +67,26 @@ export const DisplayQuiz = props => {
         </div>
       );
     });
+  };
+
+  const submitQuiz = async creatorAnswers => {
+    console.log("submitted");
+
+    // build quiz data
+    const quizData = {
+      quizID: store.quizID,
+      creatorAnswers: store.creatorAnswers,
+      takerAnswers: store.takerAnswers
+    };
+
+    // save quiz to database
+    db.collection("users")
+      .doc(store.userID)
+      .collection("quizzes")
+      .add(quizData);
+
+    // show results page
+    history.push(`/create/${store.quizID}`);
   };
 
   return (
