@@ -138,10 +138,22 @@ const DisplayQuiz = props => {
       // grade quiz
       const quizScore = gradeQuiz(store.creatorAnswers, store.takerAnswers);
 
+      // save to global store
       dispatch({
         type: "setQuizScore",
         quizScore
       });
+
+      // save to localstorage
+      let viralQuizzes = JSON.parse(localStorage.getItem("viralQuizzes"));
+
+      if (viralQuizzes) {
+        viralQuizzes.push([{ quizID: store.quizID, quizScore }]);
+      } else {
+        viralQuizzes = [{ quizID: store.quizID, quizScore }];
+      }
+
+      localStorage.setItem("viralQuizzes", JSON.stringify(viralQuizzes));
 
       // redirect to results
       history.push(`/results/${store.quizID}`);
