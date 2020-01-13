@@ -17,18 +17,29 @@ const db = firebase.firestore();
 
 const DisplayQuiz = props => {
   const { store, dispatch } = useContext(Context);
+  console.log("TCL: store", store);
   const [loader, setLoader] = useState(false);
   let history = useHistory();
   const takingQuiz = useRouteMatch("/:quizID").isExact;
-  const creatingQuiz = useRouteMatch("/create/:quizID").isExact;
+  const creatingQuiz = props.create;
   const { quizID } = useParams();
 
   // set quiz ID, if taking a quiz
   if (takingQuiz) {
-    dispatch({
-      type: "setQuizID",
-      quizID
-    });
+    db.collection("quizzes")
+      .doc(quizID)
+      .get()
+      .then(quiz => {
+        const { questions, creatorAnswers, quizName } = quiz.data();
+
+        dispatch({
+          type: "takingQuiz",
+          quizID,
+          quizName,
+          questions,
+          creatorAnswers
+        });
+      });
   }
 
   const generateAnswersHTML = (answers, questionIndex) => {

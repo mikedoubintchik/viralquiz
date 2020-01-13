@@ -1,13 +1,12 @@
 import React from "react";
-import quizData from "./components/quiz/quiz-data/how-well-you-know-me.json";
 
 export const initialState = {
   quizID: "",
   userID: "",
   userName: "",
   userEmail: "",
-  quizName: quizData.name,
-  questions: quizData.questions,
+  quizName: "Create Your Quiz!",
+  questions: [],
   creatorAnswers: [],
   takerAnswers: [],
   activeQuestionIndex: 0
@@ -27,10 +26,13 @@ export const reducer = (state, action) => {
         userName: action.userName,
         userEmail: action.userEmail
       };
-    case "setQuizID":
+    case "takingQuiz":
       return {
         ...state,
-        quizID: action.quizID
+        quizID: action.quizID,
+        quizName: action.quizName,
+        questions: action.questions,
+        creatorAnswers: action.creatorAnswers
       };
     case "recordCreatorAnswer":
       return {

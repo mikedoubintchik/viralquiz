@@ -9,7 +9,7 @@ import firebase from "../firestore";
 const db = firebase.firestore();
 
 const RegisterUser = () => {
-  const { store, dispatch } = useContext(Context);
+  const { dispatch } = useContext(Context);
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [validated, setValidated] = useState(false);

@@ -47,7 +47,7 @@ function App() {
                     <DisplayQuiz create={true} />
                   </Route>
                   <Route exact path="/:quizID">
-                    <DisplayQuiz create={false} />
+                    <DisplayQuiz />
                   </Route>
                   <Route>
                     <>
