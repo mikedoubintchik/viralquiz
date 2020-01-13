@@ -4,6 +4,7 @@ import { Context, initialState, reducer } from "./store";
 import { Container, Row, Col, Navbar, Button } from "react-bootstrap";
 import logo from "./logo.svg";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import "./custom.scss";
 import RegisterUser from "./components/RegisterUser";
 import DisplayQuiz from "./components/quiz/DisplayQuiz";
