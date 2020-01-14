@@ -34,7 +34,7 @@ const RegisterUser = props => {
   const testAlreadyTaken = getQuizScoreFromLocalStorage(quizID);
 
   // update quiz name
-  if (quizID && !store.quizName) {
+  if (quizID && store.quizName === "Create Your Quiz!") {
     db.collection("quizzes")
       .doc(quizID)
       .get()
