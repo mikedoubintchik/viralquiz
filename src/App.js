@@ -35,7 +35,7 @@ function App() {
               <Router>
                 <Switch>
                   <Route exact path="/">
-                    <RegisterUser />
+                    <RegisterUser create={true} />
                   </Route>
                   <Route exact path="/results/:quizID">
                     <DisplayQuizResults />
@@ -47,7 +47,8 @@ function App() {
                     <DisplayQuiz create={true} />
                   </Route>
                   <Route exact path="/:quizID">
-                    <DisplayQuiz />
+                    {!store.userName && <RegisterUser />}
+                    {store.userName && <DisplayQuiz />}
                   </Route>
                   <Route>
                     <>

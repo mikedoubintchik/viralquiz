@@ -7,4 +7,14 @@ $body-bg: #fff;
   &.active {
     display: block;
   }
+
+  .answer {
+    cursor: pointer;
+
+    &.active {
+      background: green;
+      color: #fff;
+      border: 2px solid green;
+    }
+  }
 }

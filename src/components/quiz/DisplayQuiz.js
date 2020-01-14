@@ -7,8 +7,11 @@ import {
   Col,
   Image,
   ButtonToolbar,
-  Button
+  Button,
+  Card,
+  Form
 } from "react-bootstrap";
+import Timeout from "await-timeout";
 import Loader from "react-loader-spinner";
 import { gradeQuiz } from "./quizHelpers";
 import firebase from "../../firestore";
@@ -17,8 +20,8 @@ const db = firebase.firestore();
 
 const DisplayQuiz = props => {
   const { store, dispatch } = useContext(Context);
-  console.log("TCL: store", store);
   const [loader, setLoader] = useState(false);
+  const [questionResponse, setQuestionResponse] = useState({});
   let history = useHistory();
   const takingQuiz = useRouteMatch("/:quizID").isExact;
   const creatingQuiz = props.create;
@@ -30,14 +33,20 @@ const DisplayQuiz = props => {
       .doc(quizID)
       .get()
       .then(quiz => {
-        const { questions, creatorAnswers, quizName } = quiz.data();
+        const {
+          questions,
+          creatorAnswers,
+          quizName,
+          leaderboard
+        } = quiz.data();
 
         dispatch({
           type: "takingQuiz",
           quizID,
           quizName,
           questions,
-          creatorAnswers
+          creatorAnswers,
+          leaderboard
         });
       });
   }
@@ -59,31 +68,20 @@ const DisplayQuiz = props => {
   const generateAnswersHTML = (answers, questionIndex) => {
     return answers.map((answer, index) => {
       return (
-        <Col
-          key={index}
-          xs={6}
-          md={4}
-          onClick={() => {
-            // if user is creating a quiz
-            if (creatingQuiz) {
-              dispatch({
-                type: "recordCreatorAnswer",
-                questionIndex: questionIndex,
-                answer: index
-              });
-            }
-            // if user is taking a quiz
-            else {
-              dispatch({
-                type: "recordTakerAnswer",
-                questionIndex: questionIndex,
-                answer: index
-              });
-            }
-          }}
-        >
-          <Image src="http://placekitten.com/200/200" fluid />
-          {answer}
+        <Col key={index} xs={6} md={4}>
+          <Card
+            className={`answer text-center mb-4${
+              index === questionResponse.answer ? " active" : ""
+            }`}
+            onClick={() => {
+              setQuestionResponse({ question: questionIndex, answer: index });
+            }}
+          >
+            <Card.Img variant="top" src="http://placekitten.com/200/100" />
+            <Card.Body>
+              <Card.Title>{answer}</Card.Title>
+            </Card.Body>
+          </Card>
         </Col>
       );
     });
@@ -107,6 +105,29 @@ const DisplayQuiz = props => {
     });
   };
 
+  const handleNext = () => {
+    // reset local state answer tracker
+    setQuestionResponse({});
+
+    // if user is creating a quiz
+    if (creatingQuiz) {
+      dispatch({
+        type: "recordCreatorAnswer",
+        questionIndex: questionResponse.question,
+        answer: questionResponse.answer
+      });
+    }
+    // if user is taking a quiz
+    else {
+      dispatch({
+        type: "recordTakerAnswer",
+        questionIndex: questionResponse.question,
+        answer: questionResponse.answer
+      });
+    }
+    dispatch({ type: "incrementActiveQuestion" });
+  };
+
   const submitQuiz = async creatorAnswers => {
     // build quiz data
     const quizData = {
@@ -119,6 +140,13 @@ const DisplayQuiz = props => {
 
     if (creatingQuiz) {
       setLoader(true);
+
+      // record last answer
+      dispatch({
+        type: "recordCreatorAnswer",
+        questionIndex: questionResponse.question,
+        answer: questionResponse.answer
+      });
 
       // save quiz to database
       const user = await db
@@ -149,8 +177,26 @@ const DisplayQuiz = props => {
     if (takingQuiz) {
       setLoader(true);
 
+      // record last answer
+      dispatch({
+        type: "recordTakerAnswer",
+        questionIndex: questionResponse.question,
+        answer: questionResponse.answer
+      });
+
+      // generate answers array with last answer
+      const allAnswers = [
+        ...store.takerAnswers,
+        {
+          question: questionResponse.question,
+          answer: questionResponse.answer
+        }
+      ];
+
+      console.log("TCL: allAnswers", allAnswers);
+
       // grade quiz
-      const quizScore = gradeQuiz(store.creatorAnswers, store.takerAnswers);
+      const quizScore = gradeQuiz(store.creatorAnswers, allAnswers);
 
       // save to global store
       dispatch({
@@ -169,6 +215,23 @@ const DisplayQuiz = props => {
 
       localStorage.setItem("viralQuizzes", JSON.stringify(viralQuizzes));
 
+      // save to leaderboard database
+      const quiz = await db
+        .collection("quizzes")
+        .doc(store.quizID)
+        .get();
+
+      // get leaderboard for quiz
+      const leaderboard = quiz.leaderboard ? JSON.parse(quiz.leaderboard) : [];
+
+      // add quiz score to leaderboard
+      leaderboard.push({ name: store.userName, quizScore });
+
+      // update database record for quiz with new leaderboard
+      db.collection("quizzes")
+        .doc(store.quizID)
+        .update({ leaderboard: JSON.stringify(leaderboard) });
+
       // redirect to results
       history.push(`/results/${store.quizID}`);
     }
@@ -180,28 +243,29 @@ const DisplayQuiz = props => {
         <>
           <div>{generateQuestionsHTML(store.questions)}</div>
 
-          <ButtonToolbar>
-            <Button
+          <ButtonToolbar className="mt-4 d-flex justify-content-between">
+            {/* <Button
               variant="outline-danger"
               onClick={() => dispatch({ type: "reset" })}
             >
               Reset
-            </Button>
-            <Button
+            </Button> */}
+            {/* <Button
               variant="outline-primary"
               onClick={() => dispatch({ type: "decrementActiveQuestion" })}
             >
               Previous
-            </Button>
-            <Button
-              variant="outline-secondary"
-              onClick={() => dispatch({ type: "incrementActiveQuestion" })}
-            >
-              Next
-            </Button>
-            <Button variant="outline-success" onClick={() => submitQuiz()}>
-              Submit
-            </Button>
+            </Button> */}
+            {store.activeQuestionIndex < store.questions.length - 1 && (
+              <Button variant="outline-secondary" onClick={() => handleNext()}>
+                Next
+              </Button>
+            )}
+            {store.activeQuestionIndex === store.questions.length - 1 && (
+              <Button variant="outline-success" onClick={() => submitQuiz()}>
+                Submit
+              </Button>
+            )}
           </ButtonToolbar>
         </>
       )}

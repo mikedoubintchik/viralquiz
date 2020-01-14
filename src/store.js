@@ -9,6 +9,7 @@ export const initialState = {
   questions: [],
   creatorAnswers: [],
   takerAnswers: [],
+  leaderboard: [],
   quizScore: null,
   activeQuestionIndex: 0
 };
@@ -16,9 +17,19 @@ export const initialState = {
 export const reducer = (state, action) => {
   switch (action.type) {
     case "reset":
-      return initialState;
+      return {
+        ...state,
+        questions: [],
+        creatorAnswers: [],
+        takerAnswers: [],
+        activeQuestionIndex: 0
+      };
     case "addQuestion":
-      return { questions: state.questions };
+      return { ...state, questions: state.questions };
+    case "createDefaultQuizQuestions":
+      return { ...state, questions: action.questions };
+    case "updateQuizName":
+      return { ...state, quizName: action.quizName };
     case "saveUser":
       return {
         ...state,
@@ -33,7 +44,8 @@ export const reducer = (state, action) => {
         quizID: action.quizID,
         quizName: action.quizName,
         questions: action.questions,
-        creatorAnswers: action.creatorAnswers
+        creatorAnswers: action.creatorAnswers,
+        leaderboard: action.leaderboard
       };
     case "setQuizScore":
       return {
