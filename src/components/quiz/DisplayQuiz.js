@@ -208,7 +208,7 @@ const DisplayQuiz = props => {
       let viralQuizzes = JSON.parse(localStorage.getItem("viralQuizzes"));
 
       if (viralQuizzes) {
-        viralQuizzes.push([{ quizID: store.quizID, quizScore }]);
+        viralQuizzes.push({ quizID: store.quizID, quizScore });
       } else {
         viralQuizzes = [{ quizID: store.quizID, quizScore }];
       }
