@@ -34,19 +34,21 @@ const RegisterUser = props => {
   const testAlreadyTaken = getQuizScoreFromLocalStorage(quizID);
 
   // update quiz name
-  db.collection("quizzes")
-    .doc(quizID)
-    .get()
-    .then(quiz => {
-      const { quizName } = quiz.data();
+  if (quizID) {
+    db.collection("quizzes")
+      .doc(quizID)
+      .get()
+      .then(quiz => {
+        const { quizName } = quiz.data();
 
-      dispatch({
-        type: "updateQuizName",
-        quizName
+        dispatch({
+          type: "updateQuizName",
+          quizName
+        });
       });
-    });
+  }
 
-  if (testAlreadyTaken) history.push(`/results/${quizID}`);
+  if (quizID && testAlreadyTaken) history.push(`/results/${quizID}`);
 
   const handleSubmit = async event => {
     const form = event.currentTarget;
