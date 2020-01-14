@@ -222,7 +222,9 @@ const DisplayQuiz = props => {
         .get();
 
       // get leaderboard for quiz
-      const leaderboard = quiz.leaderboard ? JSON.parse(quiz.leaderboard) : [];
+      const leaderboard = quiz.data()
+        ? JSON.parse(quiz.data().leaderboard)
+        : [];
 
       // add quiz score to leaderboard
       leaderboard.push({ name: store.userName, quizScore });
