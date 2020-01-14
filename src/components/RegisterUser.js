@@ -23,7 +23,7 @@ const createQuiz = () => {
 // createQuiz();
 
 const RegisterUser = props => {
-  const { dispatch } = useContext(Context);
+  const { store, dispatch } = useContext(Context);
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [validated, setValidated] = useState(false);
@@ -34,7 +34,7 @@ const RegisterUser = props => {
   const testAlreadyTaken = getQuizScoreFromLocalStorage(quizID);
 
   // update quiz name
-  if (quizID) {
+  if (quizID && !store.quizName) {
     db.collection("quizzes")
       .doc(quizID)
       .get()
