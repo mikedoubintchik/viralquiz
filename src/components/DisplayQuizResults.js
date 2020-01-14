@@ -1,21 +1,27 @@
-import React, { useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import {
-  // Container,
-  // Row,
-  // Col,
-  // Image,
-  // ButtonToolbar,
-  Button
-} from "react-bootstrap";
-import { Context } from "../store";
+import { Table, Button } from "react-bootstrap";
 import { getQuizScoreFromLocalStorage } from "./quiz/quizHelpers";
+import firebase from "../firestore";
+
+const db = firebase.firestore();
 
 const DisplayQuizResults = () => {
   let history = useHistory();
   const { quizID } = useParams();
+  const [data, setData] = useState([]);
 
-  console.log(getQuizScoreFromLocalStorage(quizID));
+  useEffect(() => {
+    async function fetchData() {
+      const quiz = await db
+        .collection("quizzes")
+        .doc(quizID)
+        .get();
+
+      setData(JSON.parse(quiz.data().leaderboard));
+    }
+    fetchData();
+  }, [quizID]);
 
   return (
     <>
@@ -23,7 +29,22 @@ const DisplayQuizResults = () => {
       <h2>
         You got <strong>{getQuizScoreFromLocalStorage(quizID)}%</strong>
       </h2>
-      <h2>Add leaderboard</h2>
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((entry, index) => (
+            <tr key={index}>
+              <td>{entry.name}</td>
+              <td>{entry.quizScore}%</td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
       <Button variant="outline-success" onClick={() => history.push("/")}>
         Create Your Own Quiz
       </Button>
