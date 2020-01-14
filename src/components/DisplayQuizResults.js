@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { Table, Button } from "react-bootstrap";
 import { getQuizScoreFromLocalStorage } from "./quiz/quizHelpers";
 import firebase from "../firestore";
+import { Context } from "../store";
 
 const db = firebase.firestore();
 
 const DisplayQuizResults = () => {
+  const { dispatch } = useContext(Context);
+
   let history = useHistory();
   const { quizID } = useParams();
   const [data, setData] = useState([]);
@@ -18,10 +21,17 @@ const DisplayQuizResults = () => {
         .doc(quizID)
         .get();
 
-      setData(JSON.parse(quiz.data().leaderboard));
+      const leaderboard = JSON.parse(quiz.data().leaderboard);
+
+      setData(leaderboard);
+
+      dispatch({
+        type: "updateQuizName",
+        quizName: quiz.data().quizName
+      });
     }
     fetchData();
-  }, [quizID]);
+  }, [dispatch, quizID]);
 
   return (
     <>
