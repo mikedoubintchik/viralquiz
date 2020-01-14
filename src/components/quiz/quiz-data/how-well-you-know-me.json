@@ -2,12 +2,61 @@
   "name": "How Well Do You Know Me?",
   "questions": [
     {
-      "question": "How tall am I?",
-      "answers": ["180", "181", "182", "183"]
+      "question": "What type of phone do I have?",
+      "answers": ["Android", "iPhone", "Blackberry", "Flip Phone"]
     },
     {
-      "question": "What type of phone do I have?",
-      "answers": ["Android", "iPhone"]
+      "question": "What's my favorite movie genre?",
+      "answers": [
+        "Horror",
+        "Comedy",
+        "Science Fiction",
+        "Romance",
+        "Documentary",
+        "Mystery"
+      ]
+    },
+    {
+      "question": "What is my favorite meal?",
+      "answers": ["Breakfast", "Brunch", "Lunch", "Dinner", "Late Night Snack"]
+    },
+    {
+      "question": "What is my favorite vacation destination?",
+      "answers": ["Beach", "Mountain", "City", "Theme Park", "Staycation"]
+    },
+    {
+      "question": "How many siblings do I have?",
+      "answers": ["None", "1", "2", "3", "4+"]
+    },
+    {
+      "question": "What political party do I support?",
+      "answers": ["Democrats", "Republicans", "Libertarians", "They All Suck"]
+    },
+    {
+      "question": "What are my pet peeves?",
+      "answers": [
+        "Noisy Eaters",
+        "Slow Internet Connection",
+        "Bad Drivers",
+        "People Talking During Movies"
+      ]
+    },
+    {
+      "question": "What's my favorite alcohol?",
+      "answers": ["Beer", "Wine", "Liquor", "Cocktails", "I Don't Drink"]
+    },
+    { "question": "", "answers": ["", ""] },
+    {
+      "question": "",
+      "answers": ["", ""]
+    },
+    {
+      "question": "",
+      "answers": ["", ""]
+    },
+    {
+      "question": "",
+      "answers": ["", ""]
     }
   ]
 }
