@@ -24,5 +24,5 @@ export const getQuizScoreFromLocalStorage = quizID => {
     });
   }
 
-  return quizScore;
+  return String(quizScore);
 };

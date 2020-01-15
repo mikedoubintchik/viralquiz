@@ -8,13 +8,14 @@ import { getQuizScoreFromLocalStorage } from "./quiz/quizHelpers";
 import firebase from "../firestore";
 
 import quizData from "./quiz/quiz-data/how-well-you-know-me.json";
+import DisplayQuizResults from "./DisplayQuizResults";
 
 const db = firebase.firestore();
 
 const createQuiz = () => {
   db.collection("quizOptions")
     .doc("HowWellDoYouKnowMe?")
-    .set({
+    .update({
       quizName: "How Well Do You Know Me?",
       data: quizData
     });
@@ -146,6 +147,8 @@ const RegisterUser = props => {
           </Button>
         </Form>
       )}
+
+      {<DisplayQuizResults takingQuiz={true} />}
 
       {loader && (
         <Loader

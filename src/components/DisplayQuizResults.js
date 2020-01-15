@@ -7,7 +7,7 @@ import { Context } from "../store";
 
 const db = firebase.firestore();
 
-const DisplayQuizResults = () => {
+const DisplayQuizResults = props => {
   const { dispatch } = useContext(Context);
 
   let history = useHistory();
@@ -35,10 +35,12 @@ const DisplayQuizResults = () => {
 
   return (
     <>
-      <h1>Quiz Results</h1>
-      <h2>
-        You got <strong>{getQuizScoreFromLocalStorage(quizID)}%</strong>
-      </h2>
+      {!props.takingQuiz && (
+        <h2>
+          You got <strong>{getQuizScoreFromLocalStorage(quizID)}%</strong>
+        </h2>
+      )}
+      <h2>Leaderboard</h2>
       <Table striped bordered hover>
         <thead>
           <tr>
