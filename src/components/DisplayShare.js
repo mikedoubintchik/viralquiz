@@ -13,32 +13,26 @@ import {
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 const DisplayShare = props => {
+  const url = `${window.location.origin}/${props.quizID}`;
+
   return (
     <div className="d-flex mb-4 w-50 justify-content-between">
-      <FacebookShareButton
-        url={props.url}
-        quote={props.quizName}
-        className="p-2"
-      >
+      <FacebookShareButton url={url} quote={props.quizName} className="p-2">
         <FacebookIcon size={32} round />
       </FacebookShareButton>
       <WhatsappShareButton
-        url={props.url}
+        url={url}
         title={props.quizName}
         separator=":: "
         className="p-2"
       >
         <WhatsappIcon size={32} round />
       </WhatsappShareButton>
-      <TwitterShareButton
-        url={props.url}
-        title={props.quizName}
-        className="p-2"
-      >
+      <TwitterShareButton url={url} title={props.quizName} className="p-2">
         <TwitterIcon size={32} round />
       </TwitterShareButton>
       <EmailShareButton
-        url={props.url}
+        url={url}
         subject={props.quizName}
         body="Take my quiz!"
         className="p-2"
@@ -46,7 +40,7 @@ const DisplayShare = props => {
         <EmailIcon size={32} round />
       </EmailShareButton>
 
-      <CopyToClipboard text={props.url}>
+      <CopyToClipboard text={url}>
         <Button variant="primary" size="sm">
           Copy Quiz URL
         </Button>

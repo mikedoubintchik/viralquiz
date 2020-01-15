@@ -30,7 +30,7 @@ const DisplayQuizResults = props => {
       // if no quizData, redirect to home page
       if (!quizData) history.push("/");
 
-      const leaderboard = quiz.Data.leaderboard;
+      const leaderboard = quizData.leaderboard;
 
       setData(leaderboard);
 
@@ -49,7 +49,7 @@ const DisplayQuizResults = props => {
           You got <strong>{getQuizScoreFromLocalStorage(quizID)}%</strong>
         </h2>
       )}
-      <DisplayShare url={window.location.href} quizName={store.quizName} />
+      <DisplayShare quizID={quizID} quizName={store.quizName} />
       <Button
         className="mb-4"
         variant="outline-success"
