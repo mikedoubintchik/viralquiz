@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { Table, Button } from "react-bootstrap";
-import { getQuizScoreFromLocalStorage } from "./quiz/quizHelpers";
+import {
+  getQuizScoreFromLocalStorage,
+  createAnswerGuide
+} from "./quiz/quizHelpers";
 import firebase from "../firestore";
 import { Context } from "../store";
 import DisplayShare from "./DisplayShare";
@@ -10,9 +13,9 @@ const db = firebase.firestore();
 
 const DisplayQuizResults = props => {
   const { store, dispatch } = useContext(Context);
-
   let history = useHistory();
   const { quizID } = useParams();
+
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -22,7 +25,7 @@ const DisplayQuizResults = props => {
         .doc(quizID)
         .get();
 
-      const leaderboard = JSON.parse(quiz.data().leaderboard);
+      const leaderboard = quiz.data().leaderboard;
 
       setData(leaderboard);
 
@@ -49,6 +52,34 @@ const DisplayQuizResults = props => {
       >
         Create Your Own Quiz
       </Button>
+
+      {store.quizScore && (
+        <div>
+          <h2>Your Answers Breakdown</h2>
+          <Table bordered hover>
+            <thead>
+              <tr>
+                <th>Your Answer</th>
+                <th>Correct Answer</th>
+              </tr>
+            </thead>
+            <tbody>
+              {createAnswerGuide(store.creatorAnswers, store.takerAnswers).map(
+                (answer, index) => (
+                  <tr
+                    key={index}
+                    className={answer.correct ? "bg-success" : "bg-danger"}
+                  >
+                    <td>{answer.taker}</td>
+                    <td>{answer.creator}</td>
+                  </tr>
+                )
+              )}
+            </tbody>
+          </Table>
+        </div>
+      )}
+
       <h2>Leaderboard</h2>
       <Table striped bordered hover>
         <thead>

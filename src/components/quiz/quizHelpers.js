@@ -9,7 +9,22 @@ export const gradeQuiz = (creatorAnswers, takerAnswers) => {
 
   score = (countCorrect / quizLength) * 100;
 
-  return score;
+  return String(score);
+};
+
+export const createAnswerGuide = (creatorAnswers, takerAnswers) => {
+  const quizLength = takerAnswers.length;
+  let answerGuide = [];
+
+  for (let i = 0; i < quizLength; i++) {
+    answerGuide.push({
+      creator: creatorAnswers[i].answer,
+      taker: takerAnswers[i].answer,
+      correct: creatorAnswers[i].answer === takerAnswers[i].answer
+    });
+  }
+
+  return answerGuide;
 };
 
 export const getQuizScoreFromLocalStorage = quizID => {

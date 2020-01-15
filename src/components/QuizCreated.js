@@ -1,16 +1,6 @@
 import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { Button } from "react-bootstrap";
-import {
-  EmailShareButton,
-  EmailIcon,
-  FacebookShareButton,
-  FacebookIcon,
-  TwitterShareButton,
-  TwitterIcon,
-  WhatsappShareButton,
-  WhatsappIcon
-} from "react-share";
 import { Context } from "../store";
 import DisplayShare from "./DisplayShare";
 

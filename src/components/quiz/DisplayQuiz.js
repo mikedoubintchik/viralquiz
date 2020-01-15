@@ -5,11 +5,9 @@ import {
   Container,
   Row,
   Col,
-  Image,
   ButtonToolbar,
   Button,
-  Card,
-  Form
+  Card
 } from "react-bootstrap";
 import Loader from "react-loader-spinner";
 import { gradeQuiz } from "./quizHelpers";
@@ -128,14 +126,12 @@ const DisplayQuiz = props => {
   };
 
   const submitQuiz = async creatorAnswers => {
-    // build quiz data
-    const quizData = {
-      quizID: store.quizID,
-      userID: store.userID,
-      quizName: `How Well Do You Know ${store.userName}?`,
-      questions: store.questions,
-      creatorAnswers: store.creatorAnswers
-    };
+    const quizName = `How Well Do You Know ${store.userName}?`;
+    // update quiz name in global store
+    dispatch({
+      type: "updateQuizName",
+      quizName
+    });
 
     if (creatingQuiz) {
       setLoader(true);
@@ -146,6 +142,22 @@ const DisplayQuiz = props => {
         questionIndex: questionResponse.question,
         answer: questionResponse.answer
       });
+
+      // build quiz data
+      const quizData = {
+        quizID: store.quizID,
+        userID: store.userID,
+        quizName,
+        questions: store.questions,
+        creatorAnswers: [
+          ...store.creatorAnswers,
+          {
+            question: questionResponse.question,
+            answer: questionResponse.answer
+          }
+        ],
+        leaderboard: []
+      };
 
       // save quiz to database
       const user = await db
@@ -162,7 +174,9 @@ const DisplayQuiz = props => {
       // update database record for user with new quiz
       db.collection("users")
         .doc(store.userID)
-        .update({ quizzes: JSON.stringify(quizzes) });
+        .update({
+          quizzes: JSON.stringify(quizzes)
+        });
 
       // add quiz to database
       db.collection("quizzes")
@@ -192,8 +206,6 @@ const DisplayQuiz = props => {
         }
       ];
 
-      console.log("TCL: allAnswers", allAnswers);
-
       // grade quiz
       const quizScore = gradeQuiz(store.creatorAnswers, allAnswers);
 
@@ -207,9 +219,17 @@ const DisplayQuiz = props => {
       let viralQuizzes = JSON.parse(localStorage.getItem("viralQuizzes"));
 
       if (viralQuizzes) {
-        viralQuizzes.push({ quizID: store.quizID, quizScore });
+        viralQuizzes.push({
+          quizID: store.quizID,
+          quizScore
+        });
       } else {
-        viralQuizzes = [{ quizID: store.quizID, quizScore }];
+        viralQuizzes = [
+          {
+            quizID: store.quizID,
+            quizScore
+          }
+        ];
       }
 
       localStorage.setItem("viralQuizzes", JSON.stringify(viralQuizzes));
@@ -221,17 +241,20 @@ const DisplayQuiz = props => {
         .get();
 
       // get leaderboard for quiz
-      const leaderboard = quiz.data()
-        ? JSON.parse(quiz.data().leaderboard)
-        : [];
+      const leaderboard = quiz.data() ? quiz.data().leaderboard : [];
 
       // add quiz score to leaderboard
-      leaderboard.push({ name: store.userName, quizScore });
+      leaderboard.push({
+        name: store.userName,
+        quizScore
+      });
 
       // update database record for quiz with new leaderboard
       db.collection("quizzes")
         .doc(store.quizID)
-        .update({ leaderboard: JSON.stringify(leaderboard) });
+        .update({
+          leaderboard
+        });
 
       // redirect to results
       history.push(`/results/${store.quizID}`);

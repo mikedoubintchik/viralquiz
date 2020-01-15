@@ -49,6 +49,7 @@ const RegisterUser = props => {
       });
   }
 
+  // if test is already taken redirect to results
   if (quizID && testAlreadyTaken) history.push(`/results/${quizID}`);
 
   const handleSubmit = async event => {
@@ -148,7 +149,7 @@ const RegisterUser = props => {
         </Form>
       )}
 
-      {<DisplayQuizResults takingQuiz={true} />}
+      {!loader && !creatingQuiz && <DisplayQuizResults takingQuiz={true} />}
 
       {loader && (
         <Loader
