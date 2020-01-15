@@ -25,7 +25,12 @@ const DisplayQuizResults = props => {
         .doc(quizID)
         .get();
 
-      const leaderboard = quiz.data().leaderboard;
+      const quizData = quiz.data();
+
+      // if no quizData, redirect to home page
+      if (!quizData) history.push("/");
+
+      const leaderboard = quiz.Data.leaderboard;
 
       setData(leaderboard);
 
@@ -35,7 +40,7 @@ const DisplayQuizResults = props => {
       });
     }
     fetchData();
-  }, [dispatch, quizID]);
+  }, [dispatch, history, quizID]);
 
   return (
     <>
