@@ -17,19 +17,19 @@ function App() {
   return (
     <Context.Provider value={{ store, dispatch }}>
       <div className="App">
+        <Navbar bg="light" variant="light" className="mb-4">
+          <Navbar.Brand href="/" className="mr-4">
+            <img
+              alt=""
+              src={logo}
+              width="30"
+              height="30"
+              className="d-inline-block align-top mr-4"
+            />{" "}
+            {store.quizName}
+          </Navbar.Brand>
+        </Navbar>
         <Container>
-          <Navbar bg="dark" variant="dark" className="mb-4">
-            <Navbar.Brand href="/">
-              <img
-                alt=""
-                src={logo}
-                width="30"
-                height="30"
-                className="d-inline-block align-top"
-              />{" "}
-              {store.quizName}
-            </Navbar.Brand>
-          </Navbar>
           <Row>
             <Col>
               <Router>
