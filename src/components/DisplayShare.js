@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "react-bootstrap";
 import {
   EmailShareButton,
   EmailIcon,
@@ -9,6 +10,7 @@ import {
   WhatsappShareButton,
   WhatsappIcon
 } from "react-share";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 const DisplayShare = props => {
   return (
@@ -43,6 +45,12 @@ const DisplayShare = props => {
       >
         <EmailIcon size={32} round />
       </EmailShareButton>
+
+      <CopyToClipboard text={props.url}>
+        <Button variant="primary" size="sm">
+          Copy Quiz URL
+        </Button>
+      </CopyToClipboard>
     </div>
   );
 };
