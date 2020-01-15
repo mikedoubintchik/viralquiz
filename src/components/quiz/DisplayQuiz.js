@@ -74,7 +74,7 @@ const DisplayQuiz = props => {
               setQuestionResponse({ question: questionIndex, answer: index });
             }}
           >
-            <Card.Img variant="top" src="http://placekitten.com/200/100" />
+            {/* <Card.Img variant="top" src="http://placekitten.com/200/100" /> */}
             <Card.Body>
               <Card.Title>{answer}</Card.Title>
             </Card.Body>
