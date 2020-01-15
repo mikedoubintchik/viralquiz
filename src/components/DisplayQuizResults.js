@@ -4,11 +4,12 @@ import { Table, Button } from "react-bootstrap";
 import { getQuizScoreFromLocalStorage } from "./quiz/quizHelpers";
 import firebase from "../firestore";
 import { Context } from "../store";
+import DisplayShare from "./DisplayShare";
 
 const db = firebase.firestore();
 
 const DisplayQuizResults = props => {
-  const { dispatch } = useContext(Context);
+  const { store, dispatch } = useContext(Context);
 
   let history = useHistory();
   const { quizID } = useParams();
@@ -40,6 +41,14 @@ const DisplayQuizResults = props => {
           You got <strong>{getQuizScoreFromLocalStorage(quizID)}%</strong>
         </h2>
       )}
+      <DisplayShare url={window.location.href} quizName={store.quizName} />
+      <Button
+        className="mb-4"
+        variant="outline-success"
+        onClick={() => history.push("/")}
+      >
+        Create Your Own Quiz
+      </Button>
       <h2>Leaderboard</h2>
       <Table striped bordered hover>
         <thead>
@@ -57,9 +66,6 @@ const DisplayQuizResults = props => {
           ))}
         </tbody>
       </Table>
-      <Button variant="outline-success" onClick={() => history.push("/")}>
-        Create Your Own Quiz
-      </Button>
     </>
   );
 };

@@ -11,7 +11,6 @@ import {
   Card,
   Form
 } from "react-bootstrap";
-import Timeout from "await-timeout";
 import Loader from "react-loader-spinner";
 import { gradeQuiz } from "./quizHelpers";
 import firebase from "../../firestore";
