@@ -64,22 +64,26 @@ const DisplayQuizResults = props => {
           <Table bordered hover>
             <thead>
               <tr>
+                <th>Question</th>
                 <th>Your Answer</th>
                 <th>Correct Answer</th>
               </tr>
             </thead>
             <tbody>
-              {createAnswerGuide(store.creatorAnswers, store.takerAnswers).map(
-                (answer, index) => (
-                  <tr
-                    key={index}
-                    className={answer.correct ? "bg-success" : "bg-danger"}
-                  >
-                    <td>{answer.taker}</td>
-                    <td>{answer.creator}</td>
-                  </tr>
-                )
-              )}
+              {createAnswerGuide(
+                store.questions,
+                store.creatorAnswers,
+                store.takerAnswers
+              ).map((data, index) => (
+                <tr
+                  key={index}
+                  className={data.correct ? "bg-success" : "bg-danger"}
+                >
+                  <td>{data.question}</td>
+                  <td>{data.taker}</td>
+                  <td>{data.creator}</td>
+                </tr>
+              ))}
             </tbody>
           </Table>
         </div>

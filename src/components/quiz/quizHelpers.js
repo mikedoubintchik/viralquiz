@@ -12,14 +12,15 @@ export const gradeQuiz = (creatorAnswers, takerAnswers) => {
   return String(score);
 };
 
-export const createAnswerGuide = (creatorAnswers, takerAnswers) => {
+export const createAnswerGuide = (questions, creatorAnswers, takerAnswers) => {
   const quizLength = takerAnswers.length;
   let answerGuide = [];
 
   for (let i = 0; i < quizLength; i++) {
     answerGuide.push({
-      creator: creatorAnswers[i].answer,
-      taker: takerAnswers[i].answer,
+      question: questions[i].question,
+      creator: questions[i].answers[creatorAnswers[i].answer],
+      taker: questions[i].answers[takerAnswers[i].answer],
       correct: creatorAnswers[i].answer === takerAnswers[i].answer
     });
   }
