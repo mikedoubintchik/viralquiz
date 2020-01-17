@@ -16,7 +16,7 @@ const DisplayShare = props => {
   const url = `${window.location.origin}/${props.quizID}`;
 
   return (
-    <div className="d-flex mb-4 w-50 justify-content-between">
+    <div className="share d-flex mb-4 justify-content-between">
       <FacebookShareButton url={url} quote={props.quizName} className="p-2">
         <FacebookIcon size={32} round />
       </FacebookShareButton>

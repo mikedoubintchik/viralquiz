@@ -18,3 +18,9 @@ $body-bg: #fff;
     }
   }
 }
+
+.share {
+  @media (min-width: 992px) {
+    width: 50%;
+  }
+}
