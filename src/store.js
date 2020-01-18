@@ -24,6 +24,10 @@ export const reducer = (state, action) => {
         takerAnswers: [],
         activeQuestionIndex: 0
       };
+    case "addCustomAnswer":
+      const questions = state.questions;
+      questions[action.questionIndex].answers.push(action.answer);
+      return { ...state, questions };
     case "addQuestion":
       return { ...state, questions: state.questions };
     case "createDefaultQuizQuestions":

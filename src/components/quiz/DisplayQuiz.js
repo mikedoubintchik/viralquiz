@@ -7,9 +7,12 @@ import {
   Col,
   ButtonToolbar,
   Button,
-  Card
+  Card,
+  Modal,
+  Form
 } from "react-bootstrap";
 import Loader from "react-loader-spinner";
+import AddAnswer from "../modals/AddAnswer";
 import { gradeQuiz } from "./quizHelpers";
 import firebase from "../../firestore";
 
@@ -18,6 +21,9 @@ const db = firebase.firestore();
 const DisplayQuiz = props => {
   const { store, dispatch } = useContext(Context);
   const [loader, setLoader] = useState(false);
+  const [validated, setValidated] = useState(false);
+  const [answer, setAnswer] = useState("");
+  const [show, setShow] = useState(false);
   const [questionResponse, setQuestionResponse] = useState({});
   let history = useHistory();
   const takingQuiz = useRouteMatch("/:quizID").isExact;
@@ -96,10 +102,49 @@ const DisplayQuiz = props => {
           <h1>{question.question}</h1>
           <Container>
             <Row>{generateAnswersHTML(question.answers, index)}</Row>
+            <Row>
+              <Button onClick={() => showAnswerModal(index)}>Add Answer</Button>
+            </Row>
           </Container>
         </div>
       );
     });
+  };
+
+  const showAnswerModal = questionIndex => {
+    // show modal
+    setShow(true);
+  };
+
+  const closeAnswerModal = async event => {
+    const form = event.currentTarget;
+    event.preventDefault();
+    event.stopPropagation();
+    setValidated(true);
+
+    // if all values in form are valid
+    if (form.checkValidity() === true) {
+      // hide modal and show loader
+      setShow(false);
+      setLoader(true);
+
+      dispatch({
+        type: "addCustomAnswer",
+        questionIndex: store.activeQuestionIndex,
+        answer: answer
+      });
+    }
+
+    // reset answer, validation, hide loader
+    setAnswer("");
+    setValidated(false);
+    setLoader(false);
+  };
+
+  const handlePrev = () => {
+    // reset local state answer tracker
+    setQuestionResponse({});
+    dispatch({ type: "decrementActiveQuestion" });
   };
 
   const handleNext = () => {
@@ -273,20 +318,17 @@ const DisplayQuiz = props => {
               onClick={() => dispatch({ type: "reset" })}
             >
               Reset
-            </Button> */}
-            {/* <Button
-              variant="outline-primary"
-              onClick={() => dispatch({ type: "decrementActiveQuestion" })}
-            >
+            </Button>
+            <Button variant="outline-primary" onClick={handlePrev}>
               Previous
-            </Button> */}
+            </Button>*/}
             {store.activeQuestionIndex < store.questions.length - 1 && (
-              <Button variant="outline-secondary" onClick={() => handleNext()}>
+              <Button variant="outline-secondary" onClick={handleNext}>
                 Next
               </Button>
             )}
             {store.activeQuestionIndex === store.questions.length - 1 && (
-              <Button variant="outline-success" onClick={() => submitQuiz()}>
+              <Button variant="outline-success" onClick={submitQuiz}>
                 Submit
               </Button>
             )}
@@ -303,6 +345,14 @@ const DisplayQuiz = props => {
           timeout={3000} //3 secs
         />
       )}
+
+      <AddAnswer
+        answer={answer}
+        setAnswer={setAnswer}
+        validated={validated}
+        show={show}
+        closeAnswerModal={closeAnswerModal}
+      />
     </>
   );
 };
