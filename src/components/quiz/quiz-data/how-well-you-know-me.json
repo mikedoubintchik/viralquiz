@@ -33,7 +33,7 @@
       "answers": ["Democrats", "Republicans", "Libertarians", "They All Suck"]
     },
     {
-      "question": "What are my pet peeves?",
+      "question": "What is my biggest pet peeve?",
       "answers": [
         "Noisy Eaters",
         "Slow Internet Connection",
@@ -45,18 +45,34 @@
       "question": "What's my favorite alcohol?",
       "answers": ["Beer", "Wine", "Liquor", "Cocktails", "I Don't Drink"]
     },
-    { "question": "", "answers": ["", ""] },
     {
-      "question": "",
-      "answers": ["", ""]
+      "question": "What month is my birthday?",
+      "answers": [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+      ]
     },
     {
       "question": "",
-      "answers": ["", ""]
+      "answers": []
     },
     {
       "question": "",
-      "answers": ["", ""]
+      "answers": []
+    },
+    {
+      "question": "",
+      "answers": []
     }
   ]
 }
