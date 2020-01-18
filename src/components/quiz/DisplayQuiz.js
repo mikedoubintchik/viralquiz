@@ -15,6 +15,7 @@ import Loader from "react-loader-spinner";
 import AddAnswer from "../modals/AddAnswer";
 import { gradeQuiz } from "./quizHelpers";
 import firebase from "../../firestore";
+import QuizTracker from "../QuizTracker";
 
 const db = firebase.firestore();
 
@@ -310,6 +311,8 @@ const DisplayQuiz = props => {
     <>
       {!loader && (
         <>
+          <QuizTracker />
+
           <div>{generateQuestionsHTML(store.questions)}</div>
 
           <ButtonToolbar className="mt-4 d-flex justify-content-between">

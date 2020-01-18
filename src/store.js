@@ -72,6 +72,12 @@ export const reducer = (state, action) => {
           { question: action.questionIndex, answer: action.answer }
         ]
       };
+    case "setActiveQuestion":
+      return {
+        ...state,
+        activeQuestionIndex: action.questionIndex
+      };
+
     case "incrementActiveQuestion":
       return {
         ...state,
