@@ -33,11 +33,9 @@ const QuizTracker = () => {
   }
 
   return (
-    <>
-      <ButtonToolbar>
-        <ButtonGroup className="w-100">{questionButtons}</ButtonGroup>
-      </ButtonToolbar>
-    </>
+    <ButtonToolbar className="mb-4">
+      <ButtonGroup className="w-100">{questionButtons}</ButtonGroup>
+    </ButtonToolbar>
   );
 };
 
