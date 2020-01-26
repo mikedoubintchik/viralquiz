@@ -4,7 +4,7 @@ export const gradeQuiz = (creatorAnswers, takerAnswers) => {
   let score = 0;
 
   for (let i = 0; i < quizLength; i++) {
-    if (creatorAnswers[i].answer === takerAnswers[i].answer) countCorrect++;
+    if (creatorAnswers[i].answer === takerAnswers[i]) countCorrect++;
   }
 
   score = (countCorrect / quizLength) * 100;
