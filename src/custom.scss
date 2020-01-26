@@ -11,10 +11,16 @@ $body-bg: #fff;
   .answer {
     cursor: pointer;
 
-    &.active {
+    &.selected,
+    &.selected.answered {
       background: green;
       color: #fff;
       border: 2px solid green;
+    }
+
+    &.answered {
+      background: lightgreen;
+      border: 2px solid lightgreen;
     }
   }
 }

@@ -75,10 +75,13 @@ const DisplayQuiz = props => {
         <Col key={index} xs={6} md={4}>
           <Card
             className={`answer text-center mb-4${
-              index === questionResponse.answer ? " active" : ""
-            }`}
+              index === questionResponse.answer ? " selected" : ""
+            }${index === store.takerAnswers[questionIndex] ? " answered" : ""}`}
             onClick={() => {
-              setQuestionResponse({ question: questionIndex, answer: index });
+              setQuestionResponse({
+                question: questionIndex,
+                answer: index
+              });
             }}
           >
             {/* <Card.Img variant="top" src="http://placekitten.com/200/100" /> */}
@@ -308,7 +311,7 @@ const DisplayQuiz = props => {
     <>
       {!loader && (
         <>
-          <QuizTracker />
+          <QuizTracker setQuestionResponse={setQuestionResponse} />
 
           <div>{generateQuestionsHTML(store.questions)}</div>
 

@@ -12,7 +12,7 @@ import {
 } from "react-bootstrap";
 import { Context } from "../store";
 
-const QuizTracker = () => {
+const QuizTracker = props => {
   const { store, dispatch } = useContext(Context);
   const questionsCount = store.questions.length;
 
@@ -23,9 +23,10 @@ const QuizTracker = () => {
       <Button
         key={i}
         variant={store.activeQuestionIndex === i - 1 ? "success" : "primary"}
-        onClick={() =>
-          dispatch({ type: "setActiveQuestion", questionIndex: i - 1 })
-        }
+        onClick={() => {
+          props.setQuestionResponse({});
+          dispatch({ type: "setActiveQuestion", questionIndex: i - 1 });
+        }}
       >
         {i}
       </Button>
