@@ -108,9 +108,9 @@ const DisplayQuiz = props => {
           }`}
         >
           <h1>{question.question}</h1>
+          <Row>{generateAnswersHTML(question.answers, index)}</Row>
           <Container>
-            <Row>{generateAnswersHTML(question.answers, index)}</Row>
-            <Row>
+            <Row className="justify-content-end">
               <Button onClick={() => showAnswerModal(index)}>Add Answer</Button>
             </Row>
           </Container>
@@ -129,20 +129,21 @@ const DisplayQuiz = props => {
     setShowQuestion(true);
   };
 
-  const closeAnswerModal = () => {
+  const closeModal = type => {
     // reset answer, reset validation, hide loader, hide modal
-    setAnswer("");
-    setValidatedAnswer(false);
     setLoader(false);
-    setShowAnswer(false);
-  };
 
-  const closeQuestionModal = () => {
-    // reset question, reset validation, hide loader, hide modal
-    setQuestion("");
-    setValidatedQuestion(false);
-    setLoader(false);
-    setShowQuestion(false);
+    if (type === "answer") {
+      setAnswer("");
+      setValidatedAnswer(false);
+      setShowAnswer(false);
+    }
+
+    if (type === "question") {
+      setQuestion("");
+      setValidatedQuestion(false);
+      setShowQuestion(false);
+    }
   };
 
   const submitAnswerModal = async event => {
@@ -160,7 +161,7 @@ const DisplayQuiz = props => {
       dispatch({
         type: "addCustomAnswer",
         questionIndex: store.activeQuestionIndex,
-        answer: answer
+        answer
       });
 
       // reset answer, reset validation, hide loader
@@ -182,11 +183,10 @@ const DisplayQuiz = props => {
       setShowQuestion(false);
       setLoader(true);
 
-      // add question to global store
       dispatch({
         type: "addQuestion",
-        questionIndex: store.questions.length,
-        question: question
+        questionIndex: store.activeQuestionIndex,
+        question
       });
 
       // update active question
@@ -194,12 +194,12 @@ const DisplayQuiz = props => {
         type: "setActiveQuestion",
         questionIndex: store.questions.length - 1
       });
-    }
 
-    // reset question, validation, hide loader
-    setQuestion("");
-    setValidatedQuestion(false);
-    setLoader(false);
+      // reset question, reset validation, hide loader
+      setQuestion("");
+      setValidatedQuestion(false);
+      setLoader(false);
+    }
   };
 
   const handlePrev = () => {
@@ -370,9 +370,15 @@ const DisplayQuiz = props => {
         <>
           <QuizTracker setQuestionResponse={setQuestionResponse} />
 
-          <div>{generateQuestionsHTML(store.questions)}</div>
+          <Container>
+            <Row className="justify-content-end">
+              <Button onClick={showQuestionModal}>Add Question</Button>
+            </Row>
+          </Container>
 
-          <ButtonToolbar className="mt-4 d-flex justify-content-between">
+          <div className="mt-4">{generateQuestionsHTML(store.questions)}</div>
+
+          <ButtonToolbar className="mt-4 justify-content-end">
             {/*  <Button
               variant="outline-danger"
               onClick={() => {
@@ -387,10 +393,9 @@ const DisplayQuiz = props => {
             </Button>*/}
             {store.activeQuestionIndex < store.questions.length - 1 && (
               <Button variant="outline-secondary" onClick={handleNext}>
-                Next
+                Next Question
               </Button>
             )}
-            <Button onClick={showQuestionModal}>Add Question</Button>
             {store.activeQuestionIndex === store.questions.length - 1 && (
               <Button variant="outline-success" onClick={submitQuiz}>
                 Submit
@@ -416,7 +421,7 @@ const DisplayQuiz = props => {
         validated={validatedQuestion}
         show={showQuestion}
         submitQuestionModal={submitQuestionModal}
-        closeQuestionModal={closeQuestionModal}
+        closeModal={closeModal}
       />
 
       <AddAnswer
@@ -425,7 +430,7 @@ const DisplayQuiz = props => {
         validated={validatedAnswer}
         show={showAnswer}
         submitAnswerModal={submitAnswerModal}
-        closeAnswerModal={closeAnswerModal}
+        closeModal={closeModal}
       />
     </>
   );

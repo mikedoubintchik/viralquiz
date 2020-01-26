@@ -5,7 +5,7 @@ const AddAnswer = props => {
   // Props are coming from DisplayQuiz component
   const {
     show,
-    closeAnswerModal,
+    closeModal,
     submitAnswerModal,
     validated,
     answer,
@@ -13,7 +13,7 @@ const AddAnswer = props => {
   } = props;
 
   return (
-    <Modal show={show} onHide={closeAnswerModal}>
+    <Modal show={show} onHide={() => closeModal("answer")}>
       <Form noValidate validated={validated} onSubmit={submitAnswerModal}>
         <Modal.Header closeButton>
           <Modal.Title>Add Custom Answer</Modal.Title>
@@ -33,7 +33,7 @@ const AddAnswer = props => {
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={closeAnswerModal}>
+          <Button variant="secondary" onClick={() => closeModal("answer")}>
             Close
           </Button>
           <Button variant="primary" type="submit">
