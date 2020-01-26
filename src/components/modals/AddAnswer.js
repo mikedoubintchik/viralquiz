@@ -3,11 +3,18 @@ import { Button, Modal, Form } from "react-bootstrap";
 
 const AddAnswer = props => {
   // Props are coming from DisplayQuiz component
-  const { show, closeAnswerModal, validated, answer, setAnswer } = props;
+  const {
+    show,
+    closeAnswerModal,
+    submitAnswerModal,
+    validated,
+    answer,
+    setAnswer
+  } = props;
 
   return (
     <Modal show={show} onHide={closeAnswerModal}>
-      <Form noValidate validated={validated} onSubmit={closeAnswerModal}>
+      <Form noValidate validated={validated} onSubmit={submitAnswerModal}>
         <Modal.Header closeButton>
           <Modal.Title>Add Custom Answer</Modal.Title>
         </Modal.Header>
@@ -20,6 +27,9 @@ const AddAnswer = props => {
               value={answer}
               onChange={e => setAnswer(e.target.value)}
             />
+            <Form.Control.Feedback type="invalid">
+              Answer cannot be blank
+            </Form.Control.Feedback>
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>

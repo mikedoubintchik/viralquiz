@@ -23,7 +23,8 @@ const db = firebase.firestore();
 const DisplayQuiz = props => {
   const { store, dispatch } = useContext(Context);
   const [loader, setLoader] = useState(false);
-  const [validated, setValidated] = useState(false);
+  const [validatedAnswer, setValidatedAnswer] = useState(false);
+  const [validatedQuestion, setValidatedQuestion] = useState(false);
   const [answer, setAnswer] = useState("");
   const [question, setQuestion] = useState("");
   const [showAnswer, setShowAnswer] = useState(false);
@@ -128,22 +129,27 @@ const DisplayQuiz = props => {
     setShowQuestion(true);
   };
 
-  const closeAnswerModal = async event => {
-    setValidated(true);
+  const closeAnswerModal = () => {
+    // reset answer, reset validation, hide loader, hide modal
+    setAnswer("");
+    setValidatedAnswer(false);
+    setLoader(false);
+    setShowAnswer(false);
+  };
 
-    if (!event) {
-      // reset answer, hide modal, reset validation
-      setAnswer("");
-      setShowAnswer(false);
-      setValidated(false);
+  const closeQuestionModal = () => {
+    // reset question, reset validation, hide loader, hide modal
+    setQuestion("");
+    setValidatedQuestion(false);
+    setLoader(false);
+    setShowQuestion(false);
+  };
 
-      return false;
-    }
-
+  const submitAnswerModal = async event => {
     const form = event.currentTarget;
     event.preventDefault();
     event.stopPropagation();
-    setValidated(true);
+    setValidatedAnswer(true);
 
     // if all values in form are valid
     if (form.checkValidity() === true) {
@@ -156,29 +162,19 @@ const DisplayQuiz = props => {
         questionIndex: store.activeQuestionIndex,
         answer: answer
       });
-    }
 
-    // reset answer, validation, hide loader
-    setAnswer("");
-    setValidated(false);
-    setLoader(false);
+      // reset answer, reset validation, hide loader
+      setAnswer("");
+      setValidatedAnswer(false);
+      setLoader(false);
+    }
   };
 
-  const closeQuestionModal = async event => {
-    setValidated(true);
-
-    if (!event) {
-      // reset question, hide modal, reset validation
-      setShowQuestion(false);
-      setQuestion("");
-      setValidated(false);
-
-      return false;
-    }
-
+  const submitQuestionModal = async event => {
     const form = event.currentTarget;
     event.preventDefault();
     event.stopPropagation();
+    setValidatedQuestion(true);
 
     // if all values in form are valid
     if (form.checkValidity() === true) {
@@ -186,20 +182,23 @@ const DisplayQuiz = props => {
       setShowQuestion(false);
       setLoader(true);
 
+      // add question to global store
       dispatch({
         type: "addQuestion",
         questionIndex: store.questions.length,
         question: question
       });
+
+      // update active question
+      dispatch({
+        type: "setActiveQuestion",
+        questionIndex: store.questions.length - 1
+      });
     }
 
-    // reset answer, validation, hide loader
-    dispatch({
-      type: "setActiveQuestion",
-      questionIndex: store.questions.length - 1
-    });
+    // reset question, validation, hide loader
     setQuestion("");
-    setValidated(false);
+    setValidatedQuestion(false);
     setLoader(false);
   };
 
@@ -414,16 +413,18 @@ const DisplayQuiz = props => {
       <AddQuestion
         question={question}
         setQuestion={setQuestion}
-        validated={validated}
+        validated={validatedQuestion}
         show={showQuestion}
+        submitQuestionModal={submitQuestionModal}
         closeQuestionModal={closeQuestionModal}
       />
 
       <AddAnswer
         answer={answer}
         setAnswer={setAnswer}
-        validated={validated}
+        validated={validatedAnswer}
         show={showAnswer}
+        submitAnswerModal={submitAnswerModal}
         closeAnswerModal={closeAnswerModal}
       />
     </>
