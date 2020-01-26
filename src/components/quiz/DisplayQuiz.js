@@ -13,6 +13,7 @@ import {
 } from "react-bootstrap";
 import Loader from "react-loader-spinner";
 import AddAnswer from "../modals/AddAnswer";
+import AddQuestion from "../modals/AddQuestion";
 import { gradeQuiz } from "./quizHelpers";
 import firebase from "../../firestore";
 import QuizTracker from "../QuizTracker";
@@ -24,7 +25,9 @@ const DisplayQuiz = props => {
   const [loader, setLoader] = useState(false);
   const [validated, setValidated] = useState(false);
   const [answer, setAnswer] = useState("");
-  const [show, setShow] = useState(false);
+  const [question, setQuestion] = useState("");
+  const [showAnswer, setShowAnswer] = useState(false);
+  const [showQuestion, setShowQuestion] = useState(false);
   const [questionResponse, setQuestionResponse] = useState({});
   let history = useHistory();
   const takingQuiz = useRouteMatch("/:quizID").isExact;
@@ -117,10 +120,26 @@ const DisplayQuiz = props => {
 
   const showAnswerModal = questionIndex => {
     // show modal
-    setShow(true);
+    setShowAnswer(true);
+  };
+
+  const showQuestionModal = () => {
+    // show modal
+    setShowQuestion(true);
   };
 
   const closeAnswerModal = async event => {
+    setValidated(true);
+
+    if (!event) {
+      // reset answer, hide modal, reset validation
+      setAnswer("");
+      setShowAnswer(false);
+      setValidated(false);
+
+      return false;
+    }
+
     const form = event.currentTarget;
     event.preventDefault();
     event.stopPropagation();
@@ -129,7 +148,7 @@ const DisplayQuiz = props => {
     // if all values in form are valid
     if (form.checkValidity() === true) {
       // hide modal and show loader
-      setShow(false);
+      setShowAnswer(false);
       setLoader(true);
 
       dispatch({
@@ -141,6 +160,45 @@ const DisplayQuiz = props => {
 
     // reset answer, validation, hide loader
     setAnswer("");
+    setValidated(false);
+    setLoader(false);
+  };
+
+  const closeQuestionModal = async event => {
+    setValidated(true);
+
+    if (!event) {
+      // reset question, hide modal, reset validation
+      setShowQuestion(false);
+      setQuestion("");
+      setValidated(false);
+
+      return false;
+    }
+
+    const form = event.currentTarget;
+    event.preventDefault();
+    event.stopPropagation();
+
+    // if all values in form are valid
+    if (form.checkValidity() === true) {
+      // hide modal and show loader
+      setShowQuestion(false);
+      setLoader(true);
+
+      dispatch({
+        type: "addQuestion",
+        questionIndex: store.questions.length,
+        question: question
+      });
+    }
+
+    // reset answer, validation, hide loader
+    dispatch({
+      type: "setActiveQuestion",
+      questionIndex: store.questions.length - 1
+    });
+    setQuestion("");
     setValidated(false);
     setLoader(false);
   };
@@ -316,9 +374,12 @@ const DisplayQuiz = props => {
           <div>{generateQuestionsHTML(store.questions)}</div>
 
           <ButtonToolbar className="mt-4 d-flex justify-content-between">
-            {/* <Button
+            {/*  <Button
               variant="outline-danger"
-              onClick={() => dispatch({ type: "reset" })}
+              onClick={() => {
+                // add are you sure modal?
+                // dispatch({ type: "reset" });
+              }}
             >
               Reset
             </Button>
@@ -330,6 +391,7 @@ const DisplayQuiz = props => {
                 Next
               </Button>
             )}
+            <Button onClick={showQuestionModal}>Add Question</Button>
             {store.activeQuestionIndex === store.questions.length - 1 && (
               <Button variant="outline-success" onClick={submitQuiz}>
                 Submit
@@ -349,11 +411,19 @@ const DisplayQuiz = props => {
         />
       )}
 
+      <AddQuestion
+        question={question}
+        setQuestion={setQuestion}
+        validated={validated}
+        show={showQuestion}
+        closeQuestionModal={closeQuestionModal}
+      />
+
       <AddAnswer
         answer={answer}
         setAnswer={setAnswer}
         validated={validated}
-        show={show}
+        show={showAnswer}
         closeAnswerModal={closeAnswerModal}
       />
     </>

@@ -15,6 +15,7 @@ export const initialState = {
 };
 
 export const reducer = (state, action) => {
+  const questions = state.questions;
   switch (action.type) {
     case "reset":
       return {
@@ -25,11 +26,11 @@ export const reducer = (state, action) => {
         activeQuestionIndex: 0
       };
     case "addCustomAnswer":
-      const questions = state.questions;
       questions[action.questionIndex].answers.push(action.answer);
       return { ...state, questions };
     case "addQuestion":
-      return { ...state, questions: state.questions };
+      questions.push({ answers: [], question: action.question });
+      return { ...state, questions };
     case "createDefaultQuizQuestions":
       return { ...state, questions: action.questions };
     case "updateQuizName":

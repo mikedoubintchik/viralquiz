@@ -27,7 +27,7 @@ const AddAnswer = props => {
             Close
           </Button>
           <Button variant="primary" type="submit">
-            Save Changes
+            Add
           </Button>
         </Modal.Footer>
       </Form>
