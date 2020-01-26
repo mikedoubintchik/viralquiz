@@ -244,13 +244,10 @@ const DisplayQuiz = props => {
       });
 
       // generate answers array with last answer
-      const allAnswers = [
+      const allAnswers = {
         ...store.takerAnswers,
-        {
-          question: questionResponse.question,
-          answer: questionResponse.answer
-        }
-      ];
+        [questionResponse.question]: questionResponse.answer
+      };
 
       // grade quiz
       const quizScore = gradeQuiz(store.creatorAnswers, allAnswers);
