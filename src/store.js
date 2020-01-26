@@ -67,10 +67,10 @@ export const reducer = (state, action) => {
     case "recordTakerAnswer":
       return {
         ...state,
-        takerAnswers: [
+        takerAnswers: {
           ...state.takerAnswers,
-          { question: action.questionIndex, answer: action.answer }
-        ]
+          [action.questionIndex]: action.answer
+        }
       };
     case "setActiveQuestion":
       return {
