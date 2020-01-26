@@ -108,12 +108,24 @@ const DisplayQuiz = props => {
           }`}
         >
           <h1>{question.question}</h1>
-          <Row>{generateAnswersHTML(question.answers, index)}</Row>
+
           <Container>
-            <Row className="justify-content-end">
-              <Button onClick={() => showAnswerModal(index)}>Add Answer</Button>
+            <Row className="justify-content-center">
+              {generateAnswersHTML(question.answers, index).length === 0 && (
+                <h4 className="">Add some answers</h4>
+              )}
             </Row>
           </Container>
+          <Row>{generateAnswersHTML(question.answers, index)}</Row>
+          {creatingQuiz && (
+            <Container>
+              <Row className="justify-content-end">
+                <Button onClick={() => showAnswerModal(index)}>
+                  Add Answer
+                </Button>
+              </Row>
+            </Container>
+          )}
         </div>
       );
     });
@@ -370,11 +382,13 @@ const DisplayQuiz = props => {
         <>
           <QuizTracker setQuestionResponse={setQuestionResponse} />
 
-          <Container>
-            <Row className="justify-content-end">
-              <Button onClick={showQuestionModal}>Add Question</Button>
-            </Row>
-          </Container>
+          {creatingQuiz && (
+            <Container>
+              <Row className="justify-content-end">
+                <Button onClick={showQuestionModal}>Add Question</Button>
+              </Row>
+            </Container>
+          )}
 
           <div className="mt-4">{generateQuestionsHTML(store.questions)}</div>
 
