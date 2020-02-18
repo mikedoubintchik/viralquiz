@@ -1,15 +1,5 @@
 import React, { useContext } from "react";
-import {
-  Container,
-  Row,
-  Col,
-  ButtonToolbar,
-  ButtonGroup,
-  Button,
-  Card,
-  Modal,
-  Form
-} from "react-bootstrap";
+import { ButtonToolbar, ButtonGroup, Button } from "react-bootstrap";
 import { Context } from "../store";
 
 const QuizTracker = props => {

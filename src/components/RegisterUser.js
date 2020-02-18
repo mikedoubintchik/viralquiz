@@ -3,7 +3,7 @@ import { Card, Col, Button, Form } from "react-bootstrap";
 import { Context } from "../store";
 import { useHistory, useParams } from "react-router-dom";
 import Loader from "react-loader-spinner";
-import { getQuizScoreFromLocalStorage, createQuiz } from "./quiz/quizHelpers";
+import { getQuizScoreFromLocalStorage, createQuiz } from "./quiz/quizHelpers"; // eslint-disable-line no-unused-vars
 import firebase from "../firestore";
 import DisplayQuizResults from "./DisplayQuizResults";
 

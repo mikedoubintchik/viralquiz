@@ -7,9 +7,7 @@ import {
   Col,
   ButtonToolbar,
   Button,
-  Card,
-  Modal,
-  Form
+  Card
 } from "react-bootstrap";
 import Loader from "react-loader-spinner";
 import AddAnswer from "../modals/AddAnswer";
