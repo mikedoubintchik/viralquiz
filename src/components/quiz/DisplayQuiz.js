@@ -35,7 +35,8 @@ const DisplayQuiz = props => {
   const creatingQuiz = props.create;
   const { quizID } = useParams();
 
-  // set quiz ID, if taking a quiz, check that there are no questions in global store to prevent infinite dispatch loop
+  // if taking a quiz, set quiz ID
+  // check that there are no questions in global store to prevent infinite dispatch loop
   if (takingQuiz && store.questions.length === 0) {
     db.collection("quizzes")
       .doc(quizID)
@@ -59,6 +60,7 @@ const DisplayQuiz = props => {
       });
   }
 
+  // if creating a quiz, get default questions from DB and populate global store
   if (creatingQuiz && store.questions.length === 0) {
     db.collection("quizOptions")
       .doc("HowWellDoYouKnowMe?")
@@ -81,12 +83,7 @@ const DisplayQuiz = props => {
             className={`answer text-center mb-4${
               index === questionResponse.answer ? " selected" : ""
             }${index === store.takerAnswers[questionIndex] ? " answered" : ""}`}
-            onClick={() => {
-              setQuestionResponse({
-                question: questionIndex,
-                answer: index
-              });
-            }}
+            onClick={() => recordAnswer(questionIndex, index)}
           >
             {/* <Card.Img variant="top" src="http://placekitten.com/200/100" /> */}
             <Card.Body>
@@ -223,24 +220,33 @@ const DisplayQuiz = props => {
   const handleNext = () => {
     // reset local state answer tracker
     setQuestionResponse({});
-
-    // if user is creating a quiz
-    if (creatingQuiz) {
-      dispatch({
-        type: "recordCreatorAnswer",
-        questionIndex: questionResponse.question,
-        answer: questionResponse.answer
-      });
-    }
-    // if user is taking a quiz
-    else {
-      dispatch({
-        type: "recordTakerAnswer",
-        questionIndex: questionResponse.question,
-        answer: questionResponse.answer
-      });
-    }
     dispatch({ type: "incrementActiveQuestion" });
+  };
+
+  const recordAnswer = (questionIndex, answer) => {
+    // save answer in local state
+    setQuestionResponse({
+      question: questionIndex,
+      answer
+    });
+
+    // store answer in global store
+    dispatch({
+      type: creatingQuiz ? "recordCreatorAnswer" : "recordTakerAnswer",
+      questionIndex,
+      answer
+    });
+
+    // after 1 second
+    setTimeout(() => {
+      // display next question
+      dispatch({
+        type: "incrementActiveQuestion"
+      });
+
+      // reset local state
+      setQuestionResponse({});
+    }, 1000);
   };
 
   const submitQuiz = async creatorAnswers => {
@@ -392,7 +398,7 @@ const DisplayQuiz = props => {
 
           <div className="mt-4">{generateQuestionsHTML(store.questions)}</div>
 
-          <ButtonToolbar className="mt-4 justify-content-end">
+          <ButtonToolbar className="mt-4 justify-content-between">
             {/*  <Button
               variant="outline-danger"
               onClick={() => {
@@ -401,16 +407,19 @@ const DisplayQuiz = props => {
               }}
             >
               Reset
-            </Button>
-            <Button variant="outline-primary" onClick={handlePrev}>
-              Previous
             </Button>*/}
+            {store.activeQuestionIndex > 0 && (
+              <Button variant="outline-primary" onClick={handlePrev}>
+                Previous
+              </Button>
+            )}
             {store.activeQuestionIndex < store.questions.length - 1 && (
               <Button variant="outline-secondary" onClick={handleNext}>
                 Next Question
               </Button>
             )}
-            {store.activeQuestionIndex === store.questions.length - 1 && (
+            {store.questions.length ===
+              Object.keys(store.takerAnswers).length && (
               <Button variant="outline-success" onClick={submitQuiz}>
                 Submit
               </Button>
