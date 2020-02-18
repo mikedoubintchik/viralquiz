@@ -9,10 +9,11 @@ import firebase from "../firestore";
 import { Context } from "../store";
 import DisplayShare from "./DisplayShare";
 import { Leaderboard } from "./quiz/Leaderboard";
+import { AnswerGuide } from "./quiz/AnswerGuide";
 
 const db = firebase.firestore();
 
-const DisplayQuizResults = props => {
+const DisplayQuizResults = ({ takingQuiz }) => {
   const { store, dispatch } = useContext(Context);
   let history = useHistory();
   const { quizID } = useParams();
@@ -45,7 +46,7 @@ const DisplayQuizResults = props => {
 
   return (
     <>
-      {!props.takingQuiz && (
+      {!takingQuiz && (
         <h2>
           You got <strong>{getQuizScoreFromLocalStorage(quizID)}%</strong>
         </h2>
@@ -58,36 +59,7 @@ const DisplayQuizResults = props => {
       >
         Create Your Own Quiz
       </Button>
-      {store.quizScore && (
-        <div>
-          <h2>Your Answers Breakdown</h2>
-          <Table bordered hover>
-            <thead>
-              <tr>
-                <th>Question</th>
-                <th>Your Answer</th>
-                <th>Correct Answer</th>
-              </tr>
-            </thead>
-            <tbody>
-              {createAnswerGuide(
-                store.questions,
-                store.creatorAnswers,
-                store.takerAnswers
-              ).map((data, index) => (
-                <tr
-                  key={index}
-                  className={data.correct ? "bg-success" : "bg-danger"}
-                >
-                  <td>{data.question}</td>
-                  <td>{data.taker}</td>
-                  <td>{data.creator}</td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-        </div>
-      )}
+      {store.quizScore && <AnswerGuide store={store} data={data} />}
       <Leaderboard data={data} />
     </>
   );
