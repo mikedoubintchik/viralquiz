@@ -2,7 +2,7 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 
 const config = {
-  apiKey: "AIzaSyB33nY1cip10MWGPM3WoJO6BMw7n25JC2s",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: "viral-quiz-b0207.firebaseapp.com",
   databaseURL: "https://viral-quiz-b0207.firebaseio.com",
   projectId: "viral-quiz-b0207",
