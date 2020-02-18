@@ -110,10 +110,9 @@ const RegisterUser = props => {
           validated={validated}
           onSubmit={handleSubmit}
         >
-          <Row>
+          <Form.Row>
             <Col>
               <Form.Group controlId="formBasicName">
-                <Form.Label>Name</Form.Label>
                 <Form.Control
                   required
                   type="text"
@@ -129,7 +128,6 @@ const RegisterUser = props => {
             {creatingQuiz && (
               <Col>
                 <Form.Group controlId="formBasicEmail">
-                  <Form.Label>Email address</Form.Label>
                   <Form.Control
                     required
                     type="email"
@@ -146,11 +144,13 @@ const RegisterUser = props => {
                 </Form.Group>
               </Col>
             )}
-          </Row>
 
-          <Button type="submit" variant="outline-success">
-            {creatingQuiz ? "Create Quiz" : "Take Quiz"}
-          </Button>
+            <Col>
+              <Button type="submit" variant="outline-success">
+                {creatingQuiz ? "Create Quiz" : "Take Quiz"}
+              </Button>
+            </Col>
+          </Form.Row>
         </Form>
       )}
 
