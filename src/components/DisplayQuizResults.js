@@ -1,10 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { Table, Button } from "react-bootstrap";
-import {
-  getQuizScoreFromLocalStorage,
-  createAnswerGuide
-} from "./quiz/quizHelpers";
+import { getQuizScoreFromLocalStorage } from "./quiz/quizHelpers";
 import firebase from "../firestore";
 import { Context } from "../store";
 import DisplayShare from "./DisplayShare";
@@ -51,15 +47,11 @@ const DisplayQuizResults = ({ takingQuiz }) => {
           You got <strong>{getQuizScoreFromLocalStorage(quizID)}%</strong>
         </h2>
       )}
+
       <DisplayShare quizID={quizID} quizName={store.quizName} />
-      <Button
-        className="mb-4"
-        variant="outline-success"
-        onClick={() => history.push("/")}
-      >
-        Create Your Own Quiz
-      </Button>
+
       {store.quizScore && <AnswerGuide store={store} data={data} />}
+
       <Leaderboard data={data} />
     </>
   );
