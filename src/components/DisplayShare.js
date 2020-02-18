@@ -17,7 +17,9 @@ const DisplayShare = ({ quizID, quizName }) => {
 
   return (
     <Card className="mb-4">
-      <Card.Header className="text-center">Share Quiz</Card.Header>
+      <Card.Header className="text-center">
+        <h3>Share Quiz</h3>
+      </Card.Header>
       <Card.Body>
         <div className="share d-flex flex-wrap justify-content-between">
           <FacebookShareButton url={url} quote={quizName} className="p-2">
