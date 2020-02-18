@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Col, Button, Form } from "react-bootstrap";
+import { Card, Col, Button, Form } from "react-bootstrap";
 import { Context } from "../store";
 import { useHistory, useParams } from "react-router-dom";
 import Loader from "react-loader-spinner";
@@ -92,54 +92,56 @@ const RegisterUser = props => {
   return (
     <>
       {!loader && (
-        <Form
-          className="mb-4"
-          noValidate
-          validated={validated}
-          onSubmit={handleSubmit}
-        >
-          <Form.Row>
-            <Col>
-              <Form.Group controlId="formBasicName">
-                <Form.Control
-                  required
-                  type="text"
-                  placeholder="Name"
-                  value={userName}
-                  onChange={e => setUserName(e.target.value)}
-                />
-                <Form.Control.Feedback type="invalid">
-                  Name is required
-                </Form.Control.Feedback>
-              </Form.Group>
-            </Col>
-            {creatingQuiz && (
-              <Col>
-                <Form.Group controlId="formBasicEmail">
-                  <Form.Control
-                    required
-                    type="email"
-                    placeholder="Enter email"
-                    value={userEmail}
-                    onChange={e => setUserEmail(e.target.value)}
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    Valid email is required
-                  </Form.Control.Feedback>
-                  <Form.Text className="text-muted">
-                    We'll never share your email with anyone else.
-                  </Form.Text>
-                </Form.Group>
-              </Col>
-            )}
+        <Card className="mb-4">
+          <Card.Header className="text-center">
+            <h3>{creatingQuiz ? "Create Quiz" : "Take Quiz"}</h3>
+          </Card.Header>
+          <Card.Body className="text-center">
+            <Form noValidate validated={validated} onSubmit={handleSubmit}>
+              <Form.Row>
+                <Col>
+                  <Form.Group controlId="formBasicName">
+                    <Form.Control
+                      required
+                      type="text"
+                      placeholder="Name"
+                      value={userName}
+                      onChange={e => setUserName(e.target.value)}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      Name is required
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                </Col>
+                {creatingQuiz && (
+                  <Col>
+                    <Form.Group controlId="formBasicEmail">
+                      <Form.Control
+                        required
+                        type="email"
+                        placeholder="Enter email"
+                        value={userEmail}
+                        onChange={e => setUserEmail(e.target.value)}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        Valid email is required
+                      </Form.Control.Feedback>
+                      <Form.Text className="text-muted">
+                        We'll never share your email with anyone else.
+                      </Form.Text>
+                    </Form.Group>
+                  </Col>
+                )}
 
-            <Col>
-              <Button type="submit" variant="outline-success">
-                {creatingQuiz ? "Create Quiz" : "Take Quiz"}
-              </Button>
-            </Col>
-          </Form.Row>
-        </Form>
+                <Col>
+                  <Button type="submit" variant="outline-success">
+                    {creatingQuiz ? "Create Quiz" : "Take Quiz"}
+                  </Button>
+                </Col>
+              </Form.Row>
+            </Form>
+          </Card.Body>
+        </Card>
       )}
 
       {!loader && !creatingQuiz && <DisplayQuizResults takingQuiz={true} />}
