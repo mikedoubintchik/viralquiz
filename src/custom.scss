@@ -1,6 +1,10 @@
 // Override default variables before the import
 $body-bg: #fff;
 
+.navbar-brand {
+  white-space: normal;
+}
+
 .question {
   display: none;
 

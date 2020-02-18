@@ -11,23 +11,29 @@ import DisplayQuiz from "./components/quiz/DisplayQuiz";
 import QuizCreated from "./components/QuizCreated";
 import DisplayQuizResults from "./components/DisplayQuizResults";
 
-function App() {
+const App = () => {
   const [store, dispatch] = useReducer(reducer, initialState);
 
   return (
     <Context.Provider value={{ store, dispatch }}>
       <div className="App">
-        <Navbar bg="light" variant="light" className="mb-4">
-          <Navbar.Brand href="/" className="mr-4">
+        <Navbar bg="light" variant="light" className="mb-4 flex-wrap">
+          <Navbar.Brand href="/" className="d-flex mr-auto">
             <img
               alt=""
               src={logo}
-              width="30"
-              height="30"
+              width="48"
+              height="48"
               className="d-inline-block align-top mr-4"
             />{" "}
-            {store.quizName}
+            <h1>{store.quizName}</h1>
           </Navbar.Brand>
+          <Button
+            variant="outline-success"
+            onClick={() => (window.location = "/")}
+          >
+            Create Your Own Quiz
+          </Button>
         </Navbar>
         <Container>
           <Row>
@@ -64,6 +70,6 @@ function App() {
       </div>
     </Context.Provider>
   );
-}
+};
 
 export default App;
