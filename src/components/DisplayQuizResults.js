@@ -8,6 +8,7 @@ import {
 import firebase from "../firestore";
 import { Context } from "../store";
 import DisplayShare from "./DisplayShare";
+import { Leaderboard } from "./quiz/Leaderboard";
 
 const db = firebase.firestore();
 
@@ -57,7 +58,6 @@ const DisplayQuizResults = props => {
       >
         Create Your Own Quiz
       </Button>
-
       {store.quizScore && (
         <div>
           <h2>Your Answers Breakdown</h2>
@@ -88,24 +88,7 @@ const DisplayQuizResults = props => {
           </Table>
         </div>
       )}
-
-      <h2>Leaderboard</h2>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Score</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((entry, index) => (
-            <tr key={index}>
-              <td>{entry.name}</td>
-              <td>{Math.round(entry.quizScore)}%</td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+      <Leaderboard data={data} />
     </>
   );
 };
