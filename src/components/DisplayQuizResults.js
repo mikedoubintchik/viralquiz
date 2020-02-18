@@ -6,6 +6,7 @@ import { Context } from "../store";
 import DisplayShare from "./DisplayShare";
 import { Leaderboard } from "./quiz/Leaderboard";
 import { AnswerGuide } from "./quiz/AnswerGuide";
+import { Card } from "react-bootstrap";
 
 const db = firebase.firestore();
 
@@ -43,16 +44,23 @@ const DisplayQuizResults = ({ takingQuiz }) => {
   return (
     <>
       {!takingQuiz && (
-        <h2>
-          You got <strong>{getQuizScoreFromLocalStorage(quizID)}%</strong>
-        </h2>
+        <Card className="text-center mb-4">
+          <Card.Header>
+            <h3>Quiz Results</h3>
+          </Card.Header>
+          <Card.Body>
+            <h2>
+              You got <strong>{getQuizScoreFromLocalStorage(quizID)}%</strong>
+            </h2>
+          </Card.Body>
+        </Card>
       )}
-
-      <DisplayShare quizID={quizID} quizName={store.quizName} />
 
       {store.quizScore && <AnswerGuide store={store} data={data} />}
 
       <Leaderboard data={data} />
+
+      <DisplayShare quizID={quizID} quizName={store.quizName} />
     </>
   );
 };
