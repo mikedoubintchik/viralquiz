@@ -1,27 +1,15 @@
 import React, { useState, useContext } from "react";
-import { Row, Col, Button, Form } from "react-bootstrap";
+import { Col, Button, Form } from "react-bootstrap";
 import { Context } from "../store";
 import { useHistory, useParams } from "react-router-dom";
 import Loader from "react-loader-spinner";
-
-import { getQuizScoreFromLocalStorage } from "./quiz/quizHelpers";
+import { getQuizScoreFromLocalStorage, createQuiz } from "./quiz/quizHelpers";
 import firebase from "../firestore";
-
-import quizData from "./quiz/quiz-data/how-well-you-know-me.json";
 import DisplayQuizResults from "./DisplayQuizResults";
 
 const db = firebase.firestore();
 
-const createQuiz = () => {
-  db.collection("quizOptions")
-    .doc("HowWellDoYouKnowMe?")
-    .update({
-      quizName: "How Well Do You Know Me?",
-      data: quizData
-    });
-};
-
-// createQuiz();
+// createQuiz(db);
 
 const RegisterUser = props => {
   const { store, dispatch } = useContext(Context);

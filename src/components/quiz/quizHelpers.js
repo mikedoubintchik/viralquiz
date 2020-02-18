@@ -1,3 +1,5 @@
+import quizData from "../quiz/quiz-data/how-well-you-know-me.json";
+
 export const gradeQuiz = (creatorAnswers, takerAnswers) => {
   const quizLength = creatorAnswers.length;
   let countCorrect = 0;
@@ -41,4 +43,13 @@ export const getQuizScoreFromLocalStorage = quizID => {
   }
 
   return String(quizScore);
+};
+
+export const createQuiz = db => {
+  db.collection("quizOptions")
+    .doc("HowWellDoYouKnowMe?")
+    .update({
+      quizName: "How Well Do You Know Me?",
+      data: quizData
+    });
 };
