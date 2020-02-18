@@ -101,7 +101,7 @@ const DisplayQuizResults = props => {
           {data.map((entry, index) => (
             <tr key={index}>
               <td>{entry.name}</td>
-              <td>{entry.quizScore}%</td>
+              <td>{Math.round(entry.quizScore)}%</td>
             </tr>
           ))}
         </tbody>
