@@ -28,6 +28,9 @@ export const reducer = (state, action) => {
     case "addCustomAnswer":
       questions[action.questionIndex].answers.push(action.answer);
       return { ...state, questions };
+    case "updateAnswerImage":
+      questions[action.questionIndex].images[action.answer] = action.image;
+      return { ...state, questions };
     case "addQuestion":
       questions.push({ answers: [], question: action.question });
       return { ...state, questions };

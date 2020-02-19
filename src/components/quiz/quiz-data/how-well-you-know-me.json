@@ -3,7 +3,8 @@
   "questions": [
     {
       "question": "What type of phone do I have?",
-      "answers": ["Android", "iPhone", "Blackberry", "Flip Phone"]
+      "answers": ["Android", "iPhone", "Blackberry", "Flip Phone"],
+      "images": {}
     },
     {
       "question": "What's my favorite movie genre?",
@@ -14,23 +15,28 @@
         "Romance",
         "Documentary",
         "Mystery"
-      ]
+      ],
+      "images": {}
     },
     {
       "question": "What is my favorite meal?",
-      "answers": ["Breakfast", "Brunch", "Lunch", "Dinner", "Late Night Snack"]
+      "answers": ["Breakfast", "Brunch", "Lunch", "Dinner", "Late Night Snack"],
+      "images": {}
     },
     {
       "question": "What is my favorite vacation destination?",
-      "answers": ["Beach", "Mountain", "City", "Theme Park", "Staycation"]
+      "answers": ["Beach", "Mountain", "City", "Theme Park", "Staycation"],
+      "images": {}
     },
     {
       "question": "How many siblings do I have?",
-      "answers": ["None", "1", "2", "3", "4+"]
+      "answers": ["None", "1", "2", "3", "4+"],
+      "images": {}
     },
     {
       "question": "What political party do I support?",
-      "answers": ["Democrats", "Republicans", "Libertarians", "They All Suck"]
+      "answers": ["Democrats", "Republicans", "Libertarians", "They All Suck"],
+      "images": {}
     },
     {
       "question": "What is my biggest pet peeve?",
@@ -39,11 +45,13 @@
         "Slow Internet Connection",
         "Bad Drivers",
         "People Talking During Movies"
-      ]
+      ],
+      "images": {}
     },
     {
       "question": "What's my favorite alcohol?",
-      "answers": ["Beer", "Wine", "Liquor", "Cocktails", "I Don't Drink"]
+      "answers": ["Beer", "Wine", "Liquor", "Cocktails", "I Don't Drink"],
+      "images": {}
     },
     {
       "question": "What month is my birthday?",
@@ -60,7 +68,8 @@
         "October",
         "November",
         "December"
-      ]
+      ],
+      "images": {}
     }
   ]
 }

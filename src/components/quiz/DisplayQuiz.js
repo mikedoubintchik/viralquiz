@@ -7,9 +7,11 @@ import {
   Col,
   ButtonToolbar,
   Button,
-  Card
+  Card,
+  Modal
 } from "react-bootstrap";
 import Loader from "react-loader-spinner";
+import Picker from "react-giphy-component";
 import AddAnswer from "../modals/AddAnswer";
 import AddQuestion from "../modals/AddQuestion";
 import { gradeQuiz } from "./quizHelpers";
@@ -24,10 +26,12 @@ const DisplayQuiz = props => {
   const [validatedAnswer, setValidatedAnswer] = useState(false);
   const [validatedQuestion, setValidatedQuestion] = useState(false);
   const [answer, setAnswer] = useState("");
+  const [activeAnswer, setActiveAnswer] = useState(null);
   const [question, setQuestion] = useState("");
   const [showAnswer, setShowAnswer] = useState(false);
   const [showQuestion, setShowQuestion] = useState(false);
   const [questionResponse, setQuestionResponse] = useState({});
+  const [showPicker, setShowPicker] = useState(false);
   let history = useHistory();
   const takingQuiz = useRouteMatch("/:quizID").isExact;
   const creatingQuiz = props.create;
@@ -73,18 +77,48 @@ const DisplayQuiz = props => {
       });
   }
 
+  const selectImage = gif => {
+    const image = gif.downsized_large.url;
+
+    // save image to global store
+    dispatch({
+      type: "updateAnswerImage",
+      questionIndex: store.activeQuestionIndex,
+      answer: activeAnswer,
+      image
+    });
+
+    setShowPicker(false);
+  };
+
   const generateAnswersHTML = (answers, questionIndex) => {
     return answers.map((answer, index) => {
+      const selected = index === questionResponse.answer ? " selected" : "";
+      const answered =
+        (takingQuiz && index === store.takerAnswers[questionIndex]) ||
+        (creatingQuiz && index === store.creatorAnswers[questionIndex])
+          ? " answered"
+          : "";
+
       return (
         <Col key={index} xs={6} md={4}>
-          <Card
-            className={`answer text-center mb-4${
-              index === questionResponse.answer ? " selected" : ""
-            }${index === store.takerAnswers[questionIndex] ? " answered" : ""}`}
-            onClick={() => recordAnswer(questionIndex, index)}
-          >
-            {/* <Card.Img variant="top" src="http://placekitten.com/200/100" /> */}
-            <Card.Body>
+          <Card className={`answer text-center mb-4${selected}${answered}`}>
+            <Card.Img
+              variant="top"
+              src={
+                store.questions[questionIndex].images[index]
+                  ? store.questions[questionIndex].images[index]
+                  : creatingQuiz
+                  ? "https://static.thenounproject.com/png/187803-200.png"
+                  : ""
+              }
+              onClick={() => {
+                setActiveAnswer(index);
+                setShowPicker(!showPicker);
+              }}
+            />
+
+            <Card.Body onClick={() => recordAnswer(questionIndex, index)}>
               <Card.Title>{answer}</Card.Title>
             </Card.Body>
           </Card>
@@ -432,6 +466,20 @@ const DisplayQuiz = props => {
           width={100}
           timeout={3000} //3 secs
         />
+      )}
+
+      {showPicker && (
+        <Modal show={true} onHide={() => setShowPicker(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title>Select a GIF</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Picker
+              apiKey="NeMyiU4oXyLBHnSQVpjCG65hfeqCTk6t"
+              onSelected={selectImage.bind(this)}
+            />
+          </Modal.Body>
+        </Modal>
       )}
 
       <AddQuestion
