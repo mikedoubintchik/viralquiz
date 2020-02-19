@@ -60,10 +60,10 @@ export const reducer = (state, action) => {
     case "recordCreatorAnswer":
       return {
         ...state,
-        creatorAnswers: [
+        creatorAnswers: {
           ...state.creatorAnswers,
-          { question: action.questionIndex, answer: action.answer }
-        ]
+          [action.questionIndex]: action.answer
+        }
       };
     case "recordTakerAnswer":
       return {

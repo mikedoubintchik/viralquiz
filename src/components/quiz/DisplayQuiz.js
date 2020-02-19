@@ -271,13 +271,9 @@ const DisplayQuiz = props => {
         userID: store.userID,
         quizName,
         questions: store.questions,
-        creatorAnswers: [
-          ...store.creatorAnswers,
-          {
-            question: questionResponse.question,
-            answer: questionResponse.answer
-          }
-        ],
+        creatorAnswers: {
+          ...store.creatorAnswers
+        },
         leaderboard: []
       };
 
@@ -416,8 +412,10 @@ const DisplayQuiz = props => {
                 Next Question
               </Button>
             )}
-            {store.questions.length ===
-              Object.keys(store.takerAnswers).length && (
+            {(store.questions.length ===
+              Object.keys(store.takerAnswers).length ||
+              store.questions.length ===
+                Object.keys(store.creatorAnswers).length) && (
               <Button variant="outline-success" onClick={submitQuiz}>
                 Submit
               </Button>

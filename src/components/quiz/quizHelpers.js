@@ -1,12 +1,12 @@
 import quizData from "../quiz/quiz-data/how-well-you-know-me.json";
 
 export const gradeQuiz = (creatorAnswers, takerAnswers) => {
-  const quizLength = creatorAnswers.length;
+  const quizLength = Object.keys(creatorAnswers).length;
   let countCorrect = 0;
   let score = 0;
 
   for (let i = 0; i < quizLength; i++) {
-    if (creatorAnswers[i].answer === takerAnswers[i]) countCorrect++;
+    if (creatorAnswers[i] === takerAnswers[i]) countCorrect++;
   }
 
   score = (countCorrect / quizLength) * 100;
@@ -15,15 +15,15 @@ export const gradeQuiz = (creatorAnswers, takerAnswers) => {
 };
 
 export const createAnswerGuide = (questions, creatorAnswers, takerAnswers) => {
-  const quizLength = creatorAnswers.length;
+  const quizLength = Object.keys(creatorAnswers).length;
   let answerGuide = [];
 
   for (let i = 0; i < quizLength; i++) {
     answerGuide.push({
       question: questions[i].question,
-      creator: questions[i].answers[creatorAnswers[i].answer],
+      creator: questions[i].answers[creatorAnswers[i]],
       taker: questions[i].answers[takerAnswers[i]],
-      correct: creatorAnswers[i].answer === takerAnswers[i]
+      correct: creatorAnswers[i] === takerAnswers[i]
     });
   }
 
