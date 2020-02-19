@@ -113,8 +113,14 @@ const DisplayQuiz = props => {
                   : ""
               }
               onClick={() => {
-                setActiveAnswer(index);
-                setShowPicker(!showPicker);
+                if (creatingQuiz) {
+                  setActiveAnswer(index);
+                  setShowPicker(!showPicker);
+                }
+
+                if (takingQuiz) {
+                  recordAnswer(questionIndex, index);
+                }
               }}
             />
 
