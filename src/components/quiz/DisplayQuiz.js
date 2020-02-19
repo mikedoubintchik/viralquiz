@@ -468,19 +468,17 @@ const DisplayQuiz = props => {
         />
       )}
 
-      {showPicker && (
-        <Modal show={true} onHide={() => setShowPicker(false)}>
-          <Modal.Header closeButton>
-            <Modal.Title>Select a GIF</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Picker
-              apiKey="NeMyiU4oXyLBHnSQVpjCG65hfeqCTk6t"
-              onSelected={selectImage.bind(this)}
-            />
-          </Modal.Body>
-        </Modal>
-      )}
+      <Modal show={showPicker} onHide={() => setShowPicker(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Select a GIF</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Picker
+            apiKey="NeMyiU4oXyLBHnSQVpjCG65hfeqCTk6t"
+            onSelected={selectImage.bind(this)}
+          />
+        </Modal.Body>
+      </Modal>
 
       <AddQuestion
         question={question}
