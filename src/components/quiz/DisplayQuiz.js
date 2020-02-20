@@ -7,8 +7,7 @@ import {
   Col,
   ButtonToolbar,
   Button,
-  Card,
-  Modal
+  Card
 } from "react-bootstrap";
 import Loader from "react-loader-spinner";
 import Picker from "react-giphy-picker-advanced";

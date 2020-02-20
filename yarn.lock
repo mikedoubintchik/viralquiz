@@ -9392,10 +9392,10 @@ react-error-overlay@^6.0.4:
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.4.tgz#0d165d6d27488e660bc08e57bdabaad741366f7a"
   integrity sha512-ueZzLmHltszTshDMwyfELDq8zOA803wQ1ZuzCccXa1m57k1PxSHfflPD5W9YIiTXLs0JTLzoj6o1LuM5N6zzNA==
 
-react-giphy-picker-advanced@>=1.0.1:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/react-giphy-picker-advanced/-/react-giphy-picker-advanced-1.0.2.tgz#84b1b8b5ca9dbf3901dd8277784a3a4cd0c44216"
-  integrity sha512-Hg6+qf3jDDcM/YMr1hkEaWoXcua5kv9XUOvsgil1sWu6wko/EL2CLwJhmXPyU2RLjnBE3DD6ULhf3pfQyEe4dg==
+react-giphy-picker-advanced@>=1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-giphy-picker-advanced/-/react-giphy-picker-advanced-1.0.3.tgz#18df90ac9c84e63cafba97d0e998bc9eda17e451"
+  integrity sha512-Mw8uXmjoYCSZONT7gOjLR7qJY9DieZ+MhNS6W3lkw1QOg95QL5Gzw5wYcJ+64RGz0nJDIq1QaAb6Yz4FYrkdrg==
   dependencies:
     prop-types "^15.6.0"
     styled-components "^4.1.3"
