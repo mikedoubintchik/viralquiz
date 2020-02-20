@@ -1,10 +1,19 @@
 // Override default variables before the import
 $body-bg: #fff;
 
+// image picker
+.image-picker {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -100%);
+}
+
+// header
 .navbar-brand {
   white-space: normal;
 }
 
+// answers
 .question {
   display: none;
 

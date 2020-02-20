@@ -11,7 +11,7 @@ import {
   Modal
 } from "react-bootstrap";
 import Loader from "react-loader-spinner";
-import Picker from "react-giphy-component";
+import Picker from "react-giphy-picker-advanced";
 import AddAnswer from "../modals/AddAnswer";
 import AddQuestion from "../modals/AddQuestion";
 import { gradeQuiz } from "./quizHelpers";
@@ -474,17 +474,13 @@ const DisplayQuiz = props => {
         />
       )}
 
-      <Modal show={showPicker} onHide={() => setShowPicker(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Select a GIF</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Picker
-            apiKey="NeMyiU4oXyLBHnSQVpjCG65hfeqCTk6t"
-            onSelected={selectImage.bind(this)}
-          />
-        </Modal.Body>
-      </Modal>
+      <Picker
+        apiKey="NeMyiU4oXyLBHnSQVpjCG65hfeqCTk6t"
+        onSelected={selectImage.bind(this)}
+        modal={true}
+        visible={showPicker}
+        handleClose={() => setShowPicker(false)}
+      />
 
       <AddQuestion
         question={question}
