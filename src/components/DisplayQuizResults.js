@@ -50,7 +50,10 @@ const DisplayQuizResults = ({ takingQuiz }) => {
           </Card.Header>
           <Card.Body>
             <h2>
-              You got <strong>{getQuizScoreFromLocalStorage(quizID)}%</strong>
+              You got{" "}
+              <strong>
+                {Math.round(getQuizScoreFromLocalStorage(quizID))}%
+              </strong>
             </h2>
           </Card.Body>
         </Card>
