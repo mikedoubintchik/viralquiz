@@ -76,6 +76,11 @@ export const reducer = (state, action) => {
           [action.questionIndex]: action.answer
         }
       };
+    case "deleteQuestion":
+      const creatorAnswers = state.creatorAnswers;
+      delete questions[action.questionIndex];
+      delete creatorAnswers[action.questionIndex];
+      return { ...state, questions, creatorAnswers };
     case "deleteAnswer":
       delete questions[action.questionIndex].answers[action.answerIndex];
       return { ...state, questions };

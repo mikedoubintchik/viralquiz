@@ -164,11 +164,26 @@ const DisplayQuiz = props => {
             <Row className="justify-content-between">
               <h1 className="mb-4">{question.question}</h1>
               {creatingQuiz && (
-                <Button onClick={() => showAnswerModal(index)}>
-                  Add Custom Answer
+                <Button
+                  variant="danger answer-delete"
+                  onClick={() =>
+                    dispatch({
+                      type: "deleteQuestion",
+                      questionIndex: index
+                    })
+                  }
+                >
+                  ×
                 </Button>
               )}
             </Row>
+            {creatingQuiz && (
+              <Row>
+                <Button onClick={() => showAnswerModal(index)}>
+                  Add Custom Answer
+                </Button>
+              </Row>
+            )}
           </Container>
 
           <Container>

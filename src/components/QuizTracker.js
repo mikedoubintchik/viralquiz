@@ -9,18 +9,20 @@ const QuizTracker = props => {
   let questionButtons = [];
 
   for (let i = 1; i <= questionsCount; i++) {
-    questionButtons.push(
-      <Button
-        key={i}
-        variant={store.activeQuestionIndex === i - 1 ? "success" : "primary"}
-        onClick={() => {
-          props.setQuestionResponse({});
-          dispatch({ type: "setActiveQuestion", questionIndex: i - 1 });
-        }}
-      >
-        {i}
-      </Button>
-    );
+    if (store.questions[i - 1]) {
+      questionButtons.push(
+        <Button
+          key={i}
+          variant={store.activeQuestionIndex === i - 1 ? "success" : "primary"}
+          onClick={() => {
+            props.setQuestionResponse({});
+            dispatch({ type: "setActiveQuestion", questionIndex: i - 1 });
+          }}
+        >
+          {i}
+        </Button>
+      );
+    }
   }
 
   return (
