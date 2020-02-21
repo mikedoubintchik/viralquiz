@@ -1,5 +1,7 @@
 import React, { useReducer } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Helmet } from "react-helmet";
+
 import { Context, initialState, reducer } from "./store";
 import { Container, Row, Col, Navbar, Button } from "react-bootstrap";
 import logo from "./logo.svg";
@@ -16,6 +18,16 @@ const App = () => {
 
   return (
     <Context.Provider value={{ store, dispatch }}>
+      <Helmet>
+        <title>{store.quizName}</title>
+        <meta content={store.quizName} name="description" />
+        <meta content={store.quizName} property="og:title" />
+        <meta
+          content={`Test your bond with with your friend!`}
+          property="og:description"
+        />
+        >
+      </Helmet>
       <div className="App">
         <Navbar bg="light" variant="light" className="mb-4 flex-wrap">
           <Navbar.Brand href="/" className="d-flex mr-auto">

@@ -22,9 +22,6 @@ const RegisterUser = props => {
   const creatingQuiz = props.create;
   const testAlreadyTaken = getQuizScoreFromLocalStorage(quizID);
 
-  // update meta details
-  document.title = store.quizName;
-
   // update quiz name
   if (quizID && store.quizName === "Create Your Quiz!") {
     db.collection("quizzes")
@@ -37,8 +34,6 @@ const RegisterUser = props => {
           type: "updateQuizName",
           quizName
         });
-
-        document.title = quizName;
       });
   }
 
