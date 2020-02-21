@@ -102,6 +102,18 @@ const DisplayQuiz = props => {
       return (
         <Col key={index} xs={6} md={4}>
           <Card className={`answer text-center mb-4${selected}${answered}`}>
+            <Button
+              variant="danger answer-delete"
+              onClick={() =>
+                dispatch({
+                  type: "deleteAnswer",
+                  questionIndex: questionIndex,
+                  answerIndex: index
+                })
+              }
+            >
+              ×
+            </Button>
             <Card.Img
               variant="top"
               src={
@@ -141,7 +153,21 @@ const DisplayQuiz = props => {
             store.activeQuestionIndex === index ? " active" : ""
           }`}
         >
-          <h1>{question.question}</h1>
+          <Container className="mb-4">
+            {creatingQuiz && (
+              <Row className="mb-4 justify-content-end">
+                <Button onClick={showQuestionModal}>Add Custom Question</Button>
+              </Row>
+            )}
+            <Row className="justify-content-between">
+              <h1 className="mb-4">{question.question}</h1>
+              {creatingQuiz && (
+                <Button onClick={() => showAnswerModal(index)}>
+                  Add Custom Answer
+                </Button>
+              )}
+            </Row>
+          </Container>
 
           <Container>
             <Row className="justify-content-center">
@@ -151,15 +177,6 @@ const DisplayQuiz = props => {
             </Row>
           </Container>
           <Row>{generateAnswersHTML(question.answers, index)}</Row>
-          {creatingQuiz && (
-            <Container>
-              <Row className="justify-content-end">
-                <Button onClick={() => showAnswerModal(index)}>
-                  Add Custom Answer
-                </Button>
-              </Row>
-            </Container>
-          )}
         </div>
       );
     });
@@ -420,14 +437,6 @@ const DisplayQuiz = props => {
       {!loader && (
         <>
           <QuizTracker setQuestionResponse={setQuestionResponse} />
-
-          {creatingQuiz && (
-            <Container>
-              <Row className="justify-content-end">
-                <Button onClick={showQuestionModal}>Add Custom Question</Button>
-              </Row>
-            </Container>
-          )}
 
           <div className="mt-4">{generateQuestionsHTML(store.questions)}</div>
 

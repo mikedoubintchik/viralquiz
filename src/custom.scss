@@ -24,6 +24,11 @@ $body-bg: #fff;
   .answer {
     cursor: pointer;
 
+    &-delete {
+      position: absolute;
+      right: 0;
+    }
+
     &.selected,
     &.selected.answered {
       background: green;
