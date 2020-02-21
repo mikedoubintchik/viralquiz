@@ -102,18 +102,20 @@ const DisplayQuiz = props => {
       return (
         <Col key={index} xs={6} md={4}>
           <Card className={`answer text-center mb-4${selected}${answered}`}>
-            <Button
-              variant="danger answer-delete"
-              onClick={() =>
-                dispatch({
-                  type: "deleteAnswer",
-                  questionIndex: questionIndex,
-                  answerIndex: index
-                })
-              }
-            >
-              ×
-            </Button>
+            {creatingQuiz && (
+              <Button
+                variant="danger answer-delete"
+                onClick={() =>
+                  dispatch({
+                    type: "deleteAnswer",
+                    questionIndex: questionIndex,
+                    answerIndex: index
+                  })
+                }
+              >
+                ×
+              </Button>
+            )}
             <Card.Img
               variant="top"
               src={
