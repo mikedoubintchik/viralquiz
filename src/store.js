@@ -32,7 +32,7 @@ export const reducer = (state, action) => {
       questions[action.questionIndex].images[action.answer] = action.image;
       return { ...state, questions };
     case "addQuestion":
-      questions.push({ answers: [], question: action.question });
+      questions.push({ answers: [], images: {}, question: action.question });
       return { ...state, questions };
     case "createDefaultQuizQuestions":
       return { ...state, questions: action.questions };
