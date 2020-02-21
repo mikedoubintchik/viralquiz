@@ -467,7 +467,7 @@ const DisplayQuiz = props => {
               store.questions.length ===
                 Object.keys(store.creatorAnswers).length) && (
               <Button variant="outline-success" onClick={submitQuiz}>
-                Submit
+                {creatingQuiz ? "Finish Quiz" : "Submit Quiz"}
               </Button>
             )}
           </ButtonToolbar>
