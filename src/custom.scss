@@ -31,14 +31,14 @@ $body-bg: #fff;
 
     &.selected,
     &.selected.answered {
-      background: green;
+      background: teal;
       color: #fff;
-      border: 2px solid green;
+      border: 2px solid teal;
     }
 
     &.answered {
-      background: lightgreen;
-      border: 2px solid lightgreen;
+      background: lightblue;
+      border: 2px solid lightblue;
     }
   }
 }
