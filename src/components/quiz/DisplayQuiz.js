@@ -155,7 +155,7 @@ const DisplayQuiz = props => {
             <Container>
               <Row className="justify-content-end">
                 <Button onClick={() => showAnswerModal(index)}>
-                  Add Answer
+                  Add Custom Answer
                 </Button>
               </Row>
             </Container>
@@ -424,14 +424,14 @@ const DisplayQuiz = props => {
           {creatingQuiz && (
             <Container>
               <Row className="justify-content-end">
-                <Button onClick={showQuestionModal}>Add Question</Button>
+                <Button onClick={showQuestionModal}>Add Custom Question</Button>
               </Row>
             </Container>
           )}
 
           <div className="mt-4">{generateQuestionsHTML(store.questions)}</div>
 
-          <ButtonToolbar className="mt-4 justify-content-between">
+          <ButtonToolbar className="mt-4 mb-4 justify-content-between">
             {/*  <Button
               variant="outline-danger"
               onClick={() => {
