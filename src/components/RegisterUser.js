@@ -130,7 +130,7 @@ const RegisterUser = props => {
 
                 <Col>
                   <Button type="submit" variant="outline-success">
-                    {creatingQuiz ? "Create Quiz" : "Take Quiz"}
+                    {creatingQuiz ? "Start Making Quiz" : "Start Quiz"}
                   </Button>
                 </Col>
               </Form.Row>
