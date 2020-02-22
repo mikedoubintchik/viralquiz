@@ -15,7 +15,7 @@ import AddAnswer from "../modals/AddAnswer";
 import AddQuestion from "../modals/AddQuestion";
 import { gradeQuiz } from "./quizHelpers";
 import firebase from "../../firestore";
-import QuizTracker from "../QuizTracker";
+import QuestionNav from "../QuestionNav";
 
 const db = firebase.firestore();
 
@@ -35,6 +35,9 @@ const DisplayQuiz = props => {
   const takingQuiz = useRouteMatch("/:quizID").isExact;
   const creatingQuiz = props.create;
   const { quizID } = useParams();
+
+  // redirect user to home if they try to create quiz without registering
+  // if (!store.userName) history.push("/");
 
   // if taking a quiz, set quiz ID
   // check that there are no questions in global store to prevent infinite dispatch loop
@@ -148,6 +151,10 @@ const DisplayQuiz = props => {
 
   const generateQuestionsHTML = questions => {
     return questions.map((question, index) => {
+      // skip empty questions
+      // caused by delete questions during quiz creation
+      if (!question) return false;
+
       return (
         <div
           key={index}
@@ -339,7 +346,7 @@ const DisplayQuiz = props => {
       });
 
       // build quiz data
-      const quizData = {
+      let quizData = {
         quizID: store.quizID,
         userID: store.userID,
         quizName,
@@ -368,6 +375,9 @@ const DisplayQuiz = props => {
         .update({
           quizzes: JSON.stringify(quizzes)
         });
+
+      // massage quiz data to remove empty questions
+      quizData.questions = Array.from(quizData.questions, item => item || null);
 
       // add quiz to database
       db.collection("quizzes")
@@ -453,7 +463,7 @@ const DisplayQuiz = props => {
     <>
       {!loader && (
         <>
-          <QuizTracker setQuestionResponse={setQuestionResponse} />
+          <QuestionNav setQuestionResponse={setQuestionResponse} />
 
           <div className="mt-4">{generateQuestionsHTML(store.questions)}</div>
 
@@ -477,9 +487,9 @@ const DisplayQuiz = props => {
                 Next Question
               </Button>
             )}
-            {(store.questions.length ===
+            {(store.questions.filter(Boolean).length ===
               Object.keys(store.takerAnswers).length ||
-              store.questions.length ===
+              store.questions.filter(Boolean).length ===
                 Object.keys(store.creatorAnswers).length) && (
               <Button variant="outline-success" onClick={submitQuiz}>
                 {creatingQuiz ? "Finish Quiz" : "Submit Quiz"}

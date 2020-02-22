@@ -2,26 +2,27 @@ import React, { useContext } from "react";
 import { ButtonToolbar, ButtonGroup, Button } from "react-bootstrap";
 import { Context } from "../store";
 
-const QuizTracker = props => {
+const QuestionNav = props => {
   const { store, dispatch } = useContext(Context);
-  const questionsCount = store.questions.length;
-
+  const initialQuestionCount = store.questions.length;
+  let count = 1;
   let questionButtons = [];
 
-  for (let i = 1; i <= questionsCount; i++) {
-    if (store.questions[i - 1]) {
+  for (let i = 0; i < initialQuestionCount; i++) {
+    if (store.questions[i]) {
       questionButtons.push(
         <Button
           key={i}
-          variant={store.activeQuestionIndex === i - 1 ? "success" : "primary"}
+          variant={store.activeQuestionIndex === i ? "success" : "primary"}
           onClick={() => {
             props.setQuestionResponse({});
-            dispatch({ type: "setActiveQuestion", questionIndex: i - 1 });
+            dispatch({ type: "setActiveQuestion", questionIndex: i });
           }}
         >
-          {i}
+          {count}
         </Button>
       );
+      count++;
     }
   }
 
@@ -32,4 +33,4 @@ const QuizTracker = props => {
   );
 };
 
-export default QuizTracker;
+export default QuestionNav;

@@ -80,7 +80,16 @@ export const reducer = (state, action) => {
       const creatorAnswers = state.creatorAnswers;
       delete questions[action.questionIndex];
       delete creatorAnswers[action.questionIndex];
-      return { ...state, questions, creatorAnswers };
+
+      return {
+        ...state,
+        questions,
+        creatorAnswers,
+        activeQuestionIndex:
+          state.activeQuestionIndex === state.questions.filter(Boolean).length
+            ? state.activeQuestionIndex - 1
+            : state.activeQuestionIndex + 1
+      };
     case "deleteAnswer":
       delete questions[action.questionIndex].answers[action.answerIndex];
       return { ...state, questions };
@@ -90,11 +99,18 @@ export const reducer = (state, action) => {
         activeQuestionIndex: action.questionIndex
       };
     case "incrementActiveQuestion":
+      const determineEmptyQuantity = () => {
+        for (let i = 1; i <= state.questions.length; i++) {
+          if (state.questions[state.activeQuestionIndex + i] !== null) break;
+          return i;
+        }
+      };
+
       return {
         ...state,
         activeQuestionIndex:
-          state.activeQuestionIndex < state.questions.length - 1
-            ? state.activeQuestionIndex + 1
+          state.activeQuestionIndex < state.questions.filter(Boolean).length - 1
+            ? state.activeQuestionIndex + 1 + determineEmptyQuantity()
             : state.activeQuestionIndex
       };
     case "decrementActiveQuestion":
