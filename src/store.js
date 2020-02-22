@@ -16,6 +16,21 @@ export const initialState = {
 
 export const reducer = (state, action) => {
   const questions = state.questions;
+  const determineEmptyQuantity = increment => {
+    let count = 0;
+
+    for (let i = 1; i <= state.questions.length; i++) {
+      let nextIndex = increment
+        ? state.activeQuestionIndex + i
+        : state.activeQuestionIndex - i;
+
+      if (state.questions[nextIndex] === undefined) count++;
+      else break;
+    }
+
+    return count;
+  };
+
   switch (action.type) {
     case "reset":
       return {
@@ -99,18 +114,11 @@ export const reducer = (state, action) => {
         activeQuestionIndex: action.questionIndex
       };
     case "incrementActiveQuestion":
-      const determineEmptyQuantity = () => {
-        for (let i = 1; i <= state.questions.length; i++) {
-          if (state.questions[state.activeQuestionIndex + i] !== null) break;
-          return i;
-        }
-      };
-
       return {
         ...state,
         activeQuestionIndex:
-          state.activeQuestionIndex < state.questions.filter(Boolean).length - 1
-            ? state.activeQuestionIndex + 1 + determineEmptyQuantity()
+          state.activeQuestionIndex < state.questions.length
+            ? state.activeQuestionIndex + 1 + determineEmptyQuantity(true)
             : state.activeQuestionIndex
       };
     case "decrementActiveQuestion":
@@ -118,7 +126,7 @@ export const reducer = (state, action) => {
         ...state,
         activeQuestionIndex:
           state.activeQuestionIndex > 0
-            ? state.activeQuestionIndex - 1
+            ? state.activeQuestionIndex - 1 - determineEmptyQuantity(false)
             : state.activeQuestionIndex
       };
     default:
