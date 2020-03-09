@@ -17,6 +17,10 @@ $body-bg: #fff;
 .question {
   display: none;
 
+  &-delete {
+    height: 40px;
+  }
+
   &.active {
     display: block;
   }

@@ -168,11 +168,11 @@ const DisplayQuiz = props => {
                 <Button onClick={showQuestionModal}>Add Custom Question</Button>
               </Row>
             )}
-            <Row className="justify-content-between">
-              <h1 className="mb-4">{question.question}</h1>
+            <Row>
+              <h1 className="mb-md-4">{question.question}</h1>
               {creatingQuiz && (
                 <Button
-                  variant="danger answer-delete"
+                  variant="danger question-delete mb-sm-4 mt-md-2 ml-md-4"
                   onClick={() =>
                     dispatch({
                       type: "deleteQuestion",
