@@ -117,7 +117,7 @@ export const reducer = (state, action) => {
       return {
         ...state,
         activeQuestionIndex:
-          state.activeQuestionIndex < state.questions.length
+          state.activeQuestionIndex < state.questions.length - 1
             ? state.activeQuestionIndex + 1 + determineEmptyQuantity(true)
             : state.activeQuestionIndex
       };
