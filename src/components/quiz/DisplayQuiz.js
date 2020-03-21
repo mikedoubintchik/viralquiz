@@ -37,7 +37,7 @@ const DisplayQuiz = props => {
   const { quizID } = useParams();
 
   // redirect user to home if they try to create quiz without registering
-  // if (!store.userName) history.push("/");
+  if (!store.userName) history.push("/");
 
   // if taking a quiz, set quiz ID
   // check that there are no questions in global store to prevent infinite dispatch loop
@@ -314,6 +314,10 @@ const DisplayQuiz = props => {
       questionIndex,
       answer
     });
+
+    // if last question, scroll to bottom of page
+    if (store.activeQuestionIndex === store.questions.length - 1)
+      window.scrollTo(0, document.body.scrollHeight);
 
     // after 1 second
     setTimeout(() => {
