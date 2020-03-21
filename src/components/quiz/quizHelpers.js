@@ -1,4 +1,5 @@
 import quizData from "../quiz/quiz-data/how-well-you-know-me-test.json";
+import firebase from "../../firestore";
 
 export const gradeQuiz = (creatorAnswers, takerAnswers) => {
   const keys = Object.keys(creatorAnswers);
@@ -52,4 +53,27 @@ export const createQuiz = db => {
       quizName: "How Well Do You Know Me?",
       data: quizData
     });
+};
+
+const getFileBlob = (url, cb) => {
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", url);
+  xhr.responseType = "blob";
+  xhr.addEventListener("load", function() {
+    cb(xhr.response);
+  });
+  xhr.send();
+};
+
+export const uploadToFirebaseStorage = (imageURL, imagePath) => {
+  getFileBlob(imageURL, blob => {
+    firebase
+      .storage()
+      .ref()
+      .child(imagePath)
+      .put(blob)
+      .then(snapshot => {
+        console.log("Uploaded image");
+      });
+  });
 };
