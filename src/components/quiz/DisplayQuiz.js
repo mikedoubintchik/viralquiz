@@ -13,7 +13,7 @@ import Loader from "react-loader-spinner";
 import Picker from "react-giphy-picker-advanced";
 import AddAnswer from "../modals/AddAnswer";
 import AddQuestion from "../modals/AddQuestion";
-import { gradeQuiz } from "./quizHelpers";
+import { gradeQuiz, uploadToFirebaseStorage } from "./quizHelpers";
 import firebase from "../../firestore";
 import QuestionNav from "../QuestionNav";
 
@@ -80,7 +80,7 @@ const DisplayQuiz = props => {
   }
 
   const selectImage = gif => {
-    const image = gif.downsized_large.url;
+    const image = gif.preview_webp.url.split("?")[0];
 
     // save image to global store
     dispatch({
@@ -102,6 +102,12 @@ const DisplayQuiz = props => {
           ? " answered"
           : "";
 
+      const imageUrl = store.questions[questionIndex].images[index];
+      const imageName = imageUrl.substring(
+        imageUrl.lastIndexOf("media/") + 6,
+        imageUrl.lastIndexOf("/giphy")
+      );
+
       return (
         <Col key={index} xs={6} md={4}>
           <Card className={`answer text-center mb-4${selected}${answered}`}>
@@ -122,8 +128,10 @@ const DisplayQuiz = props => {
             <Card.Img
               variant="top"
               src={
-                store.questions[questionIndex].images[index]
-                  ? store.questions[questionIndex].images[index]
+                takingQuiz
+                  ? `https://firebasestorage.googleapis.com/v0/b/viral-quiz-b0207.appspot.com/o/quiz%2F${store.quizID}%2F${imageName}.webp?alt=media`
+                  : imageUrl
+                  ? imageUrl
                   : creatingQuiz
                   ? "https://static.thenounproject.com/png/187803-200.png"
                   : ""
@@ -388,8 +396,25 @@ const DisplayQuiz = props => {
         .doc(store.quizID)
         .set(quizData);
 
-      // redirect to created page
-      history.push("/success");
+      // upload all gifs to firebase storage
+      store.questions.forEach(question => {
+        Object.values(question.images).forEach((image, index) => {
+          const imageName = image.substring(
+            image.lastIndexOf("media/") + 6,
+            image.lastIndexOf("/giphy")
+          );
+
+          uploadToFirebaseStorage(
+            image,
+            `quiz/${store.quizID}/${imageName}.webp`
+          );
+        });
+      });
+
+      // redirect to created page after some time
+      setTimeout(() => {
+        history.push("/success");
+      }, 5000);
     }
 
     if (takingQuiz) {
