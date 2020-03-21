@@ -1,0 +1,34 @@
+{
+  "name": "How Well Do You Know Me?",
+  "questions": [
+    {
+      "answers": ["Android", "iPhone", "Blackberry", "Flip Phone"],
+      "images": {
+        "0": "https://media0.giphy.com/media/WsJzXF8M8tl6w/giphy.gif?cid=2738bc254a15564f8765f4f9d8a75620b05fe15c5276ff21&rid=giphy.gif",
+        "1": "https://media0.giphy.com/media/3ov9k2rS9opDWfLLnW/giphy.gif?cid=2738bc25e95ffe3bf78d43006d6f76854fbbc7849b03cf70&rid=giphy.gif",
+        "2": "https://media0.giphy.com/media/apV5xZWspcXCM/giphy.gif?cid=2738bc25a6c5f82982d26528ef3c0745c967ed34186cf5e9&rid=giphy.gif",
+        "3": "https://media0.giphy.com/media/KgNpEcksFPJAs/giphy.gif?cid=2738bc25788ad23a70d746be6dcdd793e55d20f5574587c3&rid=giphy.gif"
+      },
+      "question": "What type of phone do I have?"
+    },
+    {
+      "answers": [
+        "Horror",
+        "Comedy",
+        "Science Fiction",
+        "Romance",
+        "Documentary",
+        "Mystery"
+      ],
+      "images": {
+        "0": "https://media3.giphy.com/media/KupdfnqWwV7J6/giphy.gif?cid=2738bc25e7a3e1bafe6e17861758314f6c8570f6144788c6&rid=giphy.gif",
+        "1": "https://media3.giphy.com/media/Kz4e1QpUSbf20/giphy.gif?cid=2738bc252c15a018bbc9f7f3b2114dd71f9296ce31e5ef3d&rid=giphy.gif",
+        "2": "https://media3.giphy.com/media/grmBC6qQ0mc6c/giphy.gif?cid=2738bc2589c2468a7f044cd0909866f2d6277cd44310aa1c&rid=giphy.gif",
+        "3": "https://media3.giphy.com/media/eHhLtLhAo9S6Y/giphy.gif?cid=2738bc2582f67b665b838dd8ce80fce8b3ad5265e0fc00c8&rid=giphy.gif",
+        "4": "https://media0.giphy.com/media/NPP4Z7wMIf0SA/giphy.gif?cid=2738bc259f3ff645228e27214e938a5fee37e700d6651b8e&rid=giphy.gif",
+        "5": "https://media3.giphy.com/media/KnOVBRqItfXGg/giphy.gif?cid=2738bc25c32420823130cc82912a19e6d23b834baf682d28&rid=giphy.gif"
+      },
+      "question": "What's my favorite movie genre?"
+    }
+  ]
+}

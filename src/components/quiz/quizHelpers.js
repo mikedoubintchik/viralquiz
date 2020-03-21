@@ -1,4 +1,4 @@
-import quizData from "../quiz/quiz-data/how-well-you-know-me.json";
+import quizData from "../quiz/quiz-data/how-well-you-know-me-test.json";
 
 export const gradeQuiz = (creatorAnswers, takerAnswers) => {
   const keys = Object.keys(creatorAnswers);
