@@ -47,7 +47,7 @@ export const getQuizScoreFromLocalStorage = quizID => {
 };
 
 export const createQuiz = db => {
-  db.collection("quizOptions")
+  db.collection("sampleQuizzes")
     .doc("HowWellDoYouKnowMe?")
     .update({
       quizName: "How Well Do You Know Me?",

@@ -66,7 +66,7 @@ const DisplayQuiz = props => {
 
   // if creating a quiz, get default questions from DB and populate global store
   if (creatingQuiz && store.questions.length === 0) {
-    db.collection("quizOptions")
+    db.collection("sampleQuizzes")
       .doc("HowWellDoYouKnowMe?")
       .get()
       .then(quiz => {
