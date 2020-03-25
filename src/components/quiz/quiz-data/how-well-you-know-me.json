@@ -4,10 +4,10 @@
     {
       "answers": ["Android", "iPhone", "Blackberry", "Flip Phone"],
       "images": {
-        "0": "https://media0.giphy.com/media/WsJzXF8M8tl6w/giphy.gif?cid=2738bc254a15564f8765f4f9d8a75620b05fe15c5276ff21&rid=giphy.gif",
-        "1": "https://media0.giphy.com/media/3ov9k2rS9opDWfLLnW/giphy.gif?cid=2738bc25e95ffe3bf78d43006d6f76854fbbc7849b03cf70&rid=giphy.gif",
-        "2": "https://media0.giphy.com/media/apV5xZWspcXCM/giphy.gif?cid=2738bc25a6c5f82982d26528ef3c0745c967ed34186cf5e9&rid=giphy.gif",
-        "3": "https://media0.giphy.com/media/KgNpEcksFPJAs/giphy.gif?cid=2738bc25788ad23a70d746be6dcdd793e55d20f5574587c3&rid=giphy.gif"
+        "0": "https://media0.giphy.com/media/98uBZTzlXMhkk/giphy-preview.webp",
+        "1": "https://media2.giphy.com/media/3o85xnHXDgKM21daPm/giphy-preview.webp",
+        "2": "https://media3.giphy.com/media/apV5xZWspcXCM/giphy-preview.webp",
+        "3": "https://media0.giphy.com/media/3o6EhUVAdslJV2ARDq/giphy-preview.webp"
       },
       "question": "What type of phone do I have?"
     },
@@ -21,55 +21,55 @@
         "Mystery"
       ],
       "images": {
-        "0": "https://media3.giphy.com/media/KupdfnqWwV7J6/giphy.gif?cid=2738bc25e7a3e1bafe6e17861758314f6c8570f6144788c6&rid=giphy.gif",
-        "1": "https://media3.giphy.com/media/Kz4e1QpUSbf20/giphy.gif?cid=2738bc252c15a018bbc9f7f3b2114dd71f9296ce31e5ef3d&rid=giphy.gif",
-        "2": "https://media3.giphy.com/media/grmBC6qQ0mc6c/giphy.gif?cid=2738bc2589c2468a7f044cd0909866f2d6277cd44310aa1c&rid=giphy.gif",
-        "3": "https://media3.giphy.com/media/eHhLtLhAo9S6Y/giphy.gif?cid=2738bc2582f67b665b838dd8ce80fce8b3ad5265e0fc00c8&rid=giphy.gif",
-        "4": "https://media0.giphy.com/media/NPP4Z7wMIf0SA/giphy.gif?cid=2738bc259f3ff645228e27214e938a5fee37e700d6651b8e&rid=giphy.gif",
-        "5": "https://media3.giphy.com/media/KnOVBRqItfXGg/giphy.gif?cid=2738bc25c32420823130cc82912a19e6d23b834baf682d28&rid=giphy.gif"
+        "0": "https://media0.giphy.com/media/bEVKYB487Lqxy/giphy-preview.webp",
+        "1": "https://media3.giphy.com/media/Kz4e1QpUSbf20/giphy-preview.webp",
+        "2": "https://media1.giphy.com/media/grmBC6qQ0mc6c/giphy-preview.webp",
+        "3": "https://media0.giphy.com/media/vB6GQ7Ogc6j4I/giphy-preview.webp",
+        "4": "https://media1.giphy.com/media/NPP4Z7wMIf0SA/giphy-preview.webp",
+        "5": "https://media1.giphy.com/media/SWVzkIlHdEckF81gnA/giphy-preview.webp"
       },
       "question": "What's my favorite movie genre?"
     },
     {
       "answers": ["Breakfast", "Brunch", "Lunch", "Dinner", "Late Night Snack"],
       "images": {
-        "0": "https://media0.giphy.com/media/ba8MNFD1DhU0o/giphy.gif?cid=2738bc25e7c493739f47053c21d3804d67cb9cede9c96355&rid=giphy.gif",
-        "1": "https://media0.giphy.com/media/d3aCGhVlPA6axSAo/giphy.gif?cid=2738bc2520d5dc63469523d33108eb992170df7640613ac7&rid=giphy.gif",
-        "2": "https://media3.giphy.com/media/Jd7xWCnE6j6KY/giphy.gif?cid=2738bc25d76ffdb16551d51c69d9fe5fab82558772632983&rid=giphy.gif",
-        "3": "https://media3.giphy.com/media/5t235Nf4wo3rhLSMVy/giphy.gif?cid=2738bc25b629f7a8ca709e1b27ec30a347e941bd8d9ad961&rid=giphy.gif",
-        "4": "https://media3.giphy.com/media/xUA7aXzQrOo31P3ccM/giphy.gif?cid=2738bc25db5af9f56002111d2e7c2fd3e382f79adefdc361&rid=giphy.gif"
+        "0": "https://media2.giphy.com/media/SxXKRsI6QG3nO/giphy-preview.webp",
+        "1": "https://media0.giphy.com/media/l4FGrc36ps3naFSow/giphy-preview.webp",
+        "2": "https://media1.giphy.com/media/jKaFXbKyZFja0/giphy-preview.webp",
+        "3": "https://media0.giphy.com/media/daLw3QnTCkDjG/giphy-preview.webp",
+        "4": "https://media0.giphy.com/media/aJtrAwWscjvP2/giphy-preview.webp"
       },
       "question": "What is my favorite meal?"
     },
     {
       "answers": ["Beach", "Mountain", "City", "Theme Park", "Staycation"],
       "images": {
-        "0": "https://media0.giphy.com/media/7vQZanyufdRe0/giphy.gif?cid=2738bc2555aaf461e5020b22806beffdbdb7e434c828340a&rid=giphy.gif",
-        "1": "https://media3.giphy.com/media/LqbBfKqnrvFkI/giphy.gif?cid=2738bc2523dad9408b314c77746fa8f3b3ab69b834bf3169&rid=giphy.gif",
-        "2": "https://media3.giphy.com/media/SuG8hEiyKDCDe/giphy.gif?cid=2738bc25dbdc3818feace60810f97fdf90c43e83baf46ab5&rid=giphy.gif",
-        "3": "https://media3.giphy.com/media/oJDwlaPnCrNwk/giphy.gif?cid=2738bc25f3d18c861a2ac6cd067cdb7f10392a74e39db70b&rid=giphy.gif",
-        "4": "https://media3.giphy.com/media/l0ErMzfXpy4QbXHoI/giphy.gif?cid=2738bc25cc2dee6dd9484c264a26c1e02c8b9a81fc8f9811&rid=giphy.gif"
+        "0": "https://media0.giphy.com/media/7vQZanyufdRe0/giphy-preview.webp",
+        "1": "https://media3.giphy.com/media/LqbBfKqnrvFkI/giphy-preview.webp",
+        "2": "https://media0.giphy.com/media/2dmiD02aM9zX3Gw2oS/giphy-preview.webp",
+        "3": "https://media1.giphy.com/media/oJDwlaPnCrNwk/giphy-preview.webp",
+        "4": "https://media3.giphy.com/media/l0ErMzfXpy4QbXHoI/giphy-preview.webp"
       },
       "question": "What is my favorite vacation destination?"
     },
     {
       "answers": ["None", "1", "2", "3", "4+"],
       "images": {
-        "0": "https://media0.giphy.com/media/Wn74RUT0vjnoU98Hnt/giphy.gif?cid=2738bc25cebdce06f3a010cc08ebac02fbe02699c66dc9d3&rid=giphy.gif",
-        "1": "https://media3.giphy.com/media/2Wf4evHz9Yd7Y8mPNR/giphy.gif?cid=2738bc2531f54e0e6cd91dcd138e6e676e2d01d19719de01&rid=giphy.gif",
-        "2": "https://media3.giphy.com/media/26vIgaeZIl2RQq092/giphy.gif?cid=2738bc2544ad60dbce49703b80197a3ae60d22508ed8f588&rid=giphy.gif",
-        "3": "https://media3.giphy.com/media/3ov9kaW3wyiefU3GGA/giphy.gif?cid=2738bc2554422779dc198c7b217ee26f36dbd91d6528e6e4&rid=giphy.gif",
-        "4": "https://media0.giphy.com/media/Ri88isCKmq8bTjzNo0/giphy.gif?cid=2738bc25cc5a9b0deeb07f14c35da0049658de68669a698c&rid=giphy.gif"
+        "0": "https://media3.giphy.com/media/j0eRJzyW7XjMpu1Pqd/giphy-preview.webp",
+        "1": "https://media3.giphy.com/media/2Wf4evHz9Yd7Y8mPNR/giphy-preview.webp",
+        "2": "https://media0.giphy.com/media/l2ZE1RhwlmAGD1eHS/giphy-preview.webp",
+        "3": "https://media0.giphy.com/media/FHzemFzwkyRfq/giphy-preview.webp",
+        "4": "https://media2.giphy.com/media/Ri88isCKmq8bTjzNo0/giphy-preview.webp"
       },
       "question": "How many siblings do I have?"
     },
     {
       "answers": ["Democrats", "Republicans", "Libertarians", "They All Suck"],
       "images": {
-        "0": "https://media3.giphy.com/media/427bAmEXgnl7i/giphy-downsized-large.gif?cid=2738bc25ecb05d80d8b7010ecb8246e16baf8e94617a3da8&rid=giphy-downsized-large.gif",
-        "1": "https://media3.giphy.com/media/26zz1pPVIKB5VFwHK/giphy.gif?cid=2738bc25406695384e4bd7c881f6ba1916b33ec3ad11b7cd&rid=giphy.gif",
-        "2": "https://media0.giphy.com/media/wDaZ7LkhDaUHS/giphy.gif?cid=2738bc257f144341130c09e858b41411a1ad70286513e118&rid=giphy.gif",
-        "3": "https://media3.giphy.com/media/nOvB6PFgTgtsk/giphy.gif?cid=2738bc25647b4a0ab6c465b40da2c2f6346e520a351fcc2b&rid=giphy.gif"
+        "0": "https://media0.giphy.com/media/427bAmEXgnl7i/giphy-preview.webp",
+        "1": "https://media1.giphy.com/media/ZcUUu1slySJhkBQUkp/giphy-preview.webp",
+        "2": "https://media3.giphy.com/media/wDaZ7LkhDaUHS/giphy-preview.webp",
+        "3": "https://media2.giphy.com/media/10NHkKwjIULUbK/giphy-preview.webp"
       },
       "question": "What political party do I support?"
     },
@@ -81,21 +81,21 @@
         "People Talking During Movies"
       ],
       "images": {
-        "0": "https://media0.giphy.com/media/1dals9mWubY2KP7paq/giphy.gif?cid=2738bc25fcc89f331ae587bd644c8428c31bf533430a7bf4&rid=giphy.gif",
-        "1": "https://media3.giphy.com/media/l49JXho10VKz27htK/giphy.gif?cid=2738bc250394832081e59b653cfceedacfa3b195688fde8e&rid=giphy.gif",
-        "2": "https://media3.giphy.com/media/cQbGMCkT1PZszSNw5F/giphy-downsized-large.gif?cid=2738bc251b1a69b3a0bdc111a80a1db82927bfde11bb3e0d&rid=giphy-downsized-large.gif",
-        "3": "https://media0.giphy.com/media/Bzebpz5rnyBb2/giphy.gif?cid=2738bc2522e0dbede2fd507425498baa5e01dd46c8dacba7&rid=giphy.gif"
+        "0": "https://media0.giphy.com/media/d2ItDZZumUI6Y/giphy-preview.webp",
+        "1": "https://media0.giphy.com/media/l0Iyn34fotpL8K9wI/giphy-preview.webp",
+        "2": "https://media1.giphy.com/media/Q80Dgh53HDlcZsRoYA/giphy-preview.webp",
+        "3": "https://media3.giphy.com/media/Bzebpz5rnyBb2/giphy-preview.webp"
       },
       "question": "What is my biggest pet peeve?"
     },
     {
       "answers": ["Beer", "Wine", "Liquor", "Cocktails", "I Don't Drink"],
       "images": {
-        "0": "https://media3.giphy.com/media/zrj0yPfw3kGTS/giphy.gif?cid=2738bc2525d3713cef793f14b86b4144eff5d00b4d481957&rid=giphy.gif",
-        "1": "https://media0.giphy.com/media/E3L5goMMSoAAo/giphy.gif?cid=2738bc254b216ae504fe4b38d7a992ce0044ab340f865a9f&rid=giphy.gif",
-        "2": "https://media0.giphy.com/media/iqixuGKQrD6ik/giphy.gif?cid=2738bc259a15555f8c51b8660fc60d19513b6456b4bd5ec0&rid=giphy.gif",
-        "3": "https://media0.giphy.com/media/Xb6oURdmG0yKl1JEZ6/giphy.gif?cid=2738bc2590b99e234e6cc6352ff4caebf406615cfe411d77&rid=giphy.gif",
-        "4": "https://media0.giphy.com/media/3o751WzpVcps4wUAtG/giphy.gif?cid=2738bc259593e0e89f2ec58bafea9ab1ff5c332becbfed2d&rid=giphy.gif"
+        "0": "https://media0.giphy.com/media/zrj0yPfw3kGTS/giphy-preview.webp",
+        "1": "https://media2.giphy.com/media/zx6Tsme145Eoo/giphy-preview.webp",
+        "2": "https://media0.giphy.com/media/aMdBcTa13na24/giphy-preview.webp",
+        "3": "https://media0.giphy.com/media/l3fQaE2lbSAPUnB04/giphy-preview.webp",
+        "4": "https://media2.giphy.com/media/Q424sLc1876lG/giphy-preview.webp"
       },
       "question": "What's my favorite alcohol?"
     },
@@ -115,18 +115,18 @@
         "December"
       ],
       "images": {
-        "0": "https://media3.giphy.com/media/EnsE30B2aHYs0/giphy.gif?cid=2738bc25a5835be9ededb9c2fbb55d4726eae570723fb52a&rid=giphy.gif",
-        "1": "https://media3.giphy.com/media/ge7ROp9f21fwc/giphy.gif?cid=2738bc25847a3249e9255ebee3562b8b664f543bab2604a5&rid=giphy.gif",
-        "2": "https://media0.giphy.com/media/9Dm6KyM95Ri07Ynjgr/giphy.gif?cid=2738bc25c259ca5198f57dd04d783df4954774621a299833&rid=giphy.gif",
-        "3": "https://media3.giphy.com/media/TcG7Tw3uq6tJS/giphy.gif?cid=2738bc25fbabf987f5b1161ffe49a7b5ff0ed3a65264ba45&rid=giphy.gif",
-        "4": "https://media0.giphy.com/media/3o7qE4lz6q6yn3vbFe/giphy.gif?cid=2738bc25487e56d679e72f6d5ab7081e80832e36415a2815&rid=giphy.gif",
-        "5": "https://media0.giphy.com/media/hr3dG8i9XGCefJjiHM/giphy.gif?cid=2738bc254ba9181c38f6c8bfd5429386701bcca44595015d&rid=giphy.gif",
-        "6": "https://media3.giphy.com/media/YfMHLC2s6okBq/giphy.gif?cid=2738bc25566dcfd1ee12aa70e7a72e1d2d6efe129113458c&rid=giphy.gif",
-        "7": "https://media3.giphy.com/media/pk6Gf3r1EGeac/giphy.gif?cid=2738bc254a623d8a0899326eeeeab4a7b437b7ac5b55cfa8&rid=giphy.gif",
-        "8": "https://media0.giphy.com/media/4TTqqym8oj0Q0/giphy.gif?cid=2738bc2580367e3a251e8dedaed9057bd1007899900e0817&rid=giphy.gif",
-        "9": "https://media3.giphy.com/media/IfmzVy1PDHBPobyoJZ/giphy.gif?cid=2738bc252471f4b66fcca8e66b472dd74ace861030170a4d&rid=giphy.gif",
-        "10": "https://media3.giphy.com/media/qJHXa4CCcONOM/giphy.gif?cid=2738bc25302c3a268e441096bd80d0b4ff4ae72df19b6bbb&rid=giphy.gif",
-        "11": "https://media3.giphy.com/media/E8wm3nfbNWBdC/giphy.gif?cid=2738bc257ece881a09f0a24a68c4257e34489d2064012985&rid=giphy.gif"
+        "0": "https://media3.giphy.com/media/26gINRYEjDeQR15FS/giphy-preview.webp",
+        "1": "https://media0.giphy.com/media/hpXvOquuse2Z7OnWlb/giphy-preview.webp",
+        "2": "https://media3.giphy.com/media/l1Aswy7TkiIaqq5KU/giphy-preview.webp",
+        "3": "https://media3.giphy.com/media/TcG7Tw3uq6tJS/giphy-preview.webp",
+        "4": "https://media0.giphy.com/media/mBG8x01Mdqt36SwEwX/giphy-preview.webp",
+        "5": "https://media0.giphy.com/media/umOhnosHkiZYQ/giphy-preview.webp",
+        "6": "https://media3.giphy.com/media/YfMHLC2s6okBq/giphy-preview.webp",
+        "7": "https://media3.giphy.com/media/UV71NAWabz6ta/giphy-preview.webp",
+        "8": "https://media2.giphy.com/media/Xg4mV9QvC5nmSz52KF/giphy-preview.webp",
+        "9": "https://media0.giphy.com/media/YTI8z6jRzCVJm/giphy-preview.webp",
+        "10": "https://media3.giphy.com/media/qJHXa4CCcONOM/giphy-preview.webp",
+        "11": "https://media2.giphy.com/media/l2Rns1ldGQJ7Vqm2c/giphy-preview.webp"
       },
       "question": "What month is my birthday?"
     }
