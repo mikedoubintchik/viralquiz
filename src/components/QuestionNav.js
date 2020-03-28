@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { ButtonToolbar, ButtonGroup, Button } from "react-bootstrap";
+import { ButtonGroup, Button, ProgressBar } from "react-bootstrap";
 import { Context } from "../store";
 
 const QuestionNav = props => {
@@ -26,11 +26,19 @@ const QuestionNav = props => {
     }
   }
 
-  return (
-    <ButtonToolbar className="mb-4">
-      <ButtonGroup className="w-100">{questionButtons}</ButtonGroup>
-    </ButtonToolbar>
-  );
+  if (props.create) {
+    return (
+      <ButtonGroup className="mb-4">
+        <ButtonGroup className="w-100">{questionButtons}</ButtonGroup>
+      </ButtonGroup>
+    );
+  } else {
+    return (
+      <ProgressBar
+        now={(store.activeQuestionIndex / store.questions.length) * 100}
+      />
+    );
+  }
 };
 
 export default QuestionNav;

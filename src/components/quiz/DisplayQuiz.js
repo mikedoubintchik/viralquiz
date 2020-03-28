@@ -492,7 +492,10 @@ const DisplayQuiz = props => {
     <>
       {!loader && (
         <>
-          <QuestionNav setQuestionResponse={setQuestionResponse} />
+          <QuestionNav
+            create={creatingQuiz}
+            setQuestionResponse={setQuestionResponse}
+          />
 
           <div className="mt-4">{generateQuestionsHTML(store.questions)}</div>
 
