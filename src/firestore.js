@@ -1,6 +1,7 @@
 import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/storage";
+import "firebase/auth";
 
 const config = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -14,5 +15,49 @@ const config = {
 };
 
 firebase.initializeApp(config);
+
+export const onAuthStateChange = callback => {
+  return firebase.auth().onAuthStateChanged(user => {
+    if (user) {
+      callback({ loggedIn: true, uid: user.uid });
+    } else {
+      callback({ loggedIn: false });
+    }
+  });
+};
+
+export const login = async (method, username = null, password = null) => {
+  let response = null;
+
+  if (username && password) {
+    try {
+      response = await firebase
+        .auth()
+        .signInWithEmailAndPassword(username, password);
+    } catch (error) {
+      console.log(error);
+      throw new Error(error.message);
+    }
+  } else {
+    try {
+      const provider =
+        method === "google"
+          ? new firebase.auth.GoogleAuthProvider()
+          : new firebase.auth.FacebookAuthProvider();
+
+      response = await firebase.auth().signInWithPopup(provider);
+    } catch (error) {
+      console.log(error);
+
+      throw new Error(error.message);
+    }
+  }
+
+  return response;
+};
+
+export const logout = () => {
+  firebase.auth().signOut();
+};
 
 export default firebase;

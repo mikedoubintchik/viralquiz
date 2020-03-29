@@ -1,10 +1,12 @@
-import React, { useState, useContext } from "react";
-import { Card, Col, Button, Form } from "react-bootstrap";
-import { Context } from "../store";
+import React, { useState, useEffect, useCallback, useContext } from "react";
+import { Card, Col, Button, Form, Modal } from "react-bootstrap";
 import { useHistory, useParams } from "react-router-dom";
 import Loader from "react-loader-spinner";
-import { getQuizScoreFromLocalStorage, createQuiz } from "./quiz/quizHelpers"; // eslint-disable-line no-unused-vars
-import firebase from "../firestore";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import { Context } from "../store";
+import { getQuizScoreFromLocalStorage, createQuiz } from "./quiz/quizHelpers";
+import firebase, { onAuthStateChange, login, logout } from "../firestore";
 import DisplayQuizResults from "./DisplayQuizResults";
 
 const db = firebase.firestore();
@@ -12,9 +14,13 @@ const db = firebase.firestore();
 // createQuiz(db);
 
 const RegisterUser = props => {
+  const [user, setUser] = useState({ loggedIn: false, uid: null });
+  const [error, setError] = useState();
+  const [showErrorModal, setShowErrorModal] = useState(false);
+
   const { store, dispatch } = useContext(Context);
   const [userName, setUserName] = useState("");
-  const [userEmail, setUserEmail] = useState("");
+  // const [userEmail, setUserEmail] = useState("");
   const [validated, setValidated] = useState(false);
   const [loader, setLoader] = useState(false);
   let history = useHistory();
@@ -48,11 +54,15 @@ const RegisterUser = props => {
 
     // if all values in form are valid
     if (form.checkValidity() === true) {
+      const { uid } = user;
       setLoader(true);
 
       if (creatingQuiz) {
         // save user to database
-        const user = await db.collection("users").add({ userName, userEmail });
+        await db
+          .collection("users")
+          .doc(user.uid)
+          .set({ userName, uid });
 
         // generate quiz ID
         const quizID = Math.floor(
@@ -62,10 +72,9 @@ const RegisterUser = props => {
         // save user data to global store
         dispatch({
           type: "saveUser",
-          userID: user.id,
+          userID: uid,
           quizID,
-          userName,
-          userEmail
+          userName
         });
 
         // show create quiz
@@ -84,8 +93,40 @@ const RegisterUser = props => {
     }
   };
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChange(setUser);
+
+    return () => unsubscribe();
+  }, []);
+
+  const requestLogin = useCallback(async method => {
+    try {
+      await login(method);
+    } catch (error) {
+      setError(error.message);
+      setShowErrorModal(true);
+    }
+  });
+
+  const requestLogout = useCallback(() => {
+    logout();
+  }, []);
+
   return (
     <>
+      {showErrorModal && (
+        <Modal
+          centered
+          show={showErrorModal}
+          onHide={() => setShowErrorModal(false)}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Error Signing In</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>{error}</Modal.Body>
+        </Modal>
+      )}
+
       {!loader && (
         <Card className="mb-4">
           <Card.Header className="text-center">
@@ -107,8 +148,8 @@ const RegisterUser = props => {
                       Name is required
                     </Form.Control.Feedback>
                   </Form.Group>
-                </Col>
-                {creatingQuiz && (
+
+                  {/* {creatingQuiz && (
                   <Col>
                     <Form.Group controlId="formBasicEmail">
                       <Form.Control
@@ -126,12 +167,39 @@ const RegisterUser = props => {
                       </Form.Text>
                     </Form.Group>
                   </Col>
-                )}
+                )} */}
 
-                <Col>
-                  <Button type="submit" variant="outline-success">
-                    {creatingQuiz ? "Start Making Quiz" : "Start Quiz"}
-                  </Button>
+                  {!user.loggedIn && creatingQuiz && (
+                    <>
+                      <Button block onClick={() => requestLogin("google")}>
+                        <FontAwesomeIcon icon={["fab", "google"]} />
+                        {" Login with Google"}
+                      </Button>
+                      <Button block onClick={() => requestLogin("facebook")}>
+                        <FontAwesomeIcon icon={["fab", "facebook"]} />
+                        {" Login with Facebook"}
+                      </Button>
+                    </>
+                  )}
+                  {user.loggedIn && creatingQuiz && (
+                    <Button block type="submit" variant="success">
+                      Start Making Quiz
+                    </Button>
+                  )}
+                  {!creatingQuiz && (
+                    <Button block type="submit" variant="success">
+                      Start Quiz
+                    </Button>
+                  )}
+                  {user.loggedIn && (
+                    <Button
+                      block
+                      variant="outline-primary"
+                      onClick={requestLogout}
+                    >
+                      Logout
+                    </Button>
+                  )}
                 </Col>
               </Form.Row>
             </Form>
