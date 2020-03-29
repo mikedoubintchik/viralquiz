@@ -37,6 +37,7 @@ const QuestionNav = props => {
 
   questionButtons.push(
     <OverlayTrigger
+      key="add-question"
       placement="top"
       overlay={<Tooltip id="add-question">Add Custom Question</Tooltip>}
     >

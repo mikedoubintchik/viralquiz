@@ -105,10 +105,12 @@ const DisplayQuiz = props => {
           : "";
 
       const imageUrl = store.questions[questionIndex].images[index];
-      const imageName = imageUrl.substring(
-        imageUrl.lastIndexOf("media/") + 6,
-        imageUrl.lastIndexOf("/giphy")
-      );
+      const imageName = imageUrl
+        ? imageUrl.substring(
+            imageUrl.lastIndexOf("media/") + 6,
+            imageUrl.lastIndexOf("/giphy")
+          )
+        : null;
 
       return (
         <Col key={index} xs={6} md={4} lg={3}>
@@ -136,24 +138,26 @@ const DisplayQuiz = props => {
               placement="top"
               overlay={
                 <Tooltip id="answer-image">
-                  Click here to add image to answer
+                  {imageUrl
+                    ? "Click here to chage image"
+                    : "Click here to add image to answer"}
                 </Tooltip>
               }
             >
               <Card.Img
                 variant="top"
                 src={
-                takingQuiz
-                  ? `https://firebasestorage.googleapis.com/v0/b/viral-quiz-b0207.appspot.com/o/quiz%2F${store.quizID}%2F${imageName}.webp?alt=media`
-                  : imageUrl
-                  ? imageUrl
-                  : creatingQuiz
-                  ? "https://static.thenounproject.com/png/187803-200.png"
-                  : ""
-              }
-              onClick={() => {
-                if (creatingQuiz) {
-                  setActiveAnswer(index);
+                  takingQuiz
+                    ? `https://firebasestorage.googleapis.com/v0/b/viral-quiz-b0207.appspot.com/o/quiz%2F${store.quizID}%2F${imageName}.webp?alt=media`
+                    : imageUrl
+                    ? imageUrl
+                    : creatingQuiz
+                    ? "https://firebasestorage.googleapis.com/v0/b/viral-quiz-b0207.appspot.com/o/images%2Fadd-image.png?alt=media"
+                    : ""
+                }
+                onClick={() => {
+                  if (creatingQuiz) {
+                    setActiveAnswer(index);
                   setShowPicker(!showPicker);
                 }
 
