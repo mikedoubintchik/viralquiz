@@ -5,7 +5,7 @@ import Loader from "react-loader-spinner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Context } from "../store";
-import { getQuizScoreFromLocalStorage, createQuiz } from "./quiz/quizHelpers";
+import { getQuizScoreFromLocalStorage, createQuiz } from "./quiz/quizHelpers"; // eslint-disable-line no-unused-vars
 import firebase, { onAuthStateChange, login, logout } from "../firestore";
 import DisplayQuizResults from "./DisplayQuizResults";
 
@@ -171,7 +171,11 @@ const RegisterUser = props => {
 
                   {!user.loggedIn && creatingQuiz && (
                     <>
-                      <Button block onClick={() => requestLogin("google")}>
+                      <Button
+                        block
+                        variant="info"
+                        onClick={() => requestLogin("google")}
+                      >
                         <FontAwesomeIcon icon={["fab", "google"]} />
                         {" Login with Google"}
                       </Button>

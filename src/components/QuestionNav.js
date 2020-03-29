@@ -1,5 +1,8 @@
 import React, { useContext } from "react";
 import { ButtonGroup, Button, ProgressBar } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faQuestion } from "@fortawesome/free-solid-svg-icons";
+
 import { Context } from "../store";
 
 const QuestionNav = props => {
@@ -13,7 +16,7 @@ const QuestionNav = props => {
       questionButtons.push(
         <Button
           key={i}
-          variant={store.activeQuestionIndex === i ? "success" : "primary"}
+          variant={store.activeQuestionIndex === i ? "primary" : "secondary"}
           onClick={() => {
             props.setQuestionResponse({});
             dispatch({ type: "setActiveQuestion", questionIndex: i });
@@ -25,6 +28,12 @@ const QuestionNav = props => {
       count++;
     }
   }
+
+  questionButtons.push(
+    <Button variant="success" onClick={props.showQuestionModal}>
+      <FontAwesomeIcon icon={faPlus} /> <FontAwesomeIcon icon={faQuestion} />
+    </Button>
+  );
 
   if (props.create) {
     return (

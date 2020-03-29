@@ -109,7 +109,7 @@ const DisplayQuiz = props => {
       );
 
       return (
-        <Col key={index} xs={6} md={4}>
+        <Col key={index} xs={6} md={4} lg={3}>
           <Card className={`answer text-center mb-4${selected}${answered}`}>
             {creatingQuiz && (
               <Button
@@ -171,11 +171,6 @@ const DisplayQuiz = props => {
           }`}
         >
           <Container className="mb-4">
-            {creatingQuiz && (
-              <Row className="mb-4 justify-content-end">
-                <Button onClick={showQuestionModal}>Add Custom Question</Button>
-              </Row>
-            )}
             <Row>
               <h1 className="mb-md-4">{question.question}</h1>
               {creatingQuiz && (
@@ -495,9 +490,10 @@ const DisplayQuiz = props => {
           <QuestionNav
             create={creatingQuiz}
             setQuestionResponse={setQuestionResponse}
+            showQuestionModal={showQuestionModal}
           />
 
-          <div className="mt-4">{generateQuestionsHTML(store.questions)}</div>
+          {generateQuestionsHTML(store.questions)}
 
           <ButtonToolbar className="mt-4 mb-4 justify-content-between">
             {/*  <Button
