@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useCallback, useContext } from "react";
-import { Card, Col, Button, Form, Modal } from "react-bootstrap";
+import { Card, Col, Button, Form, Toast } from "react-bootstrap";
 import { useHistory, useParams } from "react-router-dom";
 import Loader from "react-loader-spinner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 
 import { Context } from "../store";
 import { getQuizScoreFromLocalStorage, createQuiz } from "./quiz/quizHelpers"; // eslint-disable-line no-unused-vars
@@ -16,7 +17,7 @@ const db = firebase.firestore();
 const RegisterUser = props => {
   const [user, setUser] = useState({ loggedIn: false, uid: null });
   const [error, setError] = useState();
-  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [showErrorToast, setShowErrorToast] = useState(false);
 
   const { store, dispatch } = useContext(Context);
   const [userName, setUserName] = useState("");
@@ -104,7 +105,7 @@ const RegisterUser = props => {
       await login(method);
     } catch (error) {
       setError(error.message);
-      setShowErrorModal(true);
+      setShowErrorToast(true);
     }
   });
 
@@ -114,17 +115,27 @@ const RegisterUser = props => {
 
   return (
     <>
-      {showErrorModal && (
-        <Modal
-          centered
-          show={showErrorModal}
-          onHide={() => setShowErrorModal(false)}
+      {showErrorToast && (
+        <Toast
+          style={{
+            position: "fixed",
+            top: 5,
+            right: 5,
+            zIndex: 1
+          }}
+          show={showErrorToast}
+          onClose={() => setShowErrorToast(false)}
         >
-          <Modal.Header closeButton>
-            <Modal.Title>Error Signing In</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>{error}</Modal.Body>
-        </Modal>
+          <Toast.Header>
+            <FontAwesomeIcon
+              color="#ffc107"
+              size="2x"
+              icon={faExclamationTriangle}
+            />{" "}
+            <strong className="mr-auto">Error Signing In</strong>
+          </Toast.Header>
+          <Toast.Body>{error}</Toast.Body>
+        </Toast>
       )}
 
       {!loader && (
