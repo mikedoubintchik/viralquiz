@@ -1,5 +1,11 @@
 import React, { useContext } from "react";
-import { ButtonGroup, Button, ProgressBar } from "react-bootstrap";
+import {
+  ButtonGroup,
+  Button,
+  ProgressBar,
+  OverlayTrigger,
+  Tooltip
+} from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faQuestion } from "@fortawesome/free-solid-svg-icons";
 
@@ -30,9 +36,14 @@ const QuestionNav = props => {
   }
 
   questionButtons.push(
-    <Button variant="success" onClick={props.showQuestionModal}>
-      <FontAwesomeIcon icon={faPlus} /> <FontAwesomeIcon icon={faQuestion} />
-    </Button>
+    <OverlayTrigger
+      placement="top"
+      overlay={<Tooltip id="add-question">Add Custom Question</Tooltip>}
+    >
+      <Button variant="success" onClick={props.showQuestionModal}>
+        <FontAwesomeIcon icon={faPlus} /> <FontAwesomeIcon icon={faQuestion} />
+      </Button>
+    </OverlayTrigger>
   );
 
   if (props.create) {

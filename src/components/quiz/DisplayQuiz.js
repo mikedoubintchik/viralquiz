@@ -7,7 +7,9 @@ import {
   Col,
   ButtonToolbar,
   Button,
-  Card
+  Card,
+  OverlayTrigger,
+  Tooltip
 } from "react-bootstrap";
 import Loader from "react-loader-spinner";
 import Picker from "react-giphy-picker-advanced";
@@ -112,22 +114,35 @@ const DisplayQuiz = props => {
         <Col key={index} xs={6} md={4} lg={3}>
           <Card className={`answer text-center mb-4${selected}${answered}`}>
             {creatingQuiz && (
-              <Button
-                variant="danger answer-delete"
-                onClick={() =>
-                  dispatch({
-                    type: "deleteAnswer",
-                    questionIndex: questionIndex,
-                    answerIndex: index
-                  })
-                }
+              <OverlayTrigger
+                placement="top"
+                overlay={<Tooltip id="delete-answer">Delete Answer</Tooltip>}
               >
-                ×
-              </Button>
+                <Button
+                  variant="danger answer-delete"
+                  onClick={() =>
+                    dispatch({
+                      type: "deleteAnswer",
+                      questionIndex: questionIndex,
+                      answerIndex: index
+                    })
+                  }
+                >
+                  ×
+                </Button>
+              </OverlayTrigger>
             )}
-            <Card.Img
-              variant="top"
-              src={
+            <OverlayTrigger
+              placement="top"
+              overlay={
+                <Tooltip id="answer-image">
+                  Click here to add image to answer
+                </Tooltip>
+              }
+            >
+              <Card.Img
+                variant="top"
+                src={
                 takingQuiz
                   ? `https://firebasestorage.googleapis.com/v0/b/viral-quiz-b0207.appspot.com/o/quiz%2F${store.quizID}%2F${imageName}.webp?alt=media`
                   : imageUrl
@@ -145,12 +160,22 @@ const DisplayQuiz = props => {
                 if (takingQuiz) {
                   recordAnswer(questionIndex, index);
                 }
-              }}
-            />
+                }}
+              />
+            </OverlayTrigger>
 
-            <Card.Body onClick={() => recordAnswer(questionIndex, index)}>
-              <Card.Title>{answer}</Card.Title>
-            </Card.Body>
+            <OverlayTrigger
+              placement="bottom"
+              overlay={
+                <Tooltip id="answer-select">
+                  Click here to select answer
+                </Tooltip>
+              }
+            >
+              <Card.Body onClick={() => recordAnswer(questionIndex, index)}>
+                <Card.Title>{answer}</Card.Title>
+              </Card.Body>
+            </OverlayTrigger>
           </Card>
         </Col>
       );
@@ -174,17 +199,24 @@ const DisplayQuiz = props => {
             <Row>
               <h1 className="mb-md-4">{question.question}</h1>
               {creatingQuiz && (
-                <Button
-                  variant="danger question-delete mb-sm-4 mt-md-2 ml-md-4"
-                  onClick={() =>
-                    dispatch({
-                      type: "deleteQuestion",
-                      questionIndex: index
-                    })
+                <OverlayTrigger
+                  placement="top"
+                  overlay={
+                    <Tooltip id="delete-question">Delete Question</Tooltip>
                   }
                 >
-                  ×
-                </Button>
+                  <Button
+                    variant="danger question-delete mb-sm-4 mt-md-2 ml-md-4"
+                    onClick={() =>
+                      dispatch({
+                        type: "deleteQuestion",
+                        questionIndex: index
+                      })
+                    }
+                  >
+                    ×
+                  </Button>
+                </OverlayTrigger>
               )}
             </Row>
             {creatingQuiz && (
