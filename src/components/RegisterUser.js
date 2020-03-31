@@ -107,7 +107,7 @@ const RegisterUser = props => {
       setError(error.message);
       setShowErrorToast(true);
     }
-  });
+  }, []);
 
   const requestLogout = useCallback(() => {
     logout();
