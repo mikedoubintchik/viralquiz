@@ -56,7 +56,7 @@ const QuestionNav = props => {
   } else {
     return (
       <ProgressBar
-        now={(store.activeQuestionIndex / store.questions.length) * 100}
+        now={((store.activeQuestionIndex + 1) / store.questions.length) * 100}
       />
     );
   }
