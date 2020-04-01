@@ -158,12 +158,12 @@ const DisplayQuiz = props => {
                 onClick={() => {
                   if (creatingQuiz) {
                     setActiveAnswer(index);
-                  setShowPicker(!showPicker);
-                }
+                    setShowPicker(!showPicker);
+                  }
 
-                if (takingQuiz) {
-                  recordAnswer(questionIndex, index);
-                }
+                  if (takingQuiz) {
+                    recordAnswer(questionIndex, index);
+                  }
                 }}
               />
             </OverlayTrigger>
@@ -354,12 +354,13 @@ const DisplayQuiz = props => {
       answer
     });
 
-    // if last question, scroll to bottom of page
-    if (store.activeQuestionIndex === store.questions.length - 1)
-      window.scrollTo(0, document.body.scrollHeight);
-
     // after 1 second
     setTimeout(() => {
+      // if last question, scroll to bottom of page, otherwise scroll to top
+      if (store.activeQuestionIndex === store.questions.length - 1)
+        window.scrollTo(0, document.documentElement.scrollHeight);
+      else window.scrollTo(0, 0);
+
       // display next question
       dispatch({
         type: "incrementActiveQuestion"
