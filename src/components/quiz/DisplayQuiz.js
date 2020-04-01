@@ -134,27 +134,42 @@ const DisplayQuiz = props => {
                 </Button>
               </OverlayTrigger>
             )}
-            <OverlayTrigger
-              placement="top"
-              overlay={
-                <Tooltip id="answer-image">
-                  {imageUrl
-                    ? "Click here to chage image"
-                    : "Click here to add image to answer"}
-                </Tooltip>
-              }
-            >
+            {creatingQuiz && (
+              <OverlayTrigger
+                placement="top"
+                overlay={
+                  <Tooltip id="answer-image">
+                    {imageUrl
+                      ? "Click here to change image"
+                      : "Click here to add image to answer"}
+                  </Tooltip>
+                }
+              >
+                <Card.Img
+                  variant="top"
+                  src={
+                    imageUrl
+                      ? imageUrl
+                      : "https://firebasestorage.googleapis.com/v0/b/viral-quiz-b0207.appspot.com/o/images%2Fadd-image.png?alt=media"
+                  }
+                  onClick={() => {
+                    if (creatingQuiz) {
+                      setActiveAnswer(index);
+                      setShowPicker(!showPicker);
+                    }
+
+                    if (takingQuiz) {
+                      recordAnswer(questionIndex, index);
+                    }
+                  }}
+                />
+              </OverlayTrigger>
+            )}
+
+            {takingQuiz && (
               <Card.Img
                 variant="top"
-                src={
-                  takingQuiz
-                    ? `https://firebasestorage.googleapis.com/v0/b/viral-quiz-b0207.appspot.com/o/quiz%2F${store.quizID}%2F${imageName}.webp?alt=media`
-                    : imageUrl
-                    ? imageUrl
-                    : creatingQuiz
-                    ? "https://firebasestorage.googleapis.com/v0/b/viral-quiz-b0207.appspot.com/o/images%2Fadd-image.png?alt=media"
-                    : ""
-                }
+                src={`https://firebasestorage.googleapis.com/v0/b/viral-quiz-b0207.appspot.com/o/quiz%2F${store.quizID}%2F${imageName}.webp?alt=media`}
                 onClick={() => {
                   if (creatingQuiz) {
                     setActiveAnswer(index);
@@ -166,7 +181,7 @@ const DisplayQuiz = props => {
                   }
                 }}
               />
-            </OverlayTrigger>
+            )}
 
             <OverlayTrigger
               placement="bottom"
