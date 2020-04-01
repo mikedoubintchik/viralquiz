@@ -567,10 +567,13 @@ const DisplayQuiz = props => {
                 Next Question
               </Button>
             )}
-            {(store.questions.filter(Boolean).length ===
-              Object.keys(store.takerAnswers).length ||
-              store.questions.filter(Boolean).length ===
-                Object.keys(store.creatorAnswers).length) && (
+
+            {((store.questions.filter(Boolean).length ===
+              Object.keys(store.takerAnswers).length &&
+              takingQuiz) ||
+              (store.questions.filter(Boolean).length ===
+                Object.keys(store.creatorAnswers).length &&
+                creatingQuiz)) && (
               <Button variant="outline-success" onClick={submitQuiz}>
                 {creatingQuiz ? "Finish Quiz" : "Submit Quiz"}
               </Button>
