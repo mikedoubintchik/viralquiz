@@ -52,10 +52,7 @@ const App = () => {
             />{" "}
             <h1>{store.quizName}</h1>
           </Navbar.Brand>
-          <Button
-            variant="outline-success"
-            onClick={() => (window.location = "/")}
-          >
+          <Button variant="primary" onClick={() => (window.location = "/")}>
             Create Your Own Quiz
           </Button>
         </Navbar>

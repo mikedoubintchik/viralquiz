@@ -13,7 +13,7 @@ const QuizCreated = () => {
       <h1>Quiz was successfully created!</h1>
       <h2>Share it with everyone!</h2>
       <DisplayShare quizID={store.quizID} quizName={store.quizName} />
-      <Button variant="outline-success" onClick={() => history.push("/")}>
+      <Button variant="primary" onClick={() => history.push("/")}>
         Create Another Quiz
       </Button>
     </>
