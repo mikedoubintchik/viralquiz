@@ -4,10 +4,10 @@
     {
       "answers": ["Android", "iPhone", "Blackberry", "Flip Phone"],
       "images": {
-        "0": "https://media2.giphy.com/media/3o7bucwTPg1NtxvgeA/giphy-preview.webp",
-        "1": "https://media0.giphy.com/media/l2QZXuArmq2ihQEI8/giphy-preview.webp",
-        "2": "https://media3.giphy.com/media/ukk5F16Ru8tmU/giphy-preview.webp",
-        "3": "https://media0.giphy.com/media/Pnrz0zI3mgGCVCVUm2/giphy-preview.webp"
+        "0": "chVgEkHr9oYz4ZPGeU",
+        "1": "chVgEkHr9oYz4ZPGeU",
+        "2": "chVgEkHr9oYz4ZPGeU",
+        "3": "chVgEkHr9oYz4ZPGeU"
       },
       "question": "What type of phone do I have?"
     },
@@ -21,12 +21,12 @@
         "Mystery"
       ],
       "images": {
-        "0": "https://media0.giphy.com/media/Pnrz0zI3mgGCVCVUm2/giphy-preview.webp",
-        "1": "https://media0.giphy.com/media/WTjnWYENpLxS8JQ5rz/giphy-preview.webp",
-        "2": "https://media3.giphy.com/media/ukk5F16Ru8tmU/giphy-preview.webp",
-        "3": "https://media3.giphy.com/media/cNYN2Z93rFmiIOcoNV/giphy-preview.webp",
-        "4": "https://media3.giphy.com/media/cNYN2Z93rFmiIOcoNV/giphy-preview.webp",
-        "5": "https://media0.giphy.com/media/WTjnWYENpLxS8JQ5rz/giphy-preview.webp"
+        "0": "chVgEkHr9oYz4ZPGeU",
+        "1": "chVgEkHr9oYz4ZPGeU",
+        "2": "chVgEkHr9oYz4ZPGeU",
+        "3": "chVgEkHr9oYz4ZPGeU",
+        "4": "chVgEkHr9oYz4ZPGeU",
+        "5": "chVgEkHr9oYz4ZPGeU"
       },
       "question": "What's my favorite movie genre?"
     }

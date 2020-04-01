@@ -82,14 +82,18 @@ const DisplayQuiz = props => {
   }
 
   const selectImage = gif => {
-    const image = gif.preview_webp.url.split("?")[0];
+    const image = gif.fixed_width.webp.split("?")[0];
+    const imageID = image.substring(
+      image.lastIndexOf("media/") + 6,
+      image.lastIndexOf("/200w")
+    );
 
     // save image to global store
     dispatch({
       type: "updateAnswerImage",
       questionIndex: store.activeQuestionIndex,
       answer: activeAnswer,
-      image
+      image: imageID
     });
 
     setShowPicker(false);
@@ -103,14 +107,7 @@ const DisplayQuiz = props => {
         (creatingQuiz && index === store.creatorAnswers[questionIndex])
           ? " answered"
           : "";
-
-      const imageUrl = store.questions[questionIndex].images[index];
-      const imageName = imageUrl
-        ? imageUrl.substring(
-            imageUrl.lastIndexOf("media/") + 6,
-            imageUrl.lastIndexOf("/giphy")
-          )
-        : null;
+      const imageName = store.questions[questionIndex].images[index];
 
       return (
         <Col key={index} xs={6} md={4} lg={3}>
@@ -139,7 +136,7 @@ const DisplayQuiz = props => {
                 placement="top"
                 overlay={
                   <Tooltip id="answer-image">
-                    {imageUrl
+                    {imageName
                       ? "Click here to change image"
                       : "Click here to add image to answer"}
                   </Tooltip>
@@ -148,8 +145,10 @@ const DisplayQuiz = props => {
                 <Card.Img
                   variant="top"
                   src={
-                    imageUrl
-                      ? imageUrl
+                    imageName
+                      ? `https://media0.giphy.com/media/${imageName}/200w.${
+                          props.webpSupported ? "webp" : "gif"
+                        }`
                       : "https://firebasestorage.googleapis.com/v0/b/viral-quiz-b0207.appspot.com/o/images%2Fadd-image.png?alt=media"
                   }
                   onClick={() => {
@@ -169,7 +168,9 @@ const DisplayQuiz = props => {
             {takingQuiz && (
               <Card.Img
                 variant="top"
-                src={`https://firebasestorage.googleapis.com/v0/b/viral-quiz-b0207.appspot.com/o/quiz%2F${store.quizID}%2F${imageName}.webp?alt=media`}
+                src={`https://media0.giphy.com/media/${imageName}/200w.${
+                  props.webpSupported ? "webp" : "gif"
+                }`}
                 onClick={() => {
                   if (creatingQuiz) {
                     setActiveAnswer(index);
@@ -443,20 +444,25 @@ const DisplayQuiz = props => {
         .doc(store.quizID)
         .set(quizData);
 
-      // upload all gifs to firebase storage
-      store.questions.forEach(question => {
-        Object.values(question.images).forEach((image, index) => {
-          const imageName = image.substring(
-            image.lastIndexOf("media/") + 6,
-            image.lastIndexOf("/giphy")
-          );
+      // // upload all gifs to firebase storage
+      // store.questions.forEach(question => {
+      //   Object.values(question.images).forEach((image, index) => {
+      //     const imageName = image.substring(
+      //       image.lastIndexOf("media/") + 6,
+      //       image.lastIndexOf("/200w")
+      //     );
 
-          uploadToFirebaseStorage(
-            image,
-            `quiz/${store.quizID}/${imageName}.webp`
-          );
-        });
-      });
+      //     uploadToFirebaseStorage(
+      //       image,
+      //       `quiz/${store.quizID}/${imageName}.webp`
+      //     );
+
+      //     uploadToFirebaseStorage(
+      //       image,
+      //       `quiz/${store.quizID}/${imageName}.gif`
+      //     );
+      //   });
+      // });
 
       // redirect to created page after some time
       setTimeout(() => {

@@ -21,6 +21,7 @@ import RegisterUser from "./components/RegisterUser";
 import DisplayQuiz from "./components/quiz/DisplayQuiz";
 import QuizCreated from "./components/QuizCreated";
 import DisplayQuizResults from "./components/DisplayQuizResults";
+import { webpSupported } from "./components/quiz/quizHelpers";
 
 library.add(fab);
 
@@ -73,11 +74,16 @@ const App = () => {
                     <QuizCreated />
                   </Route>
                   <Route exact path="/create/:quizID">
-                    <DisplayQuiz create={true} />
+                    <DisplayQuiz
+                      create={true}
+                      webpSupported={webpSupported()}
+                    />
                   </Route>
                   <Route exact path="/:quizID">
                     {!store.userName && <RegisterUser />}
-                    {store.userName && <DisplayQuiz />}
+                    {store.userName && (
+                      <DisplayQuiz webpSupported={webpSupported()} />
+                    )}
                   </Route>
                   <Route>
                     <>
