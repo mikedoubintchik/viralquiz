@@ -34,11 +34,7 @@ const App = () => {
         <title>{store.quizName}</title>
         <meta content={store.quizName} name="description" />
         <meta content={store.quizName} property="og:title" />
-        <meta
-          content={`Test your bond with with your friend!`}
-          property="og:description"
-        />
-        >
+        <meta content={window.location.href} property="og:url" />>
       </Helmet>
       <div className="App">
         <Navbar bg="light" variant="light" className="mb-4 flex-wrap">
