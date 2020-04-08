@@ -11,7 +11,9 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "bootstrap": "^4.4.1",
+    "cross-env": "^7.0.2",
     "firebase": "^7.6.2",
+    "firebase-tools": "^8.0.2",
     "node-sass": "^4.13.0",
     "react": "^16.12.0",
     "react-bootstrap": "^1.0.0-beta.16",
@@ -22,13 +24,19 @@
     "react-loader-spinner": "^3.1.5",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.3.0",
-    "react-share": "^4.0.1"
+    "react-share": "^4.0.1",
+    "rimraf": "^3.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && cp build/index.html functions/web/index.html",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "serve": "cross-env NODE_ENV=production yarn firebase serve --only functions,hosting",
+    "emulate": "export GOOGLE_APPLICATION_CREDENTIALS=\"/Users/ninja/Projects/viralquiz/functions/serviceAccountKey.json\" && yarn serve",
+    "emulate:local": "export GOOGLE_APPLICATION_CREDENTIALS=\"/Users/ninja/Projects/viralquiz/functions/serviceAccountKey.json\" && firebase emulators:start",
+    "predeploy": "rimraf build/ && yarn build",
+    "deploy": "cross-env NODE_ENV=production firebase deploy"
   },
   "eslintConfig": {
     "extends": "react-app"
